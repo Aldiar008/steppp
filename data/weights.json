@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "$doc": {
+    "purpose": "Single source of truth for the weights the match engine uses. Nothing may hard-code a weight next to the code that applies it; every number a match score depends on is here.",
+    "match": "Relative weight of each soft dimension, in arbitrary units. They are normalised at use time, so they do not have to sum to 100 — the current set does, which keeps them readable as percentages.",
+    "match.interest": "Overlap between the applicant's stated interests and the programme's fields. The strongest soft signal, because it is the one the applicant actually chose.",
+    "match.country": "The programme's country is on the applicant's own list. A preference, never a gate.",
+    "match.language": "The applicant holds at least one language the programme teaches in.",
+    "match.funding": "Whether a funded place exists at all on this programme.",
+    "match.other_fit": "Everything comparable that is left: tuition against the stated budget, and the share of decidable requirements the profile already covers.",
+    "interest_hit": "How much one interest scores against one programme field. `exact` is the same canonical token on both sides; `related` is two tokens from the same family (programming / computer_science), which is a real signal but a weaker one than an exact hit.",
+    "not_a_probability": "The resulting score is a 0-100 match score used for ordering and explanation only. It is not a probability, an admission chance or a likelihood, and no consumer may present it as one.",
+    "unknown_dimensions": "A dimension the inputs cannot decide is dropped from the weighting and its weight is redistributed over the dimensions that do have data. Unknown is never scored as zero, because that would punish an applicant for a blank field."
+  },
+  "match": {
+    "interest": 40,
+    "country": 15,
+    "language": 15,
+    "funding": 20,
+    "other_fit": 10
+  },
+  "interest_hit": {
+    "exact": 1,
+    "related": 0.75
+  }
+}

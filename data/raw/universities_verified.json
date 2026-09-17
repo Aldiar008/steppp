@@ -1,0 +1,4202 @@
+{
+  "meta": {
+    "generated": "2026-09-16",
+    "count": 75,
+    "rule": "включены только вузы с подтверждёнными: требование по языку обучения, метрика отбора, дедлайн",
+    "warnings": [
+      "Топ-вузы США не публикуют минимальный SAT или GPA. Публикуется middle 50% диапазон поступивших. Писать 'минимум SAT 1520' — фактическая ошибка.",
+      "Британские вузы SAT и GPA не используют. Требуются A-level, IB или Foundation. Минимум IELTS у них публикуется и проверяем.",
+      "Проходной балл на грант в Казахстане не существует до конца конкурса. Существует пороговый балл — минимум для подачи, он опубликован.",
+      "Ряд ведущих вузов Европы ведёт бакалавриат не на английском: ETH Zurich и немецкие вузы — на немецком, EPFL и Sorbonne — на французском, Karolinska и KTH — на шведском. Для абитуриента из Казахстана это решающее ограничение, оно важнее рейтинга."
+    ]
+  },
+  "kz_reference": {
+    "ent_thresholds": {
+      "право_и_педагогика": 75,
+      "медицина": 70,
+      "сельское_хозяйство_и_ветеринария": 50,
+      "национальные_вузы": 65,
+      "остальные_вузы": 50,
+      "confidence": "verified",
+      "source": "ent_threshold"
+    },
+    "ent_max_score": 140,
+    "ent_registration": "11–25 апреля",
+    "ent_testing": "10 мая – 10 июля",
+    "grant_application_window": "13–20 июля",
+    "grant_rule_critical": "На конкурс грантов засчитываются ТОЛЬКО майский и июльский результаты ЕНТ. Январский и мартовский не принимаются.",
+    "grants_total_2026_27": 89457,
+    "grants_bachelor_2026_27": 75371,
+    "confidence": "verified",
+    "source": "grant_rules"
+  },
+  "sources": {
+    "ucas_oct": {
+      "title": "UCAS — дедлайн 2027 entry для Oxford, Cambridge, медицины, ветеринарии и стоматологии",
+      "url": "https://www.ucas.com/events/2027-entry-deadline-for-the-universities-of-oxford-and-cambridge-and-most-courses-in-medicine-475536",
+      "value": "15 октября 2026, 18:00 по времени Великобритании",
+      "checked": "2026-09-16"
+    },
+    "ucas_jan": {
+      "title": "UCAS — основной дедлайн 2027 entry",
+      "url": "https://www.ucas.com/events/2027-entry-deadline-for-all-undergraduate-courses-except-those-with-a-15-october-deadline-475546",
+      "value": "13 января 2027, 18:00 по времени Великобритании",
+      "checked": "2026-09-16"
+    },
+    "nu_admissions": {
+      "title": "Nazarbayev University — требования к поступлению",
+      "url": "https://apply.nu.edu.kz/en/admissions",
+      "value": "Foundation: IELTS 5.5, GPA 3.5/5.0 или ЕНТ 75. Бакалавриат: IELTS 6.0, GPA 4.0/5.0 или ЕНТ 85",
+      "checked": "2026-09-16"
+    },
+    "ent_threshold": {
+      "title": "Пороговые баллы ЕНТ (Национальный центр тестирования, брифинг 26.02.2026)",
+      "url": "https://www.nur.kz/society/2348017-porogovye-bally-i-granty-vypusknikam-kazahstana-raskryli-informaciyu-po-ent-2026/",
+      "value": "Право и педагогика — 75; медицина — 70; сельское хозяйство и ветеринария — 50; национальные вузы — 65; остальные вузы — 50",
+      "checked": "2026-09-16"
+    },
+    "ent_dates": {
+      "title": "ЕНТ-2026: регистрация и сроки тестирования",
+      "url": "https://tengrinews.kz/newseducation/v-kazahstane-startuet-registratsiya-na-ent-596716/",
+      "value": "Регистрация 11–25 апреля; тестирование 10 мая – 10 июля; 120 вопросов, максимум 140 баллов",
+      "checked": "2026-09-16"
+    },
+    "grant_rules": {
+      "title": "Конкурс образовательных грантов: сроки и правила",
+      "url": "https://el.kz/ru/kak-postupit-na-grant-v-kazahstane-v-2026-godu-sroki-dokumenty-i-pravila_400049663/",
+      "value": "Подача 13–20 июля 2026. 89 457 грантов на 2026–2027, из них 75 371 на бакалавриат. Засчитываются только майский и июльский ЕНТ. Проходной балл формируется после конкурса",
+      "checked": "2026-09-16"
+    },
+    "sat_dates": {
+      "title": "Даты SAT и дедлайны регистрации 2026–2027",
+      "url": "https://testinnovators.com/blog/sat-test-dates/",
+      "value": "3 окт 2026 (рег. до 18 сен) · 7 ноя (до 23 окт) · 5 дек (до 20 ноя) · 6 мар 2027 (до 19 фев) · 1 мая (до 16 апр)",
+      "checked": "2026-09-16"
+    },
+    "stipendium": {
+      "title": "Stipendium Hungaricum — приём 2026/27",
+      "url": "https://stipendiumhungaricum.hu/news/application-is-on-for-the-2026-2027-stipendium-hungaricum-scholarship/",
+      "value": "Дедлайн 15 января 2026, 14:00 CET (прошлый цикл; даты 2027/28 не объявлены)",
+      "checked": "2026-09-16"
+    },
+    "turkiye": {
+      "title": "Türkiye Bursları — приём 2026",
+      "url": "https://www.turkiyeburslari.gov.tr/announcements/turkiye-scholarships-2026-applications-121",
+      "value": "Объявление о приёме опубликовано 29 декабря 2025 (даты 2027 не объявлены)",
+      "checked": "2026-09-16"
+    }
+  },
+  "universities": [
+    {
+      "id": "mit",
+      "name": "Massachusetts Institute of Technology",
+      "country": "US",
+      "city": "Cambridge, MA",
+      "group": "top10",
+      "group_ru": "Топ-10 мира",
+      "fields": [
+        "eng",
+        "cs",
+        "sci",
+        "biz",
+        "arch"
+      ],
+      "fields_ru": [
+        "инженерия",
+        "IT и информатика",
+        "естественные науки",
+        "бизнес",
+        "архитектура"
+      ],
+      "bachelor_language": [
+        "en"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "SAT или ACT ОБЯЗАТЕЛЕН. Минимального балла нет. Дедлайн сдачи теста: 30 ноября (Early Action), 31 декабря (Regular)",
+        "confidence": "verified",
+        "source_url": "https://mitadmissions.org/apply/firstyear/tests-scores/",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "Early Action — 1 ноября (решение в середине декабря). Regular Action — 4 января (решение в середине марта). Тесты: до 30 ноября для EA, до 31 декабря для RA. Языковой тест для RA — до 31 января. Финпомощь: 30 ноября (EA), 15 февраля (RA). Ответ поступившего — до 1 мая. Взнос 75 USD",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://mitadmissions.org/apply/firstyear/deadlines-requirements/"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://mitadmissions.org/apply/firstyear/deadlines-requirements/"
+      },
+      "official_url": "https://mitadmissions.org/apply/firstyear/deadlines-requirements/",
+      "note": "MIT не публикует минимальный SAT. Публикует middle 50% диапазон поступивших. IELTS не обязателен при обучении на английском.",
+      "language_requirement": {
+        "language": [
+          "en"
+        ],
+        "requirement": "IELTS 7.0 минимум, 7.5 рекомендуется",
+        "other_tests": "TOEFL 90 мин / 100 реком. (до 21.01.2026); по новой шкале 5.0 / 5.5. Duolingo 120/125, PTE 65/70, Cambridge 185/190",
+        "confidence": "verified",
+        "source_url": "https://mitadmissions.org/apply/firstyear/tests-scores/"
+      }
+    },
+    {
+      "id": "icl",
+      "name": "Imperial College London",
+      "country": "GB",
+      "city": "London",
+      "group": "top10",
+      "group_ru": "Топ-10 мира",
+      "fields": [
+        "eng",
+        "cs",
+        "med",
+        "sci",
+        "biz"
+      ],
+      "fields_ru": [
+        "инженерия",
+        "IT и информатика",
+        "медицина",
+        "естественные науки",
+        "бизнес"
+      ],
+      "bachelor_language": [
+        "en"
+      ],
+      "admission_scores": {
+        "type": "not_used_uk",
+        "value": "SAT/GPA не используются. A-level / IB. Пересдача одного раздела IELTS не принимается — нужен единый экзамен",
+        "confidence": "verified",
+        "source_url": "https://www.imperial.ac.uk/study/apply/english-language/",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "13 января 2027, 18:00 UK (UCAS)",
+        "confidence": "verified",
+        "source_url": "https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/"
+      },
+      "official_url": "https://www.imperial.ac.uk/study/apply/undergraduate/entry-requirements/",
+      "note": "SAT/GPA не используются. Нужны A-level / IB. IELTS минимум публикуется по факультетам.",
+      "language_requirement": {
+        "language": [
+          "en"
+        ],
+        "requirement": "Standard 6.5 overall (минимум 6.0 в каждом разделе); Higher 7.0 overall (минимум 6.5 в каждом)",
+        "other_tests": "Standard 92 (минимум 20 в каждом); Higher 100 (минимум 22 в каждом) — шкала с 21.01.2026",
+        "confidence": "verified",
+        "source_url": "https://www.imperial.ac.uk/study/apply/english-language/"
+      }
+    },
+    {
+      "id": "oxford",
+      "name": "University of Oxford",
+      "country": "GB",
+      "city": "Oxford",
+      "group": "top10",
+      "group_ru": "Топ-10 мира",
+      "fields": [
+        "hum",
+        "med",
+        "law",
+        "sci",
+        "eng",
+        "econ"
+      ],
+      "fields_ru": [
+        "гуманитарные",
+        "медицина",
+        "право",
+        "естественные науки",
+        "инженерия",
+        "экономика"
+      ],
+      "bachelor_language": [
+        "en"
+      ],
+      "admission_scores": {
+        "type": "not_used_uk",
+        "value": "SAT не используется. Требуются A-level / IB + вступительный тест по предмету + собеседование",
+        "confidence": "verified",
+        "source_url": "https://www.ox.ac.uk/admissions/undergraduate/international-students/english-language-requirements",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "15 октября 2026, 18:00 UK (UCAS)",
+        "confidence": "verified",
+        "source_url": "https://www.ox.ac.uk/admissions/undergraduate/applying-to-oxford"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://www.ox.ac.uk/admissions/undergraduate/applying-to-oxford"
+      },
+      "official_url": "https://www.ox.ac.uk/admissions/undergraduate/applying-to-oxford",
+      "note": "Ранний дедлайн UCAS. Дополнительно вступительные тесты и собеседование. SAT не используется.",
+      "language_requirement": {
+        "language": [
+          "en"
+        ],
+        "requirement": "7.0 overall, минимум 7.0 в каждом из 4 разделов",
+        "other_tests": "110 overall (Listening 22, Reading 24, Speaking 25, Writing 24)",
+        "confidence": "verified",
+        "source_url": "https://www.ox.ac.uk/admissions/undergraduate/international-students/english-language-requirements"
+      }
+    },
+    {
+      "id": "stanford",
+      "name": "Stanford University",
+      "country": "US",
+      "city": "Stanford, CA",
+      "group": "top10",
+      "group_ru": "Топ-10 мира",
+      "fields": [
+        "cs",
+        "eng",
+        "biz",
+        "med",
+        "hum"
+      ],
+      "fields_ru": [
+        "IT и информатика",
+        "инженерия",
+        "бизнес",
+        "медицина",
+        "гуманитарные"
+      ],
+      "bachelor_language": [
+        "en"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "SAT или ACT ОБЯЗАТЕЛЕН. Минимального балла нет. Middle 50% поступивших (класс 2029): SAT 1520–1570, ACT 34–36. Тест по английскому НЕ заменяет SAT/ACT",
+        "confidence": "verified",
+        "source_url": "https://admission.stanford.edu/apply/freshman/testing.html",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "Restrictive Early Action — 15 ОКТЯБРЯ (портфолио по искусству до 20 октября), решения в середине декабря. Regular Decision — 5 января, решения в начале апреля. Подача до 23:59 по местному времени заявителя. Приоритет по финпомощи для REA — 15 ноября",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://admission.stanford.edu/apply/first-year/"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://admission.stanford.edu/apply/deadlines/"
+      },
+      "official_url": "https://admission.stanford.edu/apply/deadlines/",
+      "note": "Минимального SAT нет. Test-optional политику проверять ежегодно.",
+      "language_requirement": {
+        "language": [
+          "en"
+        ],
+        "requirement": "требуется для иностранцев, минимум не опубликован",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://admission.stanford.edu/apply/freshman/testing.html"
+      }
+    },
+    {
+      "id": "harvard",
+      "name": "Harvard University",
+      "country": "US",
+      "city": "Cambridge, MA",
+      "group": "top10",
+      "group_ru": "Топ-10 мира",
+      "fields": [
+        "hum",
+        "law",
+        "med",
+        "biz",
+        "sci"
+      ],
+      "fields_ru": [
+        "гуманитарные",
+        "право",
+        "медицина",
+        "бизнес",
+        "естественные науки"
+      ],
+      "bachelor_language": [
+        "en"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "SAT или ACT ОБЯЗАТЕЛЕН. Пороговых баллов нет: «There are no score cutoffs». В исключительных случаях принимаются AP, IB, A-Level. Дедлайны: 1 ноября (Restrictive Early Action), 1 января (Regular)",
+        "confidence": "verified",
+        "source_url": "https://college.harvard.edu/admissions/apply/application-requirements",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "Restrictive Early Action — 1 ноября. Regular Decision — 1 января. Дедлайны одинаковы для граждан США и иностранцев. Школьным консультантам даётся дополнительная неделя на отправку сопроводительных материалов",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://college.harvard.edu/admissions/apply/application-requirements"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://college.harvard.edu/admissions/apply/application-timeline"
+      },
+      "official_url": "https://college.harvard.edu/admissions/apply/application-timeline",
+      "note": "Минимального SAT нет. Значительная финансовая помощь международным студентам.",
+      "language_requirement": {
+        "language": [
+          "en"
+        ],
+        "requirement": "минимум не опубликован",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://college.harvard.edu/admissions/apply/application-requirements"
+      }
+    },
+    {
+      "id": "cambridge",
+      "name": "University of Cambridge",
+      "country": "GB",
+      "city": "Cambridge",
+      "group": "top10",
+      "group_ru": "Топ-10 мира",
+      "fields": [
+        "sci",
+        "eng",
+        "med",
+        "hum",
+        "math"
+      ],
+      "fields_ru": [
+        "естественные науки",
+        "инженерия",
+        "медицина",
+        "гуманитарные",
+        "математика"
+      ],
+      "bachelor_language": [
+        "en"
+      ],
+      "admission_scores": {
+        "type": "not_used_uk",
+        "value": "A-level: обычно 3 предмета. IB: 41–42 балла из 45, на Higher Level 776 (в отдельных колледжах 777). AP: минимум 5 экзаменов с оценкой 5. SAT/ACT принимаются для STEM-направлений с минимальными баллами. European Baccalaureate ~85%",
+        "confidence": "verified",
+        "source_url": "https://www.undergraduate.study.cam.ac.uk/international-students/english-language-requirements",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "15 октября 2026, 18:00 UK (UCAS)",
+        "confidence": "verified",
+        "source_url": "https://www.undergraduate.study.cam.ac.uk/applying"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://www.undergraduate.study.cam.ac.uk/applying"
+      },
+      "official_url": "https://www.undergraduate.study.cam.ac.uk/applying",
+      "note": "Ранний дедлайн UCAS + отдельная анкета вуза. SAT не используется.",
+      "language_requirement": {
+        "language": [
+          "en"
+        ],
+        "requirement": "требования по колледжам, см. страницу вуза",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://www.undergraduate.study.cam.ac.uk/international-students/english-language-requirements"
+      }
+    },
+    {
+      "id": "eth",
+      "name": "ETH Zürich",
+      "country": "CH",
+      "city": "Zürich",
+      "group": "top10",
+      "group_ru": "Топ-10 мира",
+      "fields": [
+        "eng",
+        "cs",
+        "sci",
+        "arch"
+      ],
+      "fields_ru": [
+        "инженерия",
+        "IT и информатика",
+        "естественные науки",
+        "архитектура"
+      ],
+      "bachelor_language": [
+        "de"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "Для части иностранных аттестатов обязателен ВСТУПИТЕЛЬНЫЙ ЭКЗАМЕН ETH, и он проводится НА НЕМЕЦКОМ. Предметы: математика, физика, химия, немецкий, английский, французский, итальянский, биология, история, география. Стоимость: сокращённый вариант 550 CHF, полный 800 CHF. Календарь: подача до 31 марта 2026 → регистрация на экзамен 15 сентября – 15 октября 2026 → экзамен 18–28 января 2027 → начало учёбы осенью 2027. ETH прямо предупреждает: подготовительных курсов и курсов немецкого до начала учёбы не предоставляет",
+        "confidence": "verified",
+        "source_url": "https://ethz.ch/en/studies/bachelor/application/non-swiss-matriculation-certificate/language-requirements.html",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "31 марта 2026 (подача), экзамен 18–28 января 2027, старт осенью 2027",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://ethz.ch/en/studies/bachelor/application/non-swiss-matriculation-certificate/language-requirements.html"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://ethz.ch/en/studies/registration-application/bachelor.html"
+      },
+      "official_url": "https://ethz.ch/en/studies/registration-application/bachelor.html",
+      "note": "ВАЖНО: бакалавриат ведётся на НЕМЕЦКОМ. Нужен немецкий C1, не IELTS. Для казахстанцев обычно требуется вступительный экзамен.",
+      "language_requirement": {
+        "language": [
+          "de"
+        ],
+        "requirement": "АНГЛИЙСКИЙ НЕ НУЖЕН. Нужен НЕМЕЦКИЙ уровня C1: «The main teaching language during Bachelor's degree studies is German». Сертификат C1 не старше 2 лет на момент начала подачи; C2 (Goethe, ÖSD) — не старше 5 лет. Дедлайн сдачи сертификата 31 марта, перенос невозможен",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://ethz.ch/en/studies/bachelor/application/non-swiss-matriculation-certificate/language-requirements.html"
+      }
+    },
+    {
+      "id": "nus",
+      "name": "National University of Singapore",
+      "country": "SG",
+      "city": "Singapore",
+      "group": "top10",
+      "group_ru": "Топ-10 мира",
+      "fields": [
+        "eng",
+        "cs",
+        "med",
+        "biz",
+        "law",
+        "sci"
+      ],
+      "fields_ru": [
+        "инженерия",
+        "IT и информатика",
+        "медицина",
+        "бизнес",
+        "право",
+        "естественные науки"
+      ],
+      "bachelor_language": [
+        "en"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "Нужно законченное среднее образование — не менее 12 лет общего образования к июлю года подачи. Принимаются A-Level, IB, американский диплом с AP, European и French Baccalaureate, Gaokao, HKDSE и ещё 20+ систем. При зачислении обязательна очная проверка оригиналов документов — за неявку могут отчислить",
+        "confidence": "verified",
+        "source_url": "https://www.nus.edu.sg/oam/admissions/important-dates",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "Приём на 2027/28 для международных квалификаций (включая IB): 16 ДЕКАБРЯ 2026 – 17 ФЕВРАЛЯ 2027. Результаты — онлайн, большинство узнаёт к июлю; сдающие IB в мае 2027 получают ответ к третьей неделе июля 2027. Финальные результаты нужно загрузить в течение 3 дней после их публикации",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://www.nus.edu.sg/oam/admissions/important-dates"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://www.nus.edu.sg/oam/apply-to-nus/international-qualifications"
+      },
+      "official_url": "https://www.nus.edu.sg/oam/apply-to-nus/international-qualifications",
+      "note": "Принимает международные квалификации. Аттестат РК обычно требует дополнительного года или foundation.",
+      "language_requirement": {
+        "language": [
+          "en"
+        ],
+        "requirement": "Требования по английскому публикуются отдельно; на странице приёма минимумы не указаны",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://www.nus.edu.sg/oam/admissions/important-dates"
+      }
+    },
+    {
+      "id": "ucl",
+      "name": "University College London",
+      "country": "GB",
+      "city": "London",
+      "group": "top10",
+      "group_ru": "Топ-10 мира",
+      "fields": [
+        "med",
+        "eng",
+        "arch",
+        "hum",
+        "econ",
+        "law"
+      ],
+      "fields_ru": [
+        "медицина",
+        "инженерия",
+        "архитектура",
+        "гуманитарные",
+        "экономика",
+        "право"
+      ],
+      "bachelor_language": [
+        "en"
+      ],
+      "admission_scores": {
+        "type": "not_used_uk",
+        "value": "SAT не используется. A-level / IB. Уровень английского зависит от программы",
+        "confidence": "verified",
+        "source_url": "https://www.ucl.ac.uk/study/prospective-students/undergraduate/how-apply/english-language-requirements",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "13 января 2027, 18:00 UK (UCAS)",
+        "confidence": "verified",
+        "source_url": "https://www.ucl.ac.uk/prospective-students/undergraduate/application-and-entry"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://www.ucl.ac.uk/prospective-students/undergraduate/application-and-entry"
+      },
+      "official_url": "https://www.ucl.ac.uk/prospective-students/undergraduate/application-and-entry",
+      "note": "SAT не используется. IELTS по уровням: Standard / Good / Advanced в зависимости от программы.",
+      "language_requirement": {
+        "language": [
+          "en"
+        ],
+        "requirement": "5 уровней: L1 6.5/6.0 · L2 7.0/6.5 · L3 7.0/7.0 · L4 7.5/7.0 · L5 8.0/8.0 (overall/минимум в разделе)",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://www.ucl.ac.uk/study/prospective-students/undergraduate/how-apply/english-language-requirements"
+      }
+    },
+    {
+      "id": "caltech",
+      "name": "California Institute of Technology",
+      "country": "US",
+      "city": "Pasadena, CA",
+      "group": "top10",
+      "group_ru": "Топ-10 мира",
+      "fields": [
+        "sci",
+        "eng",
+        "cs",
+        "math"
+      ],
+      "fields_ru": [
+        "естественные науки",
+        "инженерия",
+        "IT и информатика",
+        "математика"
+      ],
+      "bachelor_language": [
+        "en"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "SAT или ACT ОБЯЗАТЕЛЕН. Оцениваются не общий балл, а подсекции по «корзинам»: A = SAT 780–800 / ACT 35–36, B = 750–770 / 33–34, C = ниже. Приём на осень 2027: тесты до 30 ноября 2026 (EA) и 31 декабря 2026 (RD)",
+        "confidence": "verified",
+        "source_url": "https://www.admissions.caltech.edu/apply/first-year-applicants/standardized-tests",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "Приём на осень 2027: QuestBridge — 31 октября 2026; Early Action — 30 ноября 2026; Regular Decision — 31 декабря 2026. К этим датам должны прийти и результаты тестов",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://www.admissions.caltech.edu/apply/first-year-applicants/standardized-tests"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://www.admissions.caltech.edu/apply/first-year-applicants/"
+      },
+      "official_url": "https://www.admissions.caltech.edu/apply/first-year-applicants/",
+      "note": "Очень маленький набор. Сильная математика и физика обязательны.",
+      "language_requirement": {
+        "language": [
+          "en"
+        ],
+        "requirement": "минимум не опубликован на странице тестов",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://www.admissions.caltech.edu/apply/first-year-applicants/standardized-tests"
+      }
+    },
+    {
+      "id": "princeton",
+      "name": "Princeton University",
+      "country": "US",
+      "city": "Princeton, NJ",
+      "group": "us",
+      "group_ru": "США",
+      "fields": [
+        "hum",
+        "math",
+        "eng",
+        "econ",
+        "sci"
+      ],
+      "fields_ru": [
+        "гуманитарные",
+        "математика",
+        "инженерия",
+        "экономика",
+        "естественные науки"
+      ],
+      "bachelor_language": [
+        "en"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "SAT/ACT ПО ЖЕЛАНИЮ для поступления осенью 2026 и 2027. ВАЖНО: для поступления осенью 2028 (цикл подачи 2027–28) тесты снова ОБЯЗАТЕЛЬНЫ. Освобождение от языкового теста — 3 года обучения в школе на английском",
+        "confidence": "verified",
+        "source_url": "https://admission.princeton.edu/how-apply/application-checklist",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "Single-Choice Early Action — 1 ноября (решение в середине декабря). Regular Decision — 1 января (решение в конце марта). Ответ до 1 мая. Финпомощь: 9 ноября (EA), 1 февраля (RD). ОГРАНИЧЕНИЕ: подав на SCEA, нельзя подавать ни в одну другую раннюю программу частных вузов США",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://admission.princeton.edu/apply/first-year-application-dates-deadlines"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://admission.princeton.edu/how-apply/application-deadlines"
+      },
+      "official_url": "https://admission.princeton.edu/how-apply/application-deadlines",
+      "note": "Щедрая финансовая помощь международным студентам.",
+      "language_requirement": {
+        "language": [
+          "en"
+        ],
+        "requirement": "TOEFL, IELTS Academic, Duolingo или PTE обязательны для неносителей; минимумы не опубликованы",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://admission.princeton.edu/how-apply/application-checklist"
+      }
+    },
+    {
+      "id": "cornell",
+      "name": "Cornell University",
+      "country": "US",
+      "city": "Ithaca, NY",
+      "group": "us",
+      "group_ru": "США",
+      "fields": [
+        "agri",
+        "eng",
+        "arch",
+        "biz",
+        "hum",
+        "vet"
+      ],
+      "fields_ru": [
+        "сельское хозяйство",
+        "инженерия",
+        "архитектура",
+        "бизнес",
+        "гуманитарные",
+        "ветеринария"
+      ],
+      "bachelor_language": [
+        "en"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "Языковой тест не нужен, если SAT Reading 35+ ИЛИ ACT Reading и English по 30+. Обучение в англоязычной школе в неанглоязычной стране от теста НЕ освобождает",
+        "confidence": "verified",
+        "source_url": "https://admissions.cornell.edu/apply/international-students",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "Early Decision — 1 ноября (остальные материалы до 13 ноября, решение в середине декабря). Regular Decision — 2 января (материалы до 19 января, решение в конце марта). ВАЖНО: финпомощь для ИНОСТРАНЦЕВ — 1 ноября (ED) и 2 января (RD), то есть раньше, чем для американцев. ED — обязывающий план: при поступлении нужно отозвать все остальные заявки",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://admissions.cornell.edu/how-to-apply/first-year-applicants"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://admissions.cornell.edu/apply/first-year-applicants"
+      },
+      "official_url": "https://admissions.cornell.edu/apply/first-year-applicants",
+      "note": "Единственный в Лиге Плюща с сильной агрономией и ветеринарией.",
+      "language_requirement": {
+        "language": [
+          "en"
+        ],
+        "requirement": "IELTS 7.0",
+        "other_tests": "TOEFL iBT 100 (бумажный 600)",
+        "confidence": "verified",
+        "source_url": "https://admissions.cornell.edu/apply/international-students"
+      }
+    },
+    {
+      "id": "jhu",
+      "name": "Johns Hopkins University",
+      "country": "US",
+      "city": "Baltimore, MD",
+      "group": "us",
+      "group_ru": "США",
+      "fields": [
+        "med",
+        "sci",
+        "eng",
+        "hum"
+      ],
+      "fields_ru": [
+        "медицина",
+        "естественные науки",
+        "инженерия",
+        "гуманитарные"
+      ],
+      "bachelor_language": [
+        "en"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "Стандартизированное тестирование ОБЯЗАТЕЛЬНО для поступления",
+        "confidence": "verified",
+        "source_url": "https://apply.jhu.edu/international-applicants/",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "Early Decision I — 1 ноября 2026 (решение 11 декабря 2026). Early Decision II — 2 января 2027 (решение 12 февраля 2027). Regular Decision — 2 января 2027 (решение 24 марта 2027). Финпомощь: 15 ноября, 15 января. Взнос 70 USD",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://apply.jhu.edu/how-to-apply/application-deadlines-requirements/"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://apply.jhu.edu/application-process/deadlines-requirements/"
+      },
+      "official_url": "https://apply.jhu.edu/application-process/deadlines-requirements/",
+      "note": "Сильнейшая медицина и биомедицина в США. Бакалавриат — premed, не сама медицина.",
+      "language_requirement": {
+        "language": [
+          "en"
+        ],
+        "requirement": "TOEFL, IELTS, Duolingo или Cambridge рекомендуются для неносителей; минимумы не опубликованы",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://apply.jhu.edu/international-applicants/"
+      }
+    },
+    {
+      "id": "berkeley",
+      "name": "University of California, Berkeley",
+      "country": "US",
+      "city": "Berkeley, CA",
+      "group": "us",
+      "group_ru": "США",
+      "fields": [
+        "eng",
+        "cs",
+        "econ",
+        "sci",
+        "law"
+      ],
+      "fields_ru": [
+        "инженерия",
+        "IT и информатика",
+        "экономика",
+        "естественные науки",
+        "право"
+      ],
+      "bachelor_language": [
+        "en"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "Альтернативы языковому тесту: AP English 3+, IB English HL 5+ или SL 6–7, SAT Writing and Language 31+, ACT ELA 24+. Языковое требование закрыть до 31 января",
+        "confidence": "verified",
+        "source_url": "https://admissions.berkeley.edu/requirements-for-international-students/",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "Единое окно подачи системы UC: 1 октября – 30 ноября для осеннего набора. Готовить заявку можно с 1 августа. У UC НЕТ Early Decision и Early Action. Языковое требование закрыть до 31 января",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://admission.universityofcalifornia.edu/how-to-apply/applying-as-a-freshman/"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://admissions.berkeley.edu/apply/application-deadlines/"
+      },
+      "official_url": "https://admissions.berkeley.edu/apply/application-deadlines/",
+      "note": "Система UC не имеет Early Decision/Action. Одна анкета на все кампусы UC.",
+      "language_requirement": {
+        "language": [
+          "en"
+        ],
+        "requirement": "IELTS 6.5",
+        "other_tests": "TOEFL 90 (по новой шкале 4.5), Duolingo 115",
+        "confidence": "verified",
+        "source_url": "https://admissions.berkeley.edu/requirements-for-international-students/"
+      }
+    },
+    {
+      "id": "cmu",
+      "name": "Carnegie Mellon University",
+      "country": "US",
+      "city": "Pittsburgh, PA",
+      "group": "us",
+      "group_ru": "США",
+      "fields": [
+        "cs",
+        "eng",
+        "arts",
+        "biz"
+      ],
+      "fields_ru": [
+        "IT и информатика",
+        "инженерия",
+        "искусство",
+        "бизнес"
+      ],
+      "bachelor_language": [
+        "en"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "ВАЖНО: Carnegie Mellon НЕ предоставляет финансовую помощь иностранным студентам — семья оплачивает полную стоимость",
+        "confidence": "verified",
+        "source_url": "https://www.cmu.edu/admission/admission/international-applicants",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "Early Decision — 2 ноября (решение до 15 декабря, подтверждение до 1 февраля). Regular Decision — 4 января (решение до 1 апреля, подтверждение до 1 мая). Для School of Drama и School of Music — 1 декабря. Early Decision недоступен для School of Drama, BXA Design и School of Music",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://www.cmu.edu/admission/admission/application-plans-deadlines"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://www.cmu.edu/admission/admission/apply"
+      },
+      "official_url": "https://www.cmu.edu/admission/admission/apply",
+      "note": "CS входит в мировой топ. Также сильные драма и дизайн — редкое сочетание.",
+      "language_requirement": {
+        "language": [
+          "en"
+        ],
+        "requirement": "IELTS 7.5 overall и 7.5 в каждой подсекции — одно из самых высоких требований в списке",
+        "other_tests": "TOEFL iBT 102 (25+ в каждой секции) до 21.01.2026; по новой шкале 5 (5+ в каждой). Duolingo 135 (135+ в каждой подсекции), Cambridge 191",
+        "confidence": "verified",
+        "source_url": "https://www.cmu.edu/admission/admission/international-applicants"
+      }
+    },
+    {
+      "id": "umich",
+      "name": "University of Michigan",
+      "country": "US",
+      "city": "Ann Arbor, MI",
+      "group": "us",
+      "group_ru": "США",
+      "fields": [
+        "eng",
+        "biz",
+        "med",
+        "hum",
+        "sci"
+      ],
+      "fields_ru": [
+        "инженерия",
+        "бизнес",
+        "медицина",
+        "гуманитарные",
+        "естественные науки"
+      ],
+      "bachelor_language": [
+        "en"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "Освобождение от языкового теста: SAT EBRW 650+ ИЛИ ACT Reading и English по 27+",
+        "confidence": "verified",
+        "source_url": "https://admissions.umich.edu/apply/international-applicants/exams-visas",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "ДЛЯ ИНОСТРАНЦЕВ: Early Action и Early Decision — 1 ноября; Regular Decision на осенний семестр — 1 февраля. Баллы SAT/ACT для Early Action самостоятельно указать до 1 ноября. ВАЖНО: иностранные студенты на временной визе НЕ получают финансовую помощь и оплачивают полную стоимость обучения",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://admissions.umich.edu/apply/international-applicants/requirements-deadlines"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://admissions.umich.edu/apply/first-year-applicants/application-deadlines"
+      },
+      "official_url": "https://admissions.umich.edu/apply/first-year-applicants/application-deadlines",
+      "note": "Крупный государственный вуз, широкий выбор направлений, дешевле частных.",
+      "language_requirement": {
+        "language": [
+          "en"
+        ],
+        "requirement": "IELTS 7.0 (секции от 6.5)",
+        "other_tests": "TOEFL iBT 100 (Listening и Reading 23+, Speaking и Writing 21+), Cambridge 185, PTE 68. Duolingo НЕ принимается",
+        "confidence": "verified",
+        "source_url": "https://admissions.umich.edu/apply/international-applicants/exams-visas"
+      }
+    },
+    {
+      "id": "purdue",
+      "name": "Purdue University",
+      "country": "US",
+      "city": "West Lafayette, IN",
+      "group": "us",
+      "group_ru": "США",
+      "fields": [
+        "eng",
+        "cs",
+        "agri",
+        "sci"
+      ],
+      "fields_ru": [
+        "инженерия",
+        "IT и информатика",
+        "сельское хозяйство",
+        "естественные науки"
+      ],
+      "bachelor_language": [
+        "en"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "Принимаются SAT, ACT и CLT без предпочтения; результаты действительны 5 лет, можно комбинировать лучшие баллы разных дат. ТРЕБОВАНИЯ К ШКОЛЬНОЙ ПРОГРАММЕ: математика 4 года, английский 4 года, лабораторные науки 3 года, обществознание 3 года, иностранный язык 2 года. Для инженерии нужна химия, для сестринского дела и фармации — химия и биология. Тест советуют сдать весной предпоследнего класса, чтобы успеть к Early Action 1 ноября",
+        "confidence": "verified",
+        "source_url": "https://www.admissions.purdue.edu/become-student/first-year-criteria/",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "Early Action — 1 ноября. Подача по Early Action даёт полное рассмотрение на поступление, стипендии за заслуги и John Martinson Honors College. Дедлайны — 23:59 по восточному времени. Обработка документов занимает до двух недель",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://www.admissions.purdue.edu/become-student/guide/"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://www.admissions.purdue.edu/apply/deadlines.php"
+      },
+      "official_url": "https://www.admissions.purdue.edu/apply/deadlines.php",
+      "note": "Сильная инженерия при заметно более низкой стоимости, чем у частных вузов.",
+      "language_requirement": {
+        "language": [
+          "en"
+        ],
+        "requirement": "для иностранцев подтверждение английского обязательно; принимаются Duolingo, IELTS, TOEFL, а также ACT и SAT. Результат не старше 2 лет",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://www.admissions.purdue.edu/become-student/first-year-criteria/"
+      }
+    },
+    {
+      "id": "lse",
+      "name": "London School of Economics",
+      "country": "GB",
+      "city": "London",
+      "group": "uk",
+      "group_ru": "Великобритания",
+      "fields": [
+        "econ",
+        "law",
+        "biz",
+        "hum"
+      ],
+      "fields_ru": [
+        "экономика",
+        "право",
+        "бизнес",
+        "гуманитарные"
+      ],
+      "bachelor_language": [
+        "en"
+      ],
+      "admission_scores": {
+        "type": "not_used_uk",
+        "value": "SAT не используется. A-level / IB. Также принимается IB English A HL (любая оценка) или SL от 6, Cambridge C1/C2 — 185 баллов",
+        "confidence": "verified",
+        "source_url": "https://www.lse.ac.uk/study-at-lse/Undergraduate/Prospective-Students/How-to-Apply/English-language-requirements",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "13 января 2027, 18:00 UK (UCAS)",
+        "confidence": "verified",
+        "source_url": "https://www.lse.ac.uk/study-at-lse/Undergraduate/entry-requirements"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://www.lse.ac.uk/study-at-lse/Undergraduate/entry-requirements"
+      },
+      "official_url": "https://www.lse.ac.uk/study-at-lse/Undergraduate/entry-requirements",
+      "note": "Экономика, политика, право. SAT не используется.",
+      "language_requirement": {
+        "language": [
+          "en"
+        ],
+        "requirement": "7.0 overall, минимум 7.0 в каждом разделе, за один экзамен",
+        "other_tests": "100 overall (Writing 27, Reading 25, Listening 24, Speaking 24) — шкала с января 2026",
+        "confidence": "verified",
+        "source_url": "https://www.lse.ac.uk/study-at-lse/Undergraduate/Prospective-Students/How-to-Apply/English-language-requirements"
+      }
+    },
+    {
+      "id": "edinburgh",
+      "name": "University of Edinburgh",
+      "country": "GB",
+      "city": "Edinburgh",
+      "group": "uk",
+      "group_ru": "Великобритания",
+      "fields": [
+        "med",
+        "vet",
+        "hum",
+        "eng",
+        "sci"
+      ],
+      "fields_ru": [
+        "медицина",
+        "ветеринария",
+        "гуманитарные",
+        "инженерия",
+        "естественные науки"
+      ],
+      "bachelor_language": [
+        "en"
+      ],
+      "admission_scores": {
+        "type": "not_used_uk",
+        "value": "SAT не используется. A-level / IB. Требования различаются между программами",
+        "confidence": "verified",
+        "source_url": "https://study.ed.ac.uk/undergraduate/entry-requirements/english-language",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "15 октября 2026 для медицины и ветеринарии; 13 января 2027 для остальных",
+        "confidence": "verified",
+        "source_url": "https://www.ed.ac.uk/studying/undergraduate/applying"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://www.ed.ac.uk/studying/undergraduate/applying"
+      },
+      "official_url": "https://www.ed.ac.uk/studying/undergraduate/applying",
+      "note": "Есть и медицина, и ветеринария — у них ранний дедлайн UCAS.",
+      "language_requirement": {
+        "language": [
+          "en"
+        ],
+        "requirement": "зависит от программы — смотреть в Degree Finder на study.ed.ac.uk",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://study.ed.ac.uk/undergraduate/entry-requirements/english-language"
+      }
+    },
+    {
+      "id": "kcl",
+      "name": "King's College London",
+      "country": "GB",
+      "city": "London",
+      "group": "uk",
+      "group_ru": "Великобритания",
+      "fields": [
+        "med",
+        "law",
+        "hum",
+        "sci",
+        "edu"
+      ],
+      "fields_ru": [
+        "медицина",
+        "право",
+        "гуманитарные",
+        "естественные науки",
+        "педагогика"
+      ],
+      "bachelor_language": [
+        "en"
+      ],
+      "admission_scores": {
+        "type": "not_used_uk",
+        "value": "SAT не используется. A-level / IB. Результат действует 2 года, нужен один экзамен",
+        "confidence": "verified",
+        "source_url": "https://www.kcl.ac.uk/study/undergraduate/how-to-apply/english-language-requirements",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "15 октября 2026 для медицины и стоматологии; 13 января 2027 для остальных",
+        "confidence": "verified",
+        "source_url": "https://www.kcl.ac.uk/study/undergraduate/how-to-apply"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://www.kcl.ac.uk/study/undergraduate/how-to-apply"
+      },
+      "official_url": "https://www.kcl.ac.uk/study/undergraduate/how-to-apply",
+      "note": "Сильные медицина и право.",
+      "language_requirement": {
+        "language": [
+          "en"
+        ],
+        "requirement": "Band A 7.5/7.0 · Band B 7.0/6.5 (гуманитарные, право, медицина, бизнес, психология) · Band D 6.5/6.0 (естественные науки, математика, инженерия)",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://www.kcl.ac.uk/study/undergraduate/how-to-apply/english-language-requirements"
+      }
+    },
+    {
+      "id": "warwick",
+      "name": "University of Warwick",
+      "country": "GB",
+      "city": "Coventry",
+      "group": "uk",
+      "group_ru": "Великобритания",
+      "fields": [
+        "math",
+        "econ",
+        "biz",
+        "eng",
+        "cs"
+      ],
+      "fields_ru": [
+        "математика",
+        "экономика",
+        "бизнес",
+        "инженерия",
+        "IT и информатика"
+      ],
+      "bachelor_language": [
+        "en"
+      ],
+      "admission_scores": {
+        "type": "not_used_uk",
+        "value": "SAT не используется. A-level / IB. Экзамен за одно сидение, One Skill Retake не принимается",
+        "confidence": "verified",
+        "source_url": "https://warwick.ac.uk/study/undergraduate/applying/english-language-requirements/",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "13 января 2027, 18:00 UK (UCAS)",
+        "confidence": "verified",
+        "source_url": "https://warwick.ac.uk/study/undergraduate/apply/"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://warwick.ac.uk/study/undergraduate/apply/"
+      },
+      "official_url": "https://warwick.ac.uk/study/undergraduate/apply/",
+      "note": "Математика и экономика.",
+      "language_requirement": {
+        "language": [
+          "en"
+        ],
+        "requirement": "Band A 6.0 overall (минимум 5.5 в разделе) · Band B 6.5 overall (минимум 6.0 в разделе)",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://warwick.ac.uk/study/undergraduate/applying/english-language-requirements/"
+      }
+    },
+    {
+      "id": "glasgow",
+      "name": "University of Glasgow",
+      "country": "GB",
+      "city": "Glasgow",
+      "group": "uk",
+      "group_ru": "Великобритания",
+      "fields": [
+        "med",
+        "vet",
+        "eng",
+        "hum",
+        "sci"
+      ],
+      "fields_ru": [
+        "медицина",
+        "ветеринария",
+        "инженерия",
+        "гуманитарные",
+        "естественные науки"
+      ],
+      "bachelor_language": [
+        "en"
+      ],
+      "admission_scores": {
+        "type": "not_used_uk",
+        "value": "SAT не используется. A-level / IB",
+        "confidence": "verified",
+        "source_url": "https://www.gla.ac.uk/undergraduate/entryrequirements/englishlanguagerequirements/",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "15 октября 2026 для медицины и ветеринарии; 13 января 2027 для остальных",
+        "confidence": "verified",
+        "source_url": "https://www.gla.ac.uk/undergraduate/entryrequirements/"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://www.gla.ac.uk/undergraduate/entryrequirements/"
+      },
+      "official_url": "https://www.gla.ac.uk/undergraduate/entryrequirements/",
+      "note": "Один из немногих с ветеринарией.",
+      "language_requirement": {
+        "language": [
+          "en"
+        ],
+        "requirement": "указан на странице каждой программы",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://www.gla.ac.uk/undergraduate/entryrequirements/englishlanguagerequirements/"
+      }
+    },
+    {
+      "id": "manchester",
+      "name": "University of Manchester",
+      "country": "GB",
+      "city": "Manchester",
+      "group": "uk",
+      "group_ru": "Великобритания",
+      "fields": [
+        "eng",
+        "med",
+        "cs",
+        "biz",
+        "hum"
+      ],
+      "fields_ru": [
+        "инженерия",
+        "медицина",
+        "IT и информатика",
+        "бизнес",
+        "гуманитарные"
+      ],
+      "bachelor_language": [
+        "en"
+      ],
+      "admission_scores": {
+        "type": "not_used_uk",
+        "value": "SAT не используется. Требуются A-level или IB. Требования задаются отдельно для каждой программы — смотреть профиль курса",
+        "confidence": "verified",
+        "source_url": "https://www.manchester.ac.uk/study/international/admissions/language-requirements/",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "15 октября 2026 для медицины и стоматологии; 13 января 2027 для остальных",
+        "confidence": "verified",
+        "source_url": "https://www.manchester.ac.uk/study/undergraduate/applications/"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://www.manchester.ac.uk/study/undergraduate/applications/"
+      },
+      "official_url": "https://www.manchester.ac.uk/study/undergraduate/applications/",
+      "note": "Широкий выбор, крупный кампус.",
+      "language_requirement": {
+        "language": [
+          "en"
+        ],
+        "requirement": "Единого минимума нет: требования IELTS варьируются от 5.5 до 7.5+ в зависимости от программы. Точное значение — на странице конкретного курса",
+        "other_tests": "Эквиваленты: IB English Language A (Literature) HL 5 или SL 6 приравниваются к GCSE A*/8",
+        "confidence": "verified",
+        "source_url": "https://www.manchester.ac.uk/study/international/admissions/language-requirements/"
+      }
+    },
+    {
+      "id": "bristol",
+      "name": "University of Bristol",
+      "country": "GB",
+      "city": "Bristol",
+      "group": "uk",
+      "group_ru": "Великобритания",
+      "fields": [
+        "eng",
+        "med",
+        "vet",
+        "sci",
+        "law"
+      ],
+      "fields_ru": [
+        "инженерия",
+        "медицина",
+        "ветеринария",
+        "естественные науки",
+        "право"
+      ],
+      "bachelor_language": [
+        "en"
+      ],
+      "admission_scores": {
+        "type": "not_used_uk",
+        "value": "SAT не используется. A-level / IB",
+        "confidence": "verified",
+        "source_url": "https://www.bristol.ac.uk/study/language-requirements/",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "15 октября 2026 для медицины и ветеринарии; 13 января 2027 для остальных",
+        "confidence": "verified",
+        "source_url": "https://www.bristol.ac.uk/study/undergraduate/apply/"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://www.bristol.ac.uk/study/undergraduate/apply/"
+      },
+      "official_url": "https://www.bristol.ac.uk/study/undergraduate/apply/",
+      "note": "Инженерия и медицина.",
+      "language_requirement": {
+        "language": [
+          "en"
+        ],
+        "requirement": "система профилей A–G, у каждого своя страница с баллами",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://www.bristol.ac.uk/study/language-requirements/"
+      }
+    },
+    {
+      "id": "epfl",
+      "name": "EPFL",
+      "country": "CH",
+      "city": "Lausanne",
+      "group": "eu",
+      "group_ru": "Европа",
+      "fields": [
+        "eng",
+        "cs",
+        "arch",
+        "sci"
+      ],
+      "fields_ru": [
+        "инженерия",
+        "IT и информатика",
+        "архитектура",
+        "естественные науки"
+      ],
+      "bachelor_language": [
+        "fr",
+        "en"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "ТРИ ПУТИ ПОСТУПЛЕНИЯ. Прямой: швейцарский maturité; IB от 38 баллов с математикой и физикой не ниже 6/7; аттестат ЕС/ЕАСТ с оценками от 80%. ПОДГОТОВИТЕЛЬНЫЙ ГОД CMS (Cours de mathématiques spéciales) — именно этот путь для граждан НЕ из ЕС/ЕАСТ, то есть для Казахстана. Вступительный экзамен — для тех, кто не проходит по прямым критериям. ВАЖНО: с 2025 года минимум на 4 года введён лимит в 3000 первокурсников, кроме обладателей швейцарского maturité и прошедших CMS или экзамен",
+        "confidence": "verified",
+        "source_url": "https://www.epfl.ch/education/admission/admission-2/bachelor-admission-criteria-and-application/how-to-apply/",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "Подача открывается в середине ноября, закрывается 30 АПРЕЛЯ. Взнос: 150 CHF для иностранных аттестатов (50 CHF для швейцарских), невозвратный. Второй этап документов — до 10 июля, продление до 30 сентября. Решение о приёме действует ТОЛЬКО на ближайший учебный год",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://www.epfl.ch/education/admission/admission-2/bachelor-admission-criteria-and-application/how-to-apply/"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://www.epfl.ch/education/bachelor/admission-criteria/"
+      },
+      "official_url": "https://www.epfl.ch/education/bachelor/admission-criteria/",
+      "note": "Бакалавриат преимущественно на ФРАНЦУЗСКОМ. Английский — со второго курса и в магистратуре.",
+      "language_requirement": {
+        "language": [
+          "fr",
+          "en"
+        ],
+        "requirement": "ФРАНЦУЗСКИЙ B2 обязателен, C1 настоятельно рекомендуется. Обучение на бакалавриате ведётся на английском И французском. Если французского не было в школе, нужен сертификат",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://www.epfl.ch/education/admission/admission-2/bachelor-admission-criteria-and-application/how-to-apply/"
+      }
+    },
+    {
+      "id": "tum",
+      "name": "Technical University of Munich",
+      "country": "DE",
+      "city": "München",
+      "group": "eu",
+      "group_ru": "Европа",
+      "fields": [
+        "eng",
+        "cs",
+        "sci",
+        "med"
+      ],
+      "fields_ru": [
+        "инженерия",
+        "IT и информатика",
+        "естественные науки",
+        "медицина"
+      ],
+      "bachelor_language": [
+        "de",
+        "en"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "Иностранные абитуриенты без немецкого образования ОБЯЗАНЫ сначала получить предварительную проверку документов (VPD) через uni-assist, и только потом подавать в TUM. Для студентов не из ЕЭС действует плата за обучение, есть стипендии и освобождения. Сертификаты загружаются в портал PDF-файлами; присланные напрямую от экзаменационного центра по почте не рассматриваются",
+        "confidence": "verified",
+        "source_url": "https://www.tum.de/en/studies/application/application-info-portal/application-international",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "Зимний семестр: 01.10–31.03. Летний семестр: 01.04–30.09. Точные окна подачи различаются по программам — смотреть на странице конкретной программы. Иностранцам нужно заранее заложить время на VPD через uni-assist",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://www.tum.de/en/studies/application/application-info-portal/application-international"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://www.tum.de/en/studies/application"
+      },
+      "official_url": "https://www.tum.de/en/studies/application",
+      "note": "Большинство программ бакалавриата на НЕМЕЦКОМ (нужен DSH/TestDaF). Английские программы есть, но их мало.",
+      "language_requirement": {
+        "language": [
+          "de",
+          "en"
+        ],
+        "requirement": "НЕМЕЦКИЙ для немецкоязычных программ — сертификаты по рамке KMK: DSH, TestDaF, Goethe, telc. Для англоязычных программ нужен сертификат английского. ШЕСТЬ бакалавриатов проверяют английский на вступительном отборе, а не сертификатом: Aerospace, Information Engineering, Management and Data Science, Management and Technology, Political Science, Sustainable Management and Technology",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://www.tum.de/en/studies/application/application-info-portal/application-international"
+      }
+    },
+    {
+      "id": "lmu",
+      "name": "LMU Munich",
+      "country": "DE",
+      "city": "München",
+      "group": "eu",
+      "group_ru": "Европа",
+      "fields": [
+        "med",
+        "hum",
+        "law",
+        "sci",
+        "econ"
+      ],
+      "fields_ru": [
+        "медицина",
+        "гуманитарные",
+        "право",
+        "естественные науки",
+        "экономика"
+      ],
+      "bachelor_language": [
+        "de"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "Для НЕ граждан ЕС на программы с ограничением приёма: сертификат должен быть подан К ДЕДЛАЙНУ ПОДАЧИ (15 июля или 15 января). Для программ без ограничения: можно поступить с B2 и пройти интенсивные курсы, но до зачисления получить DSH 2 или эквивалент C1/C2. Граждане ЕС подают DSH 2 к сроку регистрации",
+        "confidence": "verified",
+        "source_url": "https://www.lmu.de/en/study/degree-students/dates-and-deadlines/",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "Зимний семестр — до 15 ИЮЛЯ. Летний семестр — до 15 ЯНВАРЯ. Университет прямо предупреждает: пропуск дедлайна означает потерю как минимум целого семестра",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://www.lmu.de/en/study/degree-students/dates-and-deadlines/"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://www.lmu.de/en/study/study-offerings/index.html"
+      },
+      "official_url": "https://www.lmu.de/en/study/study-offerings/index.html",
+      "note": "Медицина только на немецком, очень высокий конкурс (NC). Для иностранцев обычно нужен Studienkolleg.",
+      "language_requirement": {
+        "language": [
+          "de"
+        ],
+        "requirement": "НЕМЕЦКИЙ. Принимаются с неограниченным сроком действия: DSH 2, TestDaF с уровнем 4 по ВСЕМ частям, telc Deutsch C1 Hochschule, DSD II, Goethe-Zertifikat C2, ÖSD Zertifikat C2, аттестат немецкоязычного учебного заведения, немецкий международный бакалавриат GIB (с биологией и историей на немецком). Англоязычными бывают только магистратура и докторантура",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://www.lmu.de/en/study/degree-students/dates-and-deadlines/"
+      }
+    },
+    {
+      "id": "heidelberg",
+      "name": "Heidelberg University",
+      "country": "DE",
+      "city": "Heidelberg",
+      "group": "eu",
+      "group_ru": "Европа",
+      "fields": [
+        "med",
+        "sci",
+        "hum",
+        "law"
+      ],
+      "fields_ru": [
+        "медицина",
+        "естественные науки",
+        "гуманитарные",
+        "право"
+      ],
+      "bachelor_language": [
+        "de"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "Иностранные аттестаты оцениваются по методике ZAB. Если аттестат признан лишь частично сопоставимым с немецким Abitur (обычный случай для аттестата РК), нужно пройти Studienkolleg и сдать Feststellungsprüfung — это 2 семестра (1 для сильных), обучение до уровня C1, направления T, M, W, G, S",
+        "confidence": "verified",
+        "source_url": "https://www.uni-heidelberg.de/en/study/management-of-studies/key-dates-deadlines/application-deadlines-for-the-1st-semester-of-undergraduate-degree-programmes",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "Программы без ограничения приёма: зимний семестр 01.06–31.10, летний 01.12–30.04. Программы с ограничением или вступительным экзаменом: зимний 01.06–15.07, летний 01.12–15.01. МЕДИЦИНА, ФАРМАЦИЯ, СТОМАТОЛОГИЯ для иностранцев не из ЕС: зимний 01.06–15.07, подача напрямую в Гейдельберг; летнего набора нет. Если дедлайн выпал на выходной, он НЕ переносится",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://www.uni-heidelberg.de/en/study/management-of-studies/key-dates-deadlines/application-deadlines-for-the-1st-semester-of-undergraduate-degree-programmes"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://www.uni-heidelberg.de/en/study/application"
+      },
+      "official_url": "https://www.uni-heidelberg.de/en/study/application",
+      "note": "Старейший вуз Германии, сильнейшая медицина. Немецкий обязателен.",
+      "language_requirement": {
+        "language": [
+          "de"
+        ],
+        "requirement": "НЕМЕЦКИЙ уровня DSH-2 — всё обучение на бакалавриате идёт на немецком, англоязычных бакалавриатов НЕТ. Принимаются: DSD KMK Stufe II, DSH-2, Goethe-Zertifikat C2, TestDaF с результатом TDN 4 по ВСЕМ частям, Feststellungsprüfung, ÖSD C2, telc Deutsch C1 Hochschule. ПОВЫШЕННОЕ ТРЕБОВАНИЕ DSH-3 уже на момент подачи: психология, физиотерапия, МЕДИЦИНА",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://www.uni-heidelberg.de/en/study/management-of-studies/key-dates-deadlines/application-deadlines-for-the-1st-semester-of-undergraduate-degree-programmes"
+      }
+    },
+    {
+      "id": "rwth",
+      "name": "RWTH Aachen",
+      "country": "DE",
+      "city": "Aachen",
+      "group": "eu",
+      "group_ru": "Европа",
+      "fields": [
+        "eng",
+        "cs",
+        "sci"
+      ],
+      "fields_ru": [
+        "инженерия",
+        "IT и информатика",
+        "естественные науки"
+      ],
+      "bachelor_language": [
+        "de",
+        "en"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "Аттестат проверяется по базе ANABIN. Средний балл должен конвертироваться в 2.5 или лучше по немецкой шкале. Если не дотягивает — два пути: отучиться несколько семестров в вузе у себя в стране ИЛИ пройти Studienkolleg. ТЕСТ TestAS может заменить требование по среднему баллу ниже 2.5; для МЕДИЦИНЫ и СТОМАТОЛОГИИ TestAS обязателен при любых оценках. Подача через портал RWTHonline",
+        "confidence": "verified",
+        "source_url": "https://www.rwth-aachen.de/cms/root/studium/vor-dem-studium/zugangsvoraussetzungen/zugangsvoraussetzung-fuer-den-bachelor-un/~drar/zugangsvoraussetzungen-fuer-internationa/?lidx=1",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "Подача через RWTHonline, документы должны быть полными и в срок; точные даты различаются по программам. Зимний семестр — стандартно до 15 июля, летний — до 15 января",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://www.rwth-aachen.de/cms/root/studium/vor-dem-studium/zugangsvoraussetzungen/zugangsvoraussetzung-fuer-den-bachelor-un/~drar/zugangsvoraussetzungen-fuer-internationa/?lidx=1"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://www.rwth-aachen.de/go/id/bdcb"
+      },
+      "official_url": "https://www.rwth-aachen.de/go/id/bdcb",
+      "note": "Лучшая инженерия Германии. Бакалавриат в основном на немецком.",
+      "language_requirement": {
+        "language": [
+          "de",
+          "en"
+        ],
+        "requirement": "НЕМЕЦКИЙ уровня C1 к моменту зачисления. RWTH прямо пишет: «RWTH currently only offers Bachelor and Staatsexamen courses of study in German» — англоязычных бакалавриатов НЕТ. Отдельные программы (например, Computer Science) дополнительно требуют АНГЛИЙСКИЙ B2",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://www.rwth-aachen.de/cms/root/studium/vor-dem-studium/zugangsvoraussetzungen/zugangsvoraussetzung-fuer-den-bachelor-un/~drar/zugangsvoraussetzungen-fuer-internationa/?lidx=1"
+      }
+    },
+    {
+      "id": "tudelft",
+      "name": "TU Delft",
+      "country": "NL",
+      "city": "Delft",
+      "group": "eu",
+      "group_ru": "Европа",
+      "fields": [
+        "eng",
+        "arch",
+        "cs",
+        "sci"
+      ],
+      "fields_ru": [
+        "инженерия",
+        "архитектура",
+        "IT и информатика",
+        "естественные науки"
+      ],
+      "bachelor_language": [
+        "en",
+        "nl"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "ВАЖНО: на английском идут только 4 бакалавриата — Aerospace Engineering, Computer Science, Earth/Climate/Technology, Nanobiology. Остальные на НИДЕРЛАНДСКОМ (уровень VWO). Нужен аттестат, эквивалентный нидерландскому VWO, с профильной математикой и физикой. Недостающие предметы можно закрыть экзаменами Boswell-Bèta или CCVX",
+        "confidence": "verified",
+        "source_url": "https://www.tudelft.nl/en/education/admission-and-application/bsc-international-diploma/admission-requirements",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "Обычные программы бакалавриата: подача 15 октября – 1 АПРЕЛЯ (23:59 CEST). Программы с ограниченным набором (numerus clausus): 15 октября – 15 ЯНВАРЯ (23:59 CET). ВАЖНО: numerus clausus действует для Aerospace Engineering, Architecture/Urbanism/Building Sciences, Clinical Technology и Computer Science & Engineering — то есть как раз для англоязычных программ. Подтверждение места — до 1 июня, оплата — до 1 июля, семестр начинается в первую неделю сентября. Неполные заявки не рассматриваются",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://www.tudelft.nl/en/education/admission-and-application/bsc-international-diploma/dates-deadlines"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://www.tudelft.nl/en/education/admission-and-application/bsc-international-diploma"
+      },
+      "official_url": "https://www.tudelft.nl/en/education/admission-and-application/bsc-international-diploma",
+      "note": "Есть англоязычные бакалавриаты. Numerus fixus на популярных программах — дедлайн ранний и не сдвигается.",
+      "language_requirement": {
+        "language": [
+          "en",
+          "nl"
+        ],
+        "requirement": "Англоязычные программы: IELTS Academic 6.5. Программы на нидерландском: IELTS 5.5",
+        "other_tests": "Англоязычные: TOEFL iBT 90 (по новой шкале с 21.01.2026 — 5.0), Cambridge C1 Advanced. Нидерландоязычные: TOEFL iBT 70 (новая шкала 4.5), Cambridge B2. Сертификат старше 2 лет не принимается",
+        "confidence": "verified",
+        "source_url": "https://www.tudelft.nl/en/education/admission-and-application/bsc-international-diploma/admission-requirements"
+      }
+    },
+    {
+      "id": "uva",
+      "name": "University of Amsterdam",
+      "country": "NL",
+      "city": "Amsterdam",
+      "group": "eu",
+      "group_ru": "Европа",
+      "fields": [
+        "hum",
+        "econ",
+        "sci",
+        "law",
+        "biz"
+      ],
+      "fields_ru": [
+        "гуманитарные",
+        "экономика",
+        "естественные науки",
+        "право",
+        "бизнес"
+      ],
+      "bachelor_language": [
+        "en",
+        "nl"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "Взнос за подачу для иностранцев — 100 EUR, невозвратный",
+        "confidence": "verified",
+        "source_url": "https://www.uva.nl/en/education/admissions/bachelors/applying-for-a-degree-programme.html",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "Программы с отбором и квотой: 15 января – 1 февраля. Остальные: 1 апреля (рекомендуемый), 1 мая (окончательный). Университет настоятельно советует подавать до 1 апреля, если нужна виза или общежитие",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://www.uva.nl/en/education/admissions/bachelors/applying-for-a-degree-programme.html"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://www.uva.nl/en/education/bachelor-s/application-and-admission/application-and-admission.html"
+      },
+      "official_url": "https://www.uva.nl/en/education/bachelor-s/application-and-admission/application-and-admission.html",
+      "note": "Много англоязычных программ, относительно доступная стоимость для не-ЕС.",
+      "language_requirement": {
+        "language": [
+          "en",
+          "nl"
+        ],
+        "requirement": "IELTS Academic 6.5 overall, минимум 6.0 в каждом разделе",
+        "other_tests": "TOEFL iBT 92 (по шкале 0–120) или 4.5 (по шкале 1–6). Cambridge C1 Advanced 180. Нужен уровень C1. Тест сдан менее 2 лет назад до начала учёбы",
+        "confidence": "verified",
+        "source_url": "https://www.uva.nl/en/education/admissions/bachelors/applying-for-a-degree-programme.html"
+      }
+    },
+    {
+      "id": "karolinska",
+      "name": "Karolinska Institutet",
+      "country": "SE",
+      "city": "Stockholm",
+      "group": "eu",
+      "group_ru": "Европа",
+      "fields": [
+        "med"
+      ],
+      "fields_ru": [
+        "медицина"
+      ],
+      "bachelor_language": [
+        "sv",
+        "en"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "ВАЖНО: на английском языке есть ровно ОДНА бакалаврская программа — Bachelor's Programme in Biomedicine. Остальные бакалавриаты на шведском. ТРЕБУЕМЫЕ ШКОЛЬНЫЕ ПРЕДМЕТЫ: Biology 2, Chemistry 2, Mathematics 4 и English 6 (либо их эквиваленты уровня 2). Подача идёт через общенациональный портал universityadmissions.se",
+        "confidence": "verified",
+        "source_url": "https://education.ki.se/bachelors-masters-studies/apply/apply-for-a-bachelors-programme",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "Набор 2027, ПЕРВЫЙ РАУНД (приоритет для не-ЕС/ЕЭП): подача 16 октября 2026 – 15 ЯНВАРЯ 2027, документы до 1 февраля 2027. ВТОРОЙ РАУНД (приоритет для ЕС/ЕЭП): 15 марта – 15 апреля 2027, документы до 21 июня 2027. Абитуриентам из Казахстана нужен ПЕРВЫЙ раунд",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://education.ki.se/bachelors-masters-studies/apply/apply-for-a-bachelors-programme"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://education.ki.se/admissions"
+      },
+      "official_url": "https://education.ki.se/admissions",
+      "note": "Профильный медицинский вуз мирового уровня. Бакалавриат по медицине — на ШВЕДСКОМ. Англоязычные — магистратура.",
+      "language_requirement": {
+        "language": [
+          "sv",
+          "en"
+        ],
+        "requirement": "АНГЛИЙСКИЙ на уровне шведского курса English 6 / English level 2. Подтверждается законченным обучением, вузовскими курсами или признанным языковым тестом",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://education.ki.se/bachelors-masters-studies/apply/apply-for-a-bachelors-programme"
+      }
+    },
+    {
+      "id": "sorbonne",
+      "name": "Sorbonne Université",
+      "country": "FR",
+      "city": "Paris",
+      "group": "eu",
+      "group_ru": "Европа",
+      "fields": [
+        "hum",
+        "sci",
+        "med",
+        "law"
+      ],
+      "fields_ru": [
+        "гуманитарные",
+        "естественные науки",
+        "медицина",
+        "право"
+      ],
+      "bachelor_language": [
+        "fr"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "Обязательна процедура Campus France «Études en France». Для поступления на первый курс бакалавриата подаётся «dossier blanc» (белое досье), можно указать до трёх предпочтений. Академические требования различаются по факультетам: искусства и гуманитарные, медицина, естественные науки и инженерия",
+        "confidence": "verified",
+        "source_url": "https://www.sorbonne-universite.fr/en/education/study-sorbonne-university/degree-seeking-students/academic-and-language-requirements",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "Начинать процедуру Campus France нужно в НОЯБРЕ года, предшествующего поступлению. Точные даты окна Études en France публикуются на pastel.diplomatie.gouv.fr",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://www.sorbonne-universite.fr/en/education/study-sorbonne-university/degree-seeking-students/academic-and-language-requirements"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://www.sorbonne-universite.fr/en/education"
+      },
+      "official_url": "https://www.sorbonne-universite.fr/en/education",
+      "note": "Обучение на ФРАНЦУЗСКОМ. Для казахстанцев — процедура Campus France, подавать за год.",
+      "language_requirement": {
+        "language": [
+          "fr"
+        ],
+        "requirement": "ФРАНЦУЗСКИЙ. Англоязычных программ бакалавриата в Сорбонне НЕТ вообще. Гуманитарные и естественно-научные направления — B2 и выше; МЕДИЦИНА — C1 для всех программ. Университет даёт бесплатные курсы французского зачисленным студентам (2–6 часов в неделю)",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://www.sorbonne-universite.fr/en/education/study-sorbonne-university/degree-seeking-students/academic-and-language-requirements"
+      }
+    },
+    {
+      "id": "bocconi",
+      "name": "Bocconi University",
+      "country": "IT",
+      "city": "Milano",
+      "group": "eu",
+      "group_ru": "Европа",
+      "fields": [
+        "econ",
+        "biz",
+        "law",
+        "cs"
+      ],
+      "fields_ru": [
+        "экономика",
+        "бизнес",
+        "право",
+        "IT и информатика"
+      ],
+      "bachelor_language": [
+        "en",
+        "it"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "Обязателен один из тестов: собственный Bocconi online test, SAT или ACT (для Law — LSAT или Bocconi online test - Law). Отбор: 55% результат теста + 45% средний балл за предпоследний и третий с конца год школы. Взнос за подачу 100 EUR. SAT не обязан быть доступен Bocconi к дедлайну — достаточно указать Bocconi получателем результата",
+        "confidence": "verified",
+        "source_url": "https://www.unibocconi.it/en/applying-bocconi/bachelor-and-law-programs/application-and-admissions/admissions",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "НА 2027/28 ДВА РАУНДА: Early — 2–29 сентября 2026 до 15:00 по итальянскому времени (результат в середине ноября 2026); Winter — 25 ноября 2026 – 26 января 2027 до 15:00 (результат в середине марта 2027)",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://www.unibocconi.it/en/applying-bocconi/bachelor-and-law-programs/application-and-admissions/admissions"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://www.unibocconi.it/en/programs/bachelor-science/admissions"
+      },
+      "official_url": "https://www.unibocconi.it/en/programs/bachelor-science/admissions",
+      "note": "Экономика и финансы, программы на английском. Ранние раунды дают больше шансов на стипендию.",
+      "language_requirement": {
+        "language": [
+          "en",
+          "it"
+        ],
+        "requirement": "список принимаемых сертификатов — в разделе Results and Enrollment; конкретные минимумы на странице приёма не опубликованы",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://www.unibocconi.it/en/applying-bocconi/bachelor-and-law-programs/application-and-admissions/admissions"
+      }
+    },
+    {
+      "id": "polimi",
+      "name": "Politecnico di Milano",
+      "country": "IT",
+      "city": "Milano",
+      "group": "eu",
+      "group_ru": "Европа",
+      "fields": [
+        "eng",
+        "arch",
+        "design"
+      ],
+      "fields_ru": [
+        "инженерия",
+        "архитектура",
+        "дизайн"
+      ],
+      "bachelor_language": [
+        "en",
+        "it"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "ВСТУПИТЕЛЬНЫЙ ТЕСТ TOL, минимум 30 из 100. Структура: 65 вопросов за 100 минут — английский 30 вопросов, логика/математика/статистика 25, понимание текста 5, физика 5. Вместо TOL принимаются TOLC-I, CEnT-S или SAT с пересчётом в шкалу TOL. СТОИМОСТЬ для не-ЕС: от 167,04 до 3943,04 EUR в год, но иностранцы вне ЕС без стипендии платят МАКСИМАЛЬНУЮ сумму — скидки по доходу (ISEE) им не полагаются",
+        "confidence": "verified",
+        "source_url": "https://www.polimi.it/fileadmin/user_upload/futuri_studenti/Engineering_BSc_call_for_admission_2026-27__English_.pdf",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "Приём на 2026/27 в четыре волны: ранняя запись 4 мая – 11 июня 2026 (для сдавших TOL на 75/100 и выше); основная запись 15 июня – 15 июля 2026; оставшиеся места 20 июля – 5 августа 2026; дополнительные места 24 августа – 9 сентября 2026",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://www.polimi.it/fileadmin/user_upload/futuri_studenti/Engineering_BSc_call_for_admission_2026-27__English_.pdf"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://www.polimi.it/en/programmes/admission"
+      },
+      "official_url": "https://www.polimi.it/en/programmes/admission",
+      "note": "Дизайн и архитектура мирового уровня, англоязычные программы, умеренная стоимость.",
+      "language_requirement": {
+        "language": [
+          "en",
+          "it"
+        ],
+        "requirement": "Для АНГЛОЯЗЫЧНЫХ программ — подтверждение английского сертификатом либо результатом теста. Для ИТАЛЬЯНОЯЗЫЧНЫХ — итальянский B2 (сертификат CLIQ) для большинства иностранцев; требование по итальянскому можно закрыть позже через OFA",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://www.polimi.it/fileadmin/user_upload/futuri_studenti/Engineering_BSc_call_for_admission_2026-27__English_.pdf"
+      }
+    },
+    {
+      "id": "tuwien",
+      "name": "TU Wien",
+      "country": "AT",
+      "city": "Wien",
+      "group": "eu",
+      "group_ru": "Европа",
+      "fields": [
+        "eng",
+        "cs",
+        "arch",
+        "sci"
+      ],
+      "fields_ru": [
+        "инженерия",
+        "IT и информатика",
+        "архитектура",
+        "естественные науки"
+      ],
+      "bachelor_language": [
+        "de"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "Принимаются международные аттестаты, эквивалентные австрийским. Для стран с национальными вступительными экзаменами нужно официальное подтверждение результатов. Если аттестат существенно отличается от австрийского, назначаются ДОПОЛНИТЕЛЬНЫЕ ЭКЗАМЕНЫ по математике, химии, физике или немецкому — сдаются через подготовительную программу VWU",
+        "confidence": "verified",
+        "source_url": "https://www.tuwien.at/en/studies/admission/bachelors-programmes/admission-with-an-international-school-leaving-certificate",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "Зимний семестр 2026/27: граждане НЕ из ЕС/ЕЭП — 16 ЯНВАРЯ – 15 ИЮЛЯ (для граждан ЕС/ЕЭП февраль–июль). Летний семестр 2027: не из ЕС/ЕЭП — 16 июля – 15 января (ЕС/ЕЭП август–январь). У иностранцев окно открывается РАНЬШЕ и закрывается в тот же день",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://www.tuwien.at/en/studies/admission/bachelors-programmes/admission-with-an-international-school-leaving-certificate"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://www.tuwien.at/en/studies/admission"
+      },
+      "official_url": "https://www.tuwien.at/en/studies/admission",
+      "note": "Бакалавриат на немецком. Обучение для не-ЕС недорогое по европейским меркам.",
+      "language_requirement": {
+        "language": [
+          "de"
+        ],
+        "requirement": "НЕМЕЦКИЙ уровня A2 и/или C1 — подтверждение подаётся вместе с заявкой",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://www.tuwien.at/en/studies/admission/bachelors-programmes/admission-with-an-international-school-leaving-certificate"
+      }
+    },
+    {
+      "id": "charles",
+      "name": "Charles University",
+      "country": "CZ",
+      "city": "Praha",
+      "group": "eu",
+      "group_ru": "Европа",
+      "fields": [
+        "med",
+        "hum",
+        "law",
+        "sci"
+      ],
+      "fields_ru": [
+        "медицина",
+        "гуманитарные",
+        "право",
+        "естественные науки"
+      ],
+      "bachelor_language": [
+        "cs",
+        "en"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "Вступительный экзамен в 2 тура. Тур 1 — письменный тест с выбором ответа по биологии, химии и общим наукам: 90 минут, 75 баллов. Тур 2 — пять онлайн мини-интервью (формат MMI) по 10 минут: критическое мышление, ролевые ситуации, мотивация. Стоимость обучения — 24 250 EUR в год (General Medicine и Dentistry), взнос за подачу 285 EUR",
+        "confidence": "verified",
+        "source_url": "https://en.lf1.cuni.cz/admission-20262027",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "5 сентября 2026 (подача открылась 1 декабря 2025). Экзамены 16 сентября 2026, дополнительный срок 23 сентября 2026",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://en.lf1.cuni.cz/admission-20262027"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://cuni.cz/UKEN-1.html"
+      },
+      "official_url": "https://cuni.cz/UKEN-1.html",
+      "note": "Есть медицина на АНГЛИЙСКОМ (платно). На чешском — бесплатно. Популярное направление у студентов из СНГ.",
+      "language_requirement": {
+        "language": [
+          "cs",
+          "en"
+        ],
+        "requirement": "ДЛЯ 2026/2027 СЕРТИФИКАТ АНГЛИЙСКОГО НЕ ТРЕБУЕТСЯ вообще",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://en.lf1.cuni.cz/admission-20262027"
+      }
+    },
+    {
+      "id": "semmelweis",
+      "name": "Semmelweis University",
+      "country": "HU",
+      "city": "Budapest",
+      "group": "eu_afford",
+      "group_ru": "Европа — доступные и стипендиальные",
+      "fields": [
+        "med"
+      ],
+      "fields_ru": [
+        "медицина"
+      ],
+      "bachelor_language": [
+        "en",
+        "hu"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "ВСТУПИТЕЛЬНЫЙ ЭКЗАМЕН: письменная часть из четырёх блоков по 20 вопросов — Medical Biology, Medical Chemistry, General English, Biomedical English. Плюс личное собеседование на мотивацию и коммуникацию. СТОИМОСТЬ: 10 450 USD за СЕМЕСТР. Дополнительно: взнос за рассмотрение 400 USD при подаче, депозит 2000 USD (засчитывается в первый семестр), регистрационный сбор 230 USD. Программа 6 лет, 360 кредитов, диплом Doctor of General Medicine MD",
+        "confidence": "verified",
+        "source_url": "https://semmelweis.hu/admission/programs/medicine/",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "Подача открылась 12 января 2026, дедлайн 31 МАЯ 2026. Экзамены проходят с начала марта до конца июня. Результат — в течение 2 недель после экзамена",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://semmelweis.hu/admission/programs/medicine/"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://semmelweis.hu/english/admissions/"
+      },
+      "official_url": "https://semmelweis.hu/english/admissions/",
+      "note": "Медицина на английском. Одно из главных направлений для абитуриентов из СНГ. Доступно по Stipendium Hungaricum.",
+      "language_requirement": {
+        "language": [
+          "en",
+          "hu"
+        ],
+        "requirement": "АНГЛИЙСКИЙ уровня upper intermediate плюс базовое знание биомедицинской терминологии. Проверяется прямо на вступительном экзамене, отдельный сертификат не требуется",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://semmelweis.hu/admission/programs/medicine/"
+      }
+    },
+    {
+      "id": "bme",
+      "name": "Budapest University of Technology (BME)",
+      "country": "HU",
+      "city": "Budapest",
+      "group": "eu_afford",
+      "group_ru": "Европа — доступные и стипендиальные",
+      "fields": [
+        "eng",
+        "cs",
+        "arch"
+      ],
+      "fields_ru": [
+        "инженерия",
+        "IT и информатика",
+        "архитектура"
+      ],
+      "bachelor_language": [
+        "en",
+        "hu"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "Подача через систему e-admission с ВСТУПИТЕЛЬНЫМ или ПРОФИЛЬНЫМ ТЕСТОМ. Документы: CV, мотивационное письмо, копия паспорта, аттестат, подтверждение английского. Взнос 150 EUR. Переводящиеся студенты могут быть освобождены от вступительного экзамена по решению факультета. При слабых базовых знаниях по математике, физике, химии или английскому направляют на годичную подготовительную программу",
+        "confidence": "verified",
+        "source_url": "https://xplore.bme.hu/admission/",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "Приём для платных студентов: 1 АПРЕЛЯ – 15 МАЯ 2026 на сентябрьский набор 2026. На весенний набор доступны не все программы",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://xplore.bme.hu/admission/"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://www.bme.hu/admission"
+      },
+      "official_url": "https://www.bme.hu/admission",
+      "note": "Инженерия на английском, входит в Stipendium Hungaricum.",
+      "language_requirement": {
+        "language": [
+          "en",
+          "hu"
+        ],
+        "requirement": "АНГЛИЙСКИЙ: для подготовительной программы B1 (например, IELTS от 4.0), для бакалавриата и магистратуры B2 (например, IELTS от 5.0). Можно вместо сертификата предоставить Medium of Instruction Certificate или сдать внутренний экзамен BME по английскому",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://xplore.bme.hu/admission/"
+      }
+    },
+    {
+      "id": "uj",
+      "name": "Jagiellonian University",
+      "country": "PL",
+      "city": "Kraków",
+      "group": "eu_afford",
+      "group_ru": "Европа — доступные и стипендиальные",
+      "fields": [
+        "med",
+        "hum",
+        "law",
+        "sci"
+      ],
+      "fields_ru": [
+        "медицина",
+        "гуманитарные",
+        "право",
+        "естественные науки"
+      ],
+      "bachelor_language": [
+        "pl",
+        "en"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "Приём ТОЛЬКО по результату вступительного экзамена, в 2026/27 он проходит онлайн. Обязательное условие: в школе должны быть пройдены биология или физика плюс химия, с оценками в аттестате. СТОИМОСТЬ: медицина — 16 000 EUR в год (6 лет), стоматология — 17 000 EUR в год (5 лет). Оплата целиком или двумя частями",
+        "confidence": "verified",
+        "source_url": "https://medschool.uj.edu.pl/prospective-students/md-program-in-english/admission-criteria/",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "уточнять в системе подачи; для первокурсников первый платёж — в течение 7 дней после регистрации, второй до 15 февраля",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://medschool.uj.edu.pl/prospective-students/md-program-in-english/admission-criteria/"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://en.uj.edu.pl/en_GB/admissions"
+      },
+      "official_url": "https://en.uj.edu.pl/en_GB/admissions",
+      "note": "Медицина на английском, старейший вуз Польши.",
+      "language_requirement": {
+        "language": [
+          "pl",
+          "en"
+        ],
+        "requirement": "IELTS от 6.5",
+        "other_tests": "TOEFL iBT от 87. Либо документ о том, что среднее образование было на английском",
+        "confidence": "verified",
+        "source_url": "https://medschool.uj.edu.pl/prospective-students/md-program-in-english/admission-criteria/"
+      }
+    },
+    {
+      "id": "ntu",
+      "name": "Nanyang Technological University",
+      "country": "SG",
+      "city": "Singapore",
+      "group": "asia",
+      "group_ru": "Азия",
+      "fields": [
+        "eng",
+        "cs",
+        "biz",
+        "sci",
+        "edu"
+      ],
+      "fields_ru": [
+        "инженерия",
+        "IT и информатика",
+        "бизнес",
+        "естественные науки",
+        "педагогика"
+      ],
+      "bachelor_language": [
+        "en"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "Принимается SAT 1250 или ACT with Writing composite 30 — ими можно закрыть языковое требование. Языковой тест обязателен для ряда национальностей и для тех, у кого в школе не было обучения на английском. Окно подачи прошлого цикла: 15 октября – январь/март, сбор SGD 25",
+        "confidence": "verified",
+        "source_url": "https://www.ntu.edu.sg/admissions/undergraduate/admission-guide/international-qualifications",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "Приём на 2027/28 для обладателей международных квалификаций: 15 ОКТЯБРЯ 2026 – 19 МАРТА 2027. Точная дата закрытия различается в зависимости от типа квалификации — уточнять на странице International Qualifications",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://www.ntu.edu.sg/admissions/undergraduate/admission-guide"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://www.ntu.edu.sg/admissions/undergraduate/admission-guide"
+      },
+      "official_url": "https://www.ntu.edu.sg/admissions/undergraduate/admission-guide",
+      "note": "Инженерия и бизнес. Аттестат РК оценивается индивидуально.",
+      "language_requirement": {
+        "language": [
+          "en"
+        ],
+        "requirement": "IELTS 6.0 overall (Writing 6, Speaking 6)",
+        "other_tests": "TOEFL iBT 90 (verbal 25); по новой шкале 4.5 (с января 2026). PTE 55 (Speaking 55), Cambridge C1 Advanced 170 (Writing и Speaking 170)",
+        "confidence": "verified",
+        "source_url": "https://www.ntu.edu.sg/admissions/undergraduate/admission-guide/international-qualifications"
+      }
+    },
+    {
+      "id": "hku",
+      "name": "University of Hong Kong",
+      "country": "HK",
+      "city": "Hong Kong",
+      "group": "asia",
+      "group_ru": "Азия",
+      "fields": [
+        "med",
+        "law",
+        "biz",
+        "eng",
+        "hum"
+      ],
+      "fields_ru": [
+        "медицина",
+        "право",
+        "бизнес",
+        "инженерия",
+        "гуманитарные"
+      ],
+      "bachelor_language": [
+        "en"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "Альтернативы: SAT — Reading and Writing 610+; IB English (HL или SL) — оценка 4+; GCE/IGCSE English Language — C+; Cambridge C1 Advanced — C, C2 Proficiency — уровень C1. Тест должен быть сдан в течение 2 лет до 1 сентября 2026",
+        "confidence": "verified",
+        "source_url": "https://admissions.hku.hk/apply/international-qualifications/english-language-requirement",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "Набор 2026: подача открывается 23 сентября 2026; дедлайн первого раунда — 25 ноября 2026, 12:00 по гонконгскому времени; преподаватели и рекомендатели подают оценки до 1 декабря 2026; окончательное закрытие — 25 августа 2027",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://admissions.hku.hk/apply/international-qualifications"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://admissions.hku.hk/"
+      },
+      "official_url": "https://admissions.hku.hk/",
+      "note": "Обучение полностью на английском, сильная медицина и право.",
+      "language_requirement": {
+        "language": [
+          "en"
+        ],
+        "requirement": "IELTS Academic 6.5 overall, за одну попытку. Онлайн-версия НЕ принимается",
+        "other_tests": "TOEFL iBT 93 за одну попытку (бумажная и домашняя версии не принимаются). PTE 64",
+        "confidence": "verified",
+        "source_url": "https://admissions.hku.hk/apply/international-qualifications/english-language-requirement"
+      }
+    },
+    {
+      "id": "hkust",
+      "name": "HKUST",
+      "country": "HK",
+      "city": "Hong Kong",
+      "group": "asia",
+      "group_ru": "Азия",
+      "fields": [
+        "eng",
+        "cs",
+        "biz",
+        "sci"
+      ],
+      "fields_ru": [
+        "инженерия",
+        "IT и информатика",
+        "бизнес",
+        "естественные науки"
+      ],
+      "bachelor_language": [
+        "en"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "Принимаются квалификации из 100+ стран: SAT, ACT, AP, A-Level, IB, European и French Baccalaureate. КАЛЕНДАРЬ 2026: система открывается в начале октября; приоритетный раунд — 25 ноября 2026; далее приём по мере поступления; офферы — конец декабря 2026; финальный дедлайн — 30 июня 2027",
+        "confidence": "verified",
+        "source_url": "https://join.hkust.edu.hk/admissions/international-qualifications",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "Набор 2026: система подачи открывается в начале октября; ПРИОРИТЕТНЫЙ РАУНД — 25 ноября 2026; после 26 ноября приём идёт по мере поступления заявок; офферы — конец декабря 2026; финальный дедлайн — 30 июня 2027",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://join.hkust.edu.hk/admissions/international-qualifications"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://join.hkust.edu.hk/"
+      },
+      "official_url": "https://join.hkust.edu.hk/",
+      "note": "Инженерия и бизнес, английский язык обучения, много стипендий для международных.",
+      "language_requirement": {
+        "language": [
+          "en"
+        ],
+        "requirement": "принимаются IELTS Academic, TOEFL, Duolingo, PTE Academic, Cambridge CAE, а также AP, SAT, ACT и IB; конкретные минимумы на этой странице не опубликованы",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://join.hkust.edu.hk/admissions/international-qualifications"
+      }
+    },
+    {
+      "id": "utokyo",
+      "name": "University of Tokyo",
+      "country": "JP",
+      "city": "Tokyo",
+      "group": "asia",
+      "group_ru": "Азия",
+      "fields": [
+        "sci",
+        "eng",
+        "med",
+        "hum",
+        "law"
+      ],
+      "fields_ru": [
+        "естественные науки",
+        "инженерия",
+        "медицина",
+        "гуманитарные",
+        "право"
+      ],
+      "bachelor_language": [
+        "ja",
+        "en"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "Программа PEAK (обучение на английском). ТРЕБУЕМЫЕ ТЕСТЫ: SAT от 1480, ACT composite от 33, IB Diploma от 38 баллов, A-Levels — три оценки A, либо AP. Для направления Environmental Sciences нужны математика плюс один естественно-научный предмет. УСЛОВИЯ ДОПУСКА: 12 лет образования, обучение НЕ на японском минимум 9 лет из 12 и минимум 5 из последних 6. Отбор в два этапа: документы, затем онлайн-собеседование. Взнос 5000 иен. Вступительный взнос 282 000 иен единоразово, обучение 642 960 иен в год. Стипендии за заслуги, общежитие на первый год гарантировано. Выбор одной из программ: Japan in East Asia или Environmental Sciences",
+        "confidence": "verified",
+        "source_url": "https://peak.c.u-tokyo.ac.jp/vcms_lf/ApplicationGuidelines_2026.pdf",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "Цикл на сентябрь 2026: предварительная проверка права на поступление до 3 октября 2025, подача 11 ноября – 9 декабря 2025, первый этап — январь 2026, собеседования февраль–начало марта, решение 30 марта 2026, подтверждение до 7 мая 2026. КРИТИЧЕСКИ ВАЖНО: университет объявил, что набор на сентябрь 2026 — ПОСЛЕДНИЙ НАБОР НА ПРОГРАММУ PEAK",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://peak.c.u-tokyo.ac.jp/vcms_lf/ApplicationGuidelines_2026.pdf"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://www.u-tokyo.ac.jp/en/prospective-students/"
+      },
+      "official_url": "https://www.u-tokyo.ac.jp/en/prospective-students/",
+      "note": "Обычный бакалавриат — на японском. Для иностранцев есть англоязычная программа PEAK с отдельным набором.",
+      "language_requirement": {
+        "language": [
+          "ja",
+          "en"
+        ],
+        "requirement": "АНГЛИЙСКИЙ: TOEFL iBT от ~100, IELTS Academic от 7.0, Cambridge C1 Advanced/C2 от 185. Освобождение — если 9+ лет обучения шли на английском. Тест должен быть сдан после 1 декабря 2023",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://peak.c.u-tokyo.ac.jp/vcms_lf/ApplicationGuidelines_2026.pdf"
+      }
+    },
+    {
+      "id": "kyoto",
+      "name": "Kyoto University",
+      "country": "JP",
+      "city": "Kyoto",
+      "group": "asia",
+      "group_ru": "Азия",
+      "fields": [
+        "sci",
+        "eng",
+        "med",
+        "hum"
+      ],
+      "fields_ru": [
+        "естественные науки",
+        "инженерия",
+        "медицина",
+        "гуманитарные"
+      ],
+      "bachelor_language": [
+        "ja",
+        "en"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "Программа iUP (International Undergraduate Program) на английском. ТЕСТЫ: SAT, EJU, ACT, IB, GCE A Level или национальный экзамен своей страны. Для естественно-научных факультетов обязательны математика и естественные науки. ДОПУСК: гражданство не японское; не менее 12 лет школьного образования вне Японии к 30 сентября 2027; возраст 18 лет к 1 апреля 2028. Документы: Form A (справка об окончании), Form B (оценка), Form C (оценка английского), Form D (эссе). ФИНАНСИРОВАНИЕ — самое щедрое в базе: полное освобождение от вступительного взноса и платы за обучение доступно ВСЕМ студентам, стипендия до 120 000 иен в месяц на время 6-месячного подготовительного курса, гарантированное жильё на первые 12 месяцев. Взнос за подачу 9800 иен",
+        "confidence": "verified",
+        "source_url": "https://www.iup.kyoto-u.ac.jp/Application_Guidelines_for_October_2027_Enrollment.pdf",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "Набор на октябрь 2027: подача 2 НОЯБРЯ – 3 ДЕКАБРЯ 2026 до 17:00 по японскому времени. Результаты первого этапа 5 февраля 2027, собеседования 1–16 марта 2027, результаты второго этапа 6 апреля 2027, подтверждение зачисления до 7 мая 2027, начало учёбы 1 октября 2027. Неполные и опоздавшие заявки не рассматриваются",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://www.iup.kyoto-u.ac.jp/apply/"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://www.kyoto-u.ac.jp/en/education-campus/admissions"
+      },
+      "official_url": "https://www.kyoto-u.ac.jp/en/education-campus/admissions",
+      "note": "Преимущественно японский язык. Англоязычная программа iUP — отдельный набор.",
+      "language_requirement": {
+        "language": [
+          "ja",
+          "en"
+        ],
+        "requirement": "АНГЛИЙСКИЙ. Жёсткого минимума нет, но университет публикует типичные результаты поступивших: TOEFL iBT 90 (по шкале 0–120) или 4.5 (по шкале 1–6), IELTS 6.5. Все документы подаются на английском или с английским переводом",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://www.iup.kyoto-u.ac.jp/Application_Guidelines_for_October_2027_Enrollment.pdf"
+      }
+    },
+    {
+      "id": "snu",
+      "name": "Seoul National University",
+      "country": "KR",
+      "city": "Seoul",
+      "group": "asia",
+      "group_ru": "Азия",
+      "fields": [
+        "hum",
+        "sci",
+        "eng",
+        "med",
+        "law"
+      ],
+      "fields_ru": [
+        "гуманитарные",
+        "естественные науки",
+        "инженерия",
+        "медицина",
+        "право"
+      ],
+      "bachelor_language": [
+        "ko",
+        "en"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "Два набора в год — весенний и осенний (учебный год в Корее начинается весной). Рекомендательные письма принимаются ТОЛЬКО онлайн: по почте, факсом или email не принимают. После дедлайна изменить заявку невозможно",
+        "confidence": "verified",
+        "source_url": "https://en.snu.ac.kr/admission/overview/notice?md=v&bbsidx=172484",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "Весенний набор 2027: онлайн-подача 6–9 ИЮЛЯ 2026 (открытие 6 июля 10:00, закрытие 9 июля 17:00 по корейскому времени). Рекомендательные письма — 6–10 июля 2026. Предварительное решение — 16 октября 2026 после 17:00",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://en.snu.ac.kr/admission/overview/notice?md=v&bbsidx=172484"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://admission.snu.ac.kr/international/"
+      },
+      "official_url": "https://admission.snu.ac.kr/international/",
+      "note": "Для большинства программ нужен TOPIK (корейский). Доступен по Global Korea Scholarship.",
+      "language_requirement": {
+        "language": [
+          "ko",
+          "en"
+        ],
+        "requirement": "Требования по языку публикуются в отдельном PDF «Admissions Guide for International Students» на сайте приёмной комиссии",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://en.snu.ac.kr/admission/overview/notice?md=v&bbsidx=172484"
+      }
+    },
+    {
+      "id": "bogazici",
+      "name": "Boğaziçi University",
+      "country": "TR",
+      "city": "İstanbul",
+      "group": "tr",
+      "group_ru": "Турция",
+      "fields": [
+        "eng",
+        "cs",
+        "econ",
+        "edu",
+        "hum"
+      ],
+      "fields_ru": [
+        "инженерия",
+        "IT и информатика",
+        "экономика",
+        "педагогика",
+        "гуманитарные"
+      ],
+      "bachelor_language": [
+        "en"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "МИНИМАЛЬНЫЕ БАЛЛЫ: SAT — 1300 из 1600 (Math + Evidence-Based Reading/Writing) для большинства программ; ИНЖЕНЕРИЯ — 1350 при Math не ниже 700. TR-YÖS — минимум 450. GCE A Levels — три оценки A по профильным предметам. Документы: аттестат и транскрипт с подписью/e-подписью/QR, Statement of Purpose на английском, копия паспорта. Взнос 100 EUR за каждую программу, невозвратный",
+        "confidence": "verified",
+        "source_url": "https://intl.bogazici.edu.tr/required-documents-undergraduate-application",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "Подача через Office of International Relations, контакт globalstudents@bogazici.edu.tr. Точные окна публикуются на intl.bogazici.edu.tr перед каждым набором",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://intl.bogazici.edu.tr/required-documents-undergraduate-application"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://intl.boun.edu.tr/"
+      },
+      "official_url": "https://intl.boun.edu.tr/",
+      "note": "Обучение на английском, государственный вуз, невысокая стоимость. Сильная инженерия.",
+      "language_requirement": {
+        "language": [
+          "en"
+        ],
+        "requirement": "АНГЛИЙСКИЙ — всё обучение на английском. TOEFL iBT от 79 (Writing от 22) ИЛИ IELTS Academic 6.5 (и 6.5 в Writing) ИЛИ внутренний экзамен BUEPT. Результат действителен 2 года. Кто не дотягивает — идёт на подготовительный год английского в YADYOK",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://intl.bogazici.edu.tr/required-documents-undergraduate-application"
+      }
+    },
+    {
+      "id": "metu",
+      "name": "Middle East Technical University (ODTÜ)",
+      "country": "TR",
+      "city": "Ankara",
+      "group": "tr",
+      "group_ru": "Турция",
+      "fields": [
+        "eng",
+        "cs",
+        "arch",
+        "sci"
+      ],
+      "fields_ru": [
+        "инженерия",
+        "IT и информатика",
+        "архитектура",
+        "естественные науки"
+      ],
+      "bachelor_language": [
+        "en"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "МИНИМУМЫ ПОДТВЕРЖДЕНЫ: SAT I — 1200 общий, для инженерии/архитектуры/естественных наук ещё и Math от 700/800. ACT — 27/36. AP — оценка 4+ минимум по 4 предметам (для инженерии и архитектуры обязателен Calculus AB или BC). International A-Levels — ABB по 3 предметам, 2 из них профильные. IB — диплом с суммой от 33, минимум один HL по профилю. TR-YÖS — попадание в первые 5%. Олимпиады: медали IMO, IOI, IBO, IPhO, IChO или Балканских олимпиад. Национальные экзамены: Abitur не хуже 2.3, French Baccalaureate от 14/20, ЕГЭ России — средний от 80% по трём предметам. Результаты SAT, TR-YÖS и др. действительны 2 года",
+        "confidence": "verified",
+        "source_url": "https://iso.metu.edu.tr/en/application-requirements",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "1 июня – 12 июля 2026 (открытие 16:00, закрытие 23:59 по турецкому времени). Подавшие A-level сначала получают статус Admission deferral, окончательная оценка после августа",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://iso.metu.edu.tr/en/application-requirements"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://oidb.metu.edu.tr/en"
+      },
+      "official_url": "https://oidb.metu.edu.tr/en",
+      "note": "Обучение на английском. Принимает по собственному экзамену или SAT.",
+      "language_requirement": {
+        "language": [
+          "en"
+        ],
+        "requirement": "требуется подтверждение английского, минимум смотреть в разделе English Proficiency на iso.metu.edu.tr",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://iso.metu.edu.tr/en/application-requirements"
+      }
+    },
+    {
+      "id": "koc",
+      "name": "Koç University",
+      "country": "TR",
+      "city": "İstanbul",
+      "group": "tr",
+      "group_ru": "Турция",
+      "fields": [
+        "med",
+        "biz",
+        "eng",
+        "law",
+        "hum"
+      ],
+      "fields_ru": [
+        "медицина",
+        "бизнес",
+        "инженерия",
+        "право",
+        "гуманитарные"
+      ],
+      "bachelor_language": [
+        "en"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "МИНИМАЛЬНЫЙ SAT ЗАВИСИТ ОТ ФАКУЛЬТЕТА: CASE/CSSH/SON — 1200, Computer Science — 1260, Engineering — 1300, Law — 1420, School of Management — 1450, Медицина — 1450. ACT — от 25 до 33 в зависимости от программы, медицина 33. Принимаются также AP, IB Diploma, A-Levels и национальные квалификации. ВАЖНО для медицины: неносителям турецкого нужен турецкий B1 к началу 2 курса и C1 к 4 курсу",
+        "confidence": "verified",
+        "source_url": "https://international.ku.edu.tr/undergraduate-programs/how-to-apply/",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "регулярный период объявляется отдельно; поздняя подача — август (без права на общежитие)",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://international.ku.edu.tr/undergraduate-programs/how-to-apply/"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://apply.ku.edu.tr/"
+      },
+      "official_url": "https://apply.ku.edu.tr/",
+      "note": "Частный, есть медицина на английском и стипендии для международных студентов.",
+      "language_requirement": {
+        "language": [
+          "en"
+        ],
+        "requirement": "IELTS на этой странице не указан. TOEFL iBT 80 (Writing от 20), Cambridge CAE — оценка C (180+), PTE 67. Результаты старше 2 лет не принимаются",
+        "other_tests": "TOEFL iBT 80 (Writing 20+)",
+        "confidence": "verified",
+        "source_url": "https://international.ku.edu.tr/undergraduate-programs/how-to-apply/"
+      }
+    },
+    {
+      "id": "hacettepe",
+      "name": "Hacettepe University",
+      "country": "TR",
+      "city": "Ankara",
+      "group": "tr",
+      "group_ru": "Турция",
+      "fields": [
+        "med",
+        "sci",
+        "eng",
+        "edu"
+      ],
+      "fields_ru": [
+        "медицина",
+        "естественные науки",
+        "инженерия",
+        "педагогика"
+      ],
+      "bachelor_language": [
+        "tr",
+        "en"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "Принимаются SAT, ACT и TR-YÖS (решение Сената 2024/50). Документы: биометрическое фото, онлайн-заявка, заверенный перевод аттестата, копия паспорта, результаты экзаменов. Взнос за подачу 50 USD. СТОИМОСТЬ В ГОД: программы колледжа 3000 USD, большинство бакалавриатов 4000–7500 USD, инженерия 7500 USD, МЕДИЦИНА И ФАРМАЦИЯ 8000–12 000 USD. Университет предупреждает: заявки подаются ЛИЧНО, официальных посредников у вуза нет",
+        "confidence": "verified",
+        "source_url": "https://www.studyinturkiye.gov.tr/UniversityTurkey/Detail?uId=113082",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "Основной набор открывается в начале июня; бывает дополнительный набор в конце сентября – начале октября. Подача через портал bilsis.hacettepe.edu.tr, контакт int.stu@hacettepe.edu.tr",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://www.studyinturkiye.gov.tr/UniversityTurkey/Detail?uId=113082"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://www.hacettepe.edu.tr/english/"
+      },
+      "official_url": "https://www.hacettepe.edu.tr/english/",
+      "note": "Ведущий медицинский вуз Турции. Большинство программ на турецком, есть англоязычные.",
+      "language_requirement": {
+        "language": [
+          "tr",
+          "en"
+        ],
+        "requirement": "Обучение ведётся на ТУРЕЦКОМ, АНГЛИЙСКОМ, ФРАНЦУЗСКОМ и НЕМЕЦКОМ — в зависимости от программы. Портал Study in Türkiye указывает: отдельного требования по турецкому нет и общего требования по иностранному языку тоже нет, но отдельные программы требуют языковой сертификат",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://www.studyinturkiye.gov.tr/UniversityTurkey/Detail?uId=113082"
+      }
+    },
+    {
+      "id": "utoronto",
+      "name": "University of Toronto",
+      "country": "CA",
+      "city": "Toronto",
+      "group": "ca",
+      "group_ru": "Канада",
+      "fields": [
+        "med",
+        "eng",
+        "cs",
+        "biz",
+        "hum",
+        "sci"
+      ],
+      "fields_ru": [
+        "медицина",
+        "инженерия",
+        "IT и информатика",
+        "бизнес",
+        "гуманитарные",
+        "естественные науки"
+      ],
+      "bachelor_language": [
+        "en"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "SAT/ACT не обязательны. Результаты теста присылает сам экзаменационный центр — самостоятельная отправка не принимается",
+        "confidence": "verified",
+        "source_url": "https://future.utoronto.ca/apply/english-language-requirements/",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "Рекомендуемая ранняя подача — 7 ноября; стандартный дедлайн — 15 ЯНВАРЯ для большинства программ (Medical Radiation Sciences — 1 февраля). Документы — до 1 февраля (для ранних заявок до 1 декабря). Подавшие до 7 ноября и завершившие шаги до 2 декабря попадают в первый раунд рассмотрения. Решения — с января по конец мая",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://future.utoronto.ca/deadlines"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://future.utoronto.ca/apply/"
+      },
+      "official_url": "https://future.utoronto.ca/apply/",
+      "note": "Крупнейший исследовательский вуз Канады. Требования по IELTS и дедлайны различаются по факультетам.",
+      "language_requirement": {
+        "language": [
+          "en"
+        ],
+        "requirement": "IELTS Academic 6.5 overall, не ниже 6.0 в каждом разделе",
+        "other_tests": "TOEFL iBT 89 (Speaking и Writing 22) до 21.01.2026; по новой шкале 4.5 (Writing 4.5, Speaking 4.0). Duolingo 120 (Production 120), Cambridge 180, PTE 65, CAEL 70",
+        "confidence": "verified",
+        "source_url": "https://future.utoronto.ca/apply/english-language-requirements/"
+      }
+    },
+    {
+      "id": "ubc",
+      "name": "University of British Columbia",
+      "country": "CA",
+      "city": "Vancouver",
+      "group": "ca",
+      "group_ru": "Канада",
+      "fields": [
+        "eng",
+        "cs",
+        "sci",
+        "biz",
+        "arts"
+      ],
+      "fields_ru": [
+        "инженерия",
+        "IT и информатика",
+        "естественные науки",
+        "бизнес",
+        "искусство"
+      ],
+      "bachelor_language": [
+        "en"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "Языковое требование закрыть до 15 февраля. Результат — за одно сидение, комбинировать попытки нельзя. Для набора 2026/27 годятся тесты с 1 января 2024",
+        "confidence": "verified",
+        "source_url": "https://you.ubc.ca/applying-ubc/requirements/english-language-competency/",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "15 января 2027, 23:59 PST — подача на осенний набор. ВАЖНО: чтобы претендовать на стипендии International Scholars Program, подать нужно до 15 НОЯБРЯ 2026. Документы по английскому — до 31 января 2027; ELAS — до 15 февраля 2027; аттестат из-за пределов Канады — до 15 марта 2027",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://you.ubc.ca/applying-ubc/dates-deadlines/"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://you.ubc.ca/applying-ubc/"
+      },
+      "official_url": "https://you.ubc.ca/applying-ubc/",
+      "note": "Личное эссе — обязательная часть анкеты, а не дополнение.",
+      "language_requirement": {
+        "language": [
+          "en"
+        ],
+        "requirement": "IELTS Academic 6.5, не ниже 6.0 в каждом разделе",
+        "other_tests": "TOEFL iBT 90 (Reading 22, Listening 22, Writing 21, Speaking 21). Duolingo 125 (Reading 115, Listening 115, Writing 120, Speaking 120), PTE 65, Cambridge 180, CAEL 70",
+        "confidence": "verified",
+        "source_url": "https://you.ubc.ca/applying-ubc/requirements/english-language-competency/"
+      }
+    },
+    {
+      "id": "mcgill",
+      "name": "McGill University",
+      "country": "CA",
+      "city": "Montréal",
+      "group": "ca",
+      "group_ru": "Канада",
+      "fields": [
+        "med",
+        "law",
+        "eng",
+        "hum",
+        "sci"
+      ],
+      "fields_ru": [
+        "медицина",
+        "право",
+        "инженерия",
+        "гуманитарные",
+        "естественные науки"
+      ],
+      "bachelor_language": [
+        "en"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "Освобождение: 4 года подряд в школе или вузе в англоязычной стране, либо подходящие оценки IB English, A-Level, GCSE",
+        "confidence": "verified",
+        "source_url": "https://www.mcgill.ca/undergraduate-admissions/apply/english-proficiency",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "15 ЯНВАРЯ — дедлайн для абитуриентов, которые учились или учатся в зарубежной или американской школе, колледже либо вузе, на осенний набор. Охватывает: Agricultural & Environmental Sciences, Architecture, Arts (включая Social Work и Religious Studies), B.A.&Sc., Education, Engineering, Management, Nursing, Occupational Therapy, Physical Therapy, Science",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://www.mcgill.ca/importantdates/channels/event/application-deadline-fall-2026-admission-undergraduate-programs-applicants-studying-or-who-last-363146"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://www.mcgill.ca/undergraduate-admissions/"
+      },
+      "official_url": "https://www.mcgill.ca/undergraduate-admissions/",
+      "note": "Англоязычный вуз во франкоязычном Квебеке. Стоимость ниже, чем в Онтарио.",
+      "language_requirement": {
+        "language": [
+          "en"
+        ],
+        "requirement": "IELTS Academic 6.5, не ниже 6.0 в каждом разделе",
+        "other_tests": "TOEFL 90–100 в зависимости от программы (секции от 21); по 6-балльной шкале 4.5–5.0. Duolingo 125 (130 для B.Ed. TESL и B.Com.), PTE 65, Cambridge C1 — оценка B, C2 — оценка C, CAEL 70",
+        "confidence": "verified",
+        "source_url": "https://www.mcgill.ca/undergraduate-admissions/apply/english-proficiency"
+      }
+    },
+    {
+      "id": "mcmaster",
+      "name": "McMaster University",
+      "country": "CA",
+      "city": "Hamilton",
+      "group": "ca",
+      "group_ru": "Канада",
+      "fields": [
+        "med",
+        "sci",
+        "eng",
+        "biz"
+      ],
+      "fields_ru": [
+        "медицина",
+        "естественные науки",
+        "инженерия",
+        "бизнес"
+      ],
+      "bachelor_language": [
+        "en"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "Для Health Sciences отдельных повышенных языковых требований не установлено — пороги едины для всех бакалаврских программ",
+        "confidence": "verified",
+        "source_url": "https://future.mcmaster.ca/apply/requirements/english-proficiency/",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "Подача через систему OUAC. Дедлайны РАЗНЫЕ ПО ПРОГРАММАМ, единой даты нет: большинство программ — 15 ЯНВАРЯ или 1 АПРЕЛЯ. Дополнительные заявки (supplementary applications) для конкурсных программ — с конца января по апрель. Honours Health Sciences — 1 апреля. BTech: 1 апреля на сентябрьский набор, для иностранцев январского набора НЕТ. Обработка решения занимает 4–6 недель после получения всех документов",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://www.ouac.on.ca/guide/undergrad-mcmaster/"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://future.mcmaster.ca/admission/"
+      },
+      "official_url": "https://future.mcmaster.ca/admission/",
+      "note": "Health Sciences — одна из сильнейших программ Канады, очень высокий конкурс.",
+      "language_requirement": {
+        "language": [
+          "en"
+        ],
+        "requirement": "IELTS Academic 6.5 overall, минимум 6.0 в каждом из четырёх разделов",
+        "other_tests": "TOEFL iBT 86 (минимум 20 в каждом разделе) до 21.01.2026; по новой шкале 4.5 (Reading, Writing, Speaking — 4.0; Listening — 4.5). Duolingo 120 (Reading и Speaking 115, Writing 125, Listening 110), Cambridge CAE 180 (176 в каждом), CAEL 70, PTE 60 (Writing и Speaking 60), LanguageCert Academic 70",
+        "confidence": "verified",
+        "source_url": "https://future.mcmaster.ca/apply/requirements/english-proficiency/"
+      }
+    },
+    {
+      "id": "waterloo",
+      "name": "University of Waterloo",
+      "country": "CA",
+      "city": "Waterloo",
+      "group": "ca",
+      "group_ru": "Канада",
+      "fields": [
+        "cs",
+        "eng",
+        "math"
+      ],
+      "fields_ru": [
+        "IT и информатика",
+        "инженерия",
+        "математика"
+      ],
+      "bachelor_language": [
+        "en"
+      ],
+      "admission_scores": {
+        "type": "range_admitted",
+        "value": "Требования одинаковы для всех факультетов. Тест нужен, если последние 4 года обучения были не на английском. Продлений не дают: «exemptions will not be granted if you're unable to take a test by our deadline»",
+        "confidence": "verified",
+        "source_url": "https://uwaterloo.ca/future-students/admissions/english-language-requirements",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "Неинженерные программы — 1 февраля 2027 (документы до 15 февраля 2027). ИНЖЕНЕРИЯ (кроме архитектуры) — 15 января 2027 (документы до 1 февраля 2027), плюс ОБЯЗАТЕЛЬНОЕ онлайн-интервью для всех инженерных программ. Оптометрия — 12 ноября 2026. Фармация — 6 января 2027 (документы до 20 января). Для иностранцев дедлайны те же, что для канадцев",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://uwaterloo.ca/future-students/admissions/deadlines"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://uwaterloo.ca/future-students/admissions"
+      },
+      "official_url": "https://uwaterloo.ca/future-students/admissions",
+      "note": "Лучшая программа co-op в Канаде: оплачиваемые стажировки чередуются с учёбой.",
+      "language_requirement": {
+        "language": [
+          "en"
+        ],
+        "requirement": "IELTS Academic 6.5 overall; Writing и Speaking 6.5; Reading и Listening 6.0",
+        "other_tests": "TOEFL iBT 90 (Writing и Speaking 25) до 21.01.2026; по новой шкале 4.5 (Writing и Speaking 5). Duolingo 120, PTE 63 (Writing и Speaking 65), Cambridge 180 (все части 176)",
+        "confidence": "verified",
+        "source_url": "https://uwaterloo.ca/future-students/admissions/english-language-requirements"
+      }
+    },
+    {
+      "id": "nu",
+      "name": "Nazarbayev University",
+      "country": "KZ",
+      "city": "Астана",
+      "group": "kz",
+      "group_ru": "Казахстан",
+      "fields": [
+        "eng",
+        "cs",
+        "med",
+        "biz",
+        "sci",
+        "edu"
+      ],
+      "fields_ru": [
+        "инженерия",
+        "IT и информатика",
+        "медицина",
+        "бизнес",
+        "естественные науки",
+        "педагогика"
+      ],
+      "bachelor_language": [
+        "en"
+      ],
+      "admission_scores": {
+        "type": "ent_threshold",
+        "value": "Foundation: GPA 3.5 из 5.0 ИЛИ ЕНТ (матем. грамотность 7/10, грамотность чтения 7/10, общий 75). Бакалавриат: GPA 4.0 из 5.0 ИЛИ ЕНТ (8/10, 8/10, общий 85)",
+        "confidence": "verified",
+        "source_url": "https://apply.nu.edu.kz/en/admissions",
+        "checked_at": "2026-09-16"
+      },
+      "deadline": {
+        "value": "ЕДИНАЯ ЗАЯВКА: одна подача — оценка сразу и на Foundation, и на бакалавриат. По циклу 2024/25 календарь был такой: подача открылась 16 октября, дедлайн для категории NUET — 7 декабря, для ИНОСТРАННЫХ абитуриентов — 29 февраля, для граждан Казахстана — 27 марта, результаты в МАЕ. Результаты специально дают в мае, чтобы непоступившие успели на конкурс государственных грантов. Категории SAT/ACT, IB Diploma и A-level/НИШ должны предоставить финальные результаты к мартовскому сроку. Взнос 10 000 тенге, в последние две недели перед закрытием — втрое больше",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://nu.edu.kz/news-en/admission-to-nu-categories-and-important-dates/"
+      },
+      "tuition_per_year": {
+        "value": "Foundation 6 132 000 ₸ ($12 000); бакалавриат 7 665 000 ₸ ($15 000); сестринское дело 3 066 000 ₸ (2025/26)",
+        "currency": "KZT",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://apply.nu.edu.kz/en/admissions"
+      },
+      "official_url": "https://apply.nu.edu.kz/en/admissions",
+      "note": "ПОДТВЕРЖДЕНО: Foundation — IELTS 5.5 (5.5 Writing и Reading), GPA 3.5/5.0 или ЕНТ (матем. грамотность 7/10, грамотность чтения 7/10, общий 75). Бакалавриат — IELTS 6.0 (6.0 Writing; 5.5 Listening/Speaking/Reading), GPA 4.0/5.0 или ЕНТ (8/10, 8/10, общий 85). Стоимость 2025/26: Foundation 6 132 000 ₸, бакалавриат 7 665 000 ₸, сестринское дело 3 066 000 ₸.",
+      "language_requirement": {
+        "language": [
+          "en"
+        ],
+        "requirement": "Foundation: 6.0 не требуется — 5.5 overall (5.5 Writing и Reading). Бакалавриат: 6.0 overall (6.0 Writing; 5.5 Listening, Speaking, Reading)",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://apply.nu.edu.kz/en/admissions"
+      }
+    },
+    {
+      "id": "kaznu",
+      "name": "Казахский национальный университет им. аль-Фараби",
+      "country": "KZ",
+      "city": "Алматы",
+      "group": "kz",
+      "group_ru": "Казахстан",
+      "fields": [
+        "hum",
+        "sci",
+        "law",
+        "econ",
+        "cs",
+        "edu"
+      ],
+      "fields_ru": [
+        "гуманитарные",
+        "естественные науки",
+        "право",
+        "экономика",
+        "IT и информатика",
+        "педагогика"
+      ],
+      "bachelor_language": [
+        "kk",
+        "ru",
+        "en"
+      ],
+      "admission_scores": {
+        "type": "ent_threshold",
+        "value": "Пороговый балл ЕНТ — 65 (категория: национальный вуз). Максимум ЕНТ 140 баллов. Проходной балл на грант заранее не существует: формируется после завершения конкурса",
+        "category": "национальный вуз",
+        "threshold": 65,
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://www.nur.kz/society/2348017-porogovye-bally-i-granty-vypusknikam-kazahstana-raskryli-informaciyu-po-ent-2026/"
+      },
+      "deadline": {
+        "value": "Единый дедлайн для всех вузов РК — окно подачи на конкурс образовательных грантов: 13–20 июля. Результаты конкурса объявляются не позднее 10 августа (в 2026 объявлены 7 августа), зачисление в вузы завершается до 25 августа. ЕНТ: регистрация 11–25 апреля, тестирование 10 мая – 10 июля. КРИТИЧНО: на конкурс грантов засчитываются ТОЛЬКО майский и июльский результаты ЕНТ",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://el.kz/ru/kak-postupit-na-grant-v-kazahstane-v-2026-godu-sroki-dokumenty-i-pravila_400049663/"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://www.kaznu.kz/ru/1/page/"
+      },
+      "official_url": "https://www.kaznu.kz/ru/1/page/",
+      "note": "Национальный вуз → пороговый балл ЕНТ 65. Самый широкий выбор направлений в стране.",
+      "language_requirement": {
+        "language": [
+          "kk",
+          "ru",
+          "en"
+        ],
+        "requirement": "Сертификат английского для поступления на грант НЕ ТРЕБУЕТСЯ: отбор идёт по баллам ЕНТ. IELTS/TOEFL нужны только для отдельных англоязычных программ — уточнять на сайте вуза",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://el.kz/ru/kak-postupit-na-grant-v-kazahstane-v-2026-godu-sroki-dokumenty-i-pravila_400049663/"
+      }
+    },
+    {
+      "id": "enu",
+      "name": "Евразийский национальный университет им. Л.Н. Гумилёва",
+      "country": "KZ",
+      "city": "Астана",
+      "group": "kz",
+      "group_ru": "Казахстан",
+      "fields": [
+        "hum",
+        "sci",
+        "law",
+        "econ",
+        "cs",
+        "edu"
+      ],
+      "fields_ru": [
+        "гуманитарные",
+        "естественные науки",
+        "право",
+        "экономика",
+        "IT и информатика",
+        "педагогика"
+      ],
+      "bachelor_language": [
+        "kk",
+        "ru",
+        "en"
+      ],
+      "admission_scores": {
+        "type": "ent_threshold",
+        "value": "Пороговый балл ЕНТ — 65 (категория: национальный вуз). Максимум ЕНТ 140 баллов. Проходной балл на грант заранее не существует: формируется после завершения конкурса",
+        "category": "национальный вуз",
+        "threshold": 65,
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://www.nur.kz/society/2348017-porogovye-bally-i-granty-vypusknikam-kazahstana-raskryli-informaciyu-po-ent-2026/"
+      },
+      "deadline": {
+        "value": "Единый дедлайн для всех вузов РК — окно подачи на конкурс образовательных грантов: 13–20 июля. Результаты конкурса объявляются не позднее 10 августа (в 2026 объявлены 7 августа), зачисление в вузы завершается до 25 августа. ЕНТ: регистрация 11–25 апреля, тестирование 10 мая – 10 июля. КРИТИЧНО: на конкурс грантов засчитываются ТОЛЬКО майский и июльский результаты ЕНТ",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://el.kz/ru/kak-postupit-na-grant-v-kazahstane-v-2026-godu-sroki-dokumenty-i-pravila_400049663/"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://www.enu.kz/ru/"
+      },
+      "official_url": "https://www.enu.kz/ru/",
+      "note": "Национальный вуз → пороговый балл ЕНТ 65.",
+      "language_requirement": {
+        "language": [
+          "kk",
+          "ru",
+          "en"
+        ],
+        "requirement": "Сертификат английского для поступления на грант НЕ ТРЕБУЕТСЯ: отбор идёт по баллам ЕНТ. IELTS/TOEFL нужны только для отдельных англоязычных программ — уточнять на сайте вуза",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://el.kz/ru/kak-postupit-na-grant-v-kazahstane-v-2026-godu-sroki-dokumenty-i-pravila_400049663/"
+      }
+    },
+    {
+      "id": "satbayev",
+      "name": "Satbayev University (КазНИТУ)",
+      "country": "KZ",
+      "city": "Алматы",
+      "group": "kz",
+      "group_ru": "Казахстан",
+      "fields": [
+        "eng",
+        "sci",
+        "cs"
+      ],
+      "fields_ru": [
+        "инженерия",
+        "естественные науки",
+        "IT и информатика"
+      ],
+      "bachelor_language": [
+        "kk",
+        "ru",
+        "en"
+      ],
+      "admission_scores": {
+        "type": "ent_threshold",
+        "value": "Пороговый балл ЕНТ — 65 (категория: национальный вуз). Максимум ЕНТ 140 баллов. Проходной балл на грант заранее не существует: формируется после завершения конкурса",
+        "category": "национальный вуз",
+        "threshold": 65,
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://www.nur.kz/society/2348017-porogovye-bally-i-granty-vypusknikam-kazahstana-raskryli-informaciyu-po-ent-2026/"
+      },
+      "deadline": {
+        "value": "Единый дедлайн для всех вузов РК — окно подачи на конкурс образовательных грантов: 13–20 июля. Результаты конкурса объявляются не позднее 10 августа (в 2026 объявлены 7 августа), зачисление в вузы завершается до 25 августа. ЕНТ: регистрация 11–25 апреля, тестирование 10 мая – 10 июля. КРИТИЧНО: на конкурс грантов засчитываются ТОЛЬКО майский и июльский результаты ЕНТ",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://el.kz/ru/kak-postupit-na-grant-v-kazahstane-v-2026-godu-sroki-dokumenty-i-pravila_400049663/"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://satbayev.university/ru"
+      },
+      "official_url": "https://satbayev.university/ru",
+      "note": "Национальный вуз → порог 65. Горное дело, нефть и газ, геология, металлургия.",
+      "language_requirement": {
+        "language": [
+          "kk",
+          "ru",
+          "en"
+        ],
+        "requirement": "Сертификат английского для поступления на грант НЕ ТРЕБУЕТСЯ: отбор идёт по баллам ЕНТ. IELTS/TOEFL нужны только для отдельных англоязычных программ — уточнять на сайте вуза",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://el.kz/ru/kak-postupit-na-grant-v-kazahstane-v-2026-godu-sroki-dokumenty-i-pravila_400049663/"
+      }
+    },
+    {
+      "id": "kbtu",
+      "name": "Казахстанско-Британский технический университет (КБТУ)",
+      "country": "KZ",
+      "city": "Алматы",
+      "group": "kz",
+      "group_ru": "Казахстан",
+      "fields": [
+        "cs",
+        "eng",
+        "biz",
+        "econ"
+      ],
+      "fields_ru": [
+        "IT и информатика",
+        "инженерия",
+        "бизнес",
+        "экономика"
+      ],
+      "bachelor_language": [
+        "en",
+        "ru"
+      ],
+      "admission_scores": {
+        "type": "ent_threshold",
+        "value": "Пороговый балл ЕНТ — 50 (категория: остальные вузы). Максимум ЕНТ 140 баллов. Проходной балл на грант заранее не существует: формируется после завершения конкурса",
+        "category": "остальные вузы",
+        "threshold": 50,
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://www.nur.kz/society/2348017-porogovye-bally-i-granty-vypusknikam-kazahstana-raskryli-informaciyu-po-ent-2026/"
+      },
+      "deadline": {
+        "value": "Единый дедлайн для всех вузов РК — окно подачи на конкурс образовательных грантов: 13–20 июля. Результаты конкурса объявляются не позднее 10 августа (в 2026 объявлены 7 августа), зачисление в вузы завершается до 25 августа. ЕНТ: регистрация 11–25 апреля, тестирование 10 мая – 10 июля. КРИТИЧНО: на конкурс грантов засчитываются ТОЛЬКО майский и июльский результаты ЕНТ",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://el.kz/ru/kak-postupit-na-grant-v-kazahstane-v-2026-godu-sroki-dokumenty-i-pravila_400049663/"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://kbtu.edu.kz/ru/"
+      },
+      "official_url": "https://kbtu.edu.kz/ru/",
+      "note": "Пороговый балл 50 (не национальный вуз). IT, нефтегаз, бизнес. Обучение преимущественно на английском.",
+      "language_requirement": {
+        "language": [
+          "en",
+          "ru"
+        ],
+        "requirement": "Сертификат английского для поступления на грант НЕ ТРЕБУЕТСЯ: отбор идёт по баллам ЕНТ. IELTS/TOEFL нужны только для отдельных англоязычных программ — уточнять на сайте вуза",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://el.kz/ru/kak-postupit-na-grant-v-kazahstane-v-2026-godu-sroki-dokumenty-i-pravila_400049663/"
+      }
+    },
+    {
+      "id": "aitu",
+      "name": "Astana IT University",
+      "country": "KZ",
+      "city": "Астана",
+      "group": "kz",
+      "group_ru": "Казахстан",
+      "fields": [
+        "cs",
+        "eng"
+      ],
+      "fields_ru": [
+        "IT и информатика",
+        "инженерия"
+      ],
+      "bachelor_language": [
+        "en",
+        "ru",
+        "kk"
+      ],
+      "admission_scores": {
+        "type": "ent_threshold",
+        "value": "Пороговый балл ЕНТ — 50 (категория: остальные вузы). Максимум ЕНТ 140 баллов. Проходной балл на грант заранее не существует: формируется после завершения конкурса",
+        "category": "остальные вузы",
+        "threshold": 50,
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://www.nur.kz/society/2348017-porogovye-bally-i-granty-vypusknikam-kazahstana-raskryli-informaciyu-po-ent-2026/"
+      },
+      "deadline": {
+        "value": "Единый дедлайн для всех вузов РК — окно подачи на конкурс образовательных грантов: 13–20 июля. Результаты конкурса объявляются не позднее 10 августа (в 2026 объявлены 7 августа), зачисление в вузы завершается до 25 августа. ЕНТ: регистрация 11–25 апреля, тестирование 10 мая – 10 июля. КРИТИЧНО: на конкурс грантов засчитываются ТОЛЬКО майский и июльский результаты ЕНТ",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://el.kz/ru/kak-postupit-na-grant-v-kazahstane-v-2026-godu-sroki-dokumenty-i-pravila_400049663/"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://astanait.edu.kz/"
+      },
+      "official_url": "https://astanait.edu.kz/",
+      "note": "Профильный IT-вуз. Требует пару профильных предметов математика + физика или математика + информатика — уточнять по специальности.",
+      "language_requirement": {
+        "language": [
+          "en",
+          "ru",
+          "kk"
+        ],
+        "requirement": "Сертификат английского для поступления на грант НЕ ТРЕБУЕТСЯ: отбор идёт по баллам ЕНТ. IELTS/TOEFL нужны только для отдельных англоязычных программ — уточнять на сайте вуза",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://el.kz/ru/kak-postupit-na-grant-v-kazahstane-v-2026-godu-sroki-dokumenty-i-pravila_400049663/"
+      }
+    },
+    {
+      "id": "sdu",
+      "name": "Suleyman Demirel University (SDU)",
+      "country": "KZ",
+      "city": "Каскелен",
+      "group": "kz",
+      "group_ru": "Казахстан",
+      "fields": [
+        "cs",
+        "eng",
+        "edu",
+        "biz",
+        "law"
+      ],
+      "fields_ru": [
+        "IT и информатика",
+        "инженерия",
+        "педагогика",
+        "бизнес",
+        "право"
+      ],
+      "bachelor_language": [
+        "en",
+        "kk",
+        "ru"
+      ],
+      "admission_scores": {
+        "type": "ent_threshold",
+        "value": "Пороговый балл ЕНТ — 50 (категория: остальные вузы). Максимум ЕНТ 140 баллов. Проходной балл на грант заранее не существует: формируется после завершения конкурса",
+        "category": "остальные вузы",
+        "threshold": 50,
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://www.nur.kz/society/2348017-porogovye-bally-i-granty-vypusknikam-kazahstana-raskryli-informaciyu-po-ent-2026/"
+      },
+      "deadline": {
+        "value": "Единый дедлайн для всех вузов РК — окно подачи на конкурс образовательных грантов: 13–20 июля. Результаты конкурса объявляются не позднее 10 августа (в 2026 объявлены 7 августа), зачисление в вузы завершается до 25 августа. ЕНТ: регистрация 11–25 апреля, тестирование 10 мая – 10 июля. КРИТИЧНО: на конкурс грантов засчитываются ТОЛЬКО майский и июльский результаты ЕНТ",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://el.kz/ru/kak-postupit-na-grant-v-kazahstane-v-2026-godu-sroki-dokumenty-i-pravila_400049663/"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://sdu.edu.kz/"
+      },
+      "official_url": "https://sdu.edu.kz/",
+      "note": "IT, инженерия и педагогика. Обучение частично на английском.",
+      "language_requirement": {
+        "language": [
+          "en",
+          "kk",
+          "ru"
+        ],
+        "requirement": "Сертификат английского для поступления на грант НЕ ТРЕБУЕТСЯ: отбор идёт по баллам ЕНТ. IELTS/TOEFL нужны только для отдельных англоязычных программ — уточнять на сайте вуза",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://el.kz/ru/kak-postupit-na-grant-v-kazahstane-v-2026-godu-sroki-dokumenty-i-pravila_400049663/"
+      }
+    },
+    {
+      "id": "kimep",
+      "name": "КИМЭП",
+      "country": "KZ",
+      "city": "Алматы",
+      "group": "kz",
+      "group_ru": "Казахстан",
+      "fields": [
+        "econ",
+        "biz",
+        "law",
+        "hum"
+      ],
+      "fields_ru": [
+        "экономика",
+        "бизнес",
+        "право",
+        "гуманитарные"
+      ],
+      "bachelor_language": [
+        "en"
+      ],
+      "admission_scores": {
+        "type": "ent_threshold",
+        "value": "Пороговый балл ЕНТ — 50 (категория: остальные вузы). Максимум ЕНТ 140 баллов. Проходной балл на грант заранее не существует: формируется после завершения конкурса",
+        "category": "остальные вузы",
+        "threshold": 50,
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://www.nur.kz/society/2348017-porogovye-bally-i-granty-vypusknikam-kazahstana-raskryli-informaciyu-po-ent-2026/"
+      },
+      "deadline": {
+        "value": "Единый дедлайн для всех вузов РК — окно подачи на конкурс образовательных грантов: 13–20 июля. Результаты конкурса объявляются не позднее 10 августа (в 2026 объявлены 7 августа), зачисление в вузы завершается до 25 августа. ЕНТ: регистрация 11–25 апреля, тестирование 10 мая – 10 июля. КРИТИЧНО: на конкурс грантов засчитываются ТОЛЬКО майский и июльский результаты ЕНТ",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://el.kz/ru/kak-postupit-na-grant-v-kazahstane-v-2026-godu-sroki-dokumenty-i-pravila_400049663/"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://www.kimep.kz/ru/"
+      },
+      "official_url": "https://www.kimep.kz/ru/",
+      "note": "Полностью англоязычный. Экономика, право, международные отношения. Принимает SAT.",
+      "language_requirement": {
+        "language": [
+          "en"
+        ],
+        "requirement": "Сертификат английского для поступления на грант НЕ ТРЕБУЕТСЯ: отбор идёт по баллам ЕНТ. IELTS/TOEFL нужны только для отдельных англоязычных программ — уточнять на сайте вуза",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://el.kz/ru/kak-postupit-na-grant-v-kazahstane-v-2026-godu-sroki-dokumenty-i-pravila_400049663/"
+      }
+    },
+    {
+      "id": "narxoz",
+      "name": "Narxoz University",
+      "country": "KZ",
+      "city": "Алматы",
+      "group": "kz",
+      "group_ru": "Казахстан",
+      "fields": [
+        "econ",
+        "biz",
+        "law"
+      ],
+      "fields_ru": [
+        "экономика",
+        "бизнес",
+        "право"
+      ],
+      "bachelor_language": [
+        "ru",
+        "en",
+        "kk"
+      ],
+      "admission_scores": {
+        "type": "ent_threshold",
+        "value": "Пороговый балл ЕНТ — 50 (категория: остальные вузы). Максимум ЕНТ 140 баллов. Проходной балл на грант заранее не существует: формируется после завершения конкурса",
+        "category": "остальные вузы",
+        "threshold": 50,
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://www.nur.kz/society/2348017-porogovye-bally-i-granty-vypusknikam-kazahstana-raskryli-informaciyu-po-ent-2026/"
+      },
+      "deadline": {
+        "value": "Единый дедлайн для всех вузов РК — окно подачи на конкурс образовательных грантов: 13–20 июля. Результаты конкурса объявляются не позднее 10 августа (в 2026 объявлены 7 августа), зачисление в вузы завершается до 25 августа. ЕНТ: регистрация 11–25 апреля, тестирование 10 мая – 10 июля. КРИТИЧНО: на конкурс грантов засчитываются ТОЛЬКО майский и июльский результаты ЕНТ",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://el.kz/ru/kak-postupit-na-grant-v-kazahstane-v-2026-godu-sroki-dokumenty-i-pravila_400049663/"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://narxoz.edu.kz/"
+      },
+      "official_url": "https://narxoz.edu.kz/",
+      "note": "Экономика и финансы.",
+      "language_requirement": {
+        "language": [
+          "ru",
+          "en",
+          "kk"
+        ],
+        "requirement": "Сертификат английского для поступления на грант НЕ ТРЕБУЕТСЯ: отбор идёт по баллам ЕНТ. IELTS/TOEFL нужны только для отдельных англоязычных программ — уточнять на сайте вуза",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://el.kz/ru/kak-postupit-na-grant-v-kazahstane-v-2026-godu-sroki-dokumenty-i-pravila_400049663/"
+      }
+    },
+    {
+      "id": "almau",
+      "name": "Алматы Менеджмент Университет (AlmaU)",
+      "country": "KZ",
+      "city": "Алматы",
+      "group": "kz",
+      "group_ru": "Казахстан",
+      "fields": [
+        "biz",
+        "econ",
+        "law"
+      ],
+      "fields_ru": [
+        "бизнес",
+        "экономика",
+        "право"
+      ],
+      "bachelor_language": [
+        "ru",
+        "en"
+      ],
+      "admission_scores": {
+        "type": "ent_threshold",
+        "value": "Пороговый балл ЕНТ — 50 (категория: остальные вузы). Максимум ЕНТ 140 баллов. Проходной балл на грант заранее не существует: формируется после завершения конкурса",
+        "category": "остальные вузы",
+        "threshold": 50,
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://www.nur.kz/society/2348017-porogovye-bally-i-granty-vypusknikam-kazahstana-raskryli-informaciyu-po-ent-2026/"
+      },
+      "deadline": {
+        "value": "Единый дедлайн для всех вузов РК — окно подачи на конкурс образовательных грантов: 13–20 июля. Результаты конкурса объявляются не позднее 10 августа (в 2026 объявлены 7 августа), зачисление в вузы завершается до 25 августа. ЕНТ: регистрация 11–25 апреля, тестирование 10 мая – 10 июля. КРИТИЧНО: на конкурс грантов засчитываются ТОЛЬКО майский и июльский результаты ЕНТ",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://el.kz/ru/kak-postupit-na-grant-v-kazahstane-v-2026-godu-sroki-dokumenty-i-pravila_400049663/"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://almau.edu.kz/"
+      },
+      "official_url": "https://almau.edu.kz/",
+      "note": "Менеджмент и предпринимательство.",
+      "language_requirement": {
+        "language": [
+          "ru",
+          "en"
+        ],
+        "requirement": "Сертификат английского для поступления на грант НЕ ТРЕБУЕТСЯ: отбор идёт по баллам ЕНТ. IELTS/TOEFL нужны только для отдельных англоязычных программ — уточнять на сайте вуза",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://el.kz/ru/kak-postupit-na-grant-v-kazahstane-v-2026-godu-sroki-dokumenty-i-pravila_400049663/"
+      }
+    },
+    {
+      "id": "kaznmu",
+      "name": "Казахский национальный медицинский университет им. С.Д. Асфендиярова",
+      "country": "KZ",
+      "city": "Алматы",
+      "group": "kz",
+      "group_ru": "Казахстан",
+      "fields": [
+        "med"
+      ],
+      "fields_ru": [
+        "медицина"
+      ],
+      "bachelor_language": [
+        "kk",
+        "ru",
+        "en"
+      ],
+      "admission_scores": {
+        "type": "ent_threshold",
+        "value": "Пороговый балл ЕНТ — 70 (категория: медицинские специальности). Максимум ЕНТ 140 баллов. Проходной балл на грант заранее не существует: формируется после завершения конкурса",
+        "category": "медицинские специальности",
+        "threshold": 70,
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://www.nur.kz/society/2348017-porogovye-bally-i-granty-vypusknikam-kazahstana-raskryli-informaciyu-po-ent-2026/"
+      },
+      "deadline": {
+        "value": "Единый дедлайн для всех вузов РК — окно подачи на конкурс образовательных грантов: 13–20 июля. Результаты конкурса объявляются не позднее 10 августа (в 2026 объявлены 7 августа), зачисление в вузы завершается до 25 августа. ЕНТ: регистрация 11–25 апреля, тестирование 10 мая – 10 июля. КРИТИЧНО: на конкурс грантов засчитываются ТОЛЬКО майский и июльский результаты ЕНТ",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://el.kz/ru/kak-postupit-na-grant-v-kazahstane-v-2026-godu-sroki-dokumenty-i-pravila_400049663/"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://kaznmu.edu.kz/"
+      },
+      "official_url": "https://kaznmu.edu.kz/",
+      "note": "Пороговый балл ЕНТ для медицинских специальностей — 70. Профильные предметы: биология + химия.",
+      "language_requirement": {
+        "language": [
+          "kk",
+          "ru",
+          "en"
+        ],
+        "requirement": "Сертификат английского для поступления на грант НЕ ТРЕБУЕТСЯ: отбор идёт по баллам ЕНТ. IELTS/TOEFL нужны только для отдельных англоязычных программ — уточнять на сайте вуза",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://el.kz/ru/kak-postupit-na-grant-v-kazahstane-v-2026-godu-sroki-dokumenty-i-pravila_400049663/"
+      }
+    },
+    {
+      "id": "amu",
+      "name": "Медицинский университет Астана",
+      "country": "KZ",
+      "city": "Астана",
+      "group": "kz",
+      "group_ru": "Казахстан",
+      "fields": [
+        "med"
+      ],
+      "fields_ru": [
+        "медицина"
+      ],
+      "bachelor_language": [
+        "kk",
+        "ru",
+        "en"
+      ],
+      "admission_scores": {
+        "type": "ent_threshold",
+        "value": "Пороговый балл ЕНТ — 70 (категория: медицинские специальности). Максимум ЕНТ 140 баллов. Проходной балл на грант заранее не существует: формируется после завершения конкурса",
+        "category": "медицинские специальности",
+        "threshold": 70,
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://www.nur.kz/society/2348017-porogovye-bally-i-granty-vypusknikam-kazahstana-raskryli-informaciyu-po-ent-2026/"
+      },
+      "deadline": {
+        "value": "Единый дедлайн для всех вузов РК — окно подачи на конкурс образовательных грантов: 13–20 июля. Результаты конкурса объявляются не позднее 10 августа (в 2026 объявлены 7 августа), зачисление в вузы завершается до 25 августа. ЕНТ: регистрация 11–25 апреля, тестирование 10 мая – 10 июля. КРИТИЧНО: на конкурс грантов засчитываются ТОЛЬКО майский и июльский результаты ЕНТ",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://el.kz/ru/kak-postupit-na-grant-v-kazahstane-v-2026-godu-sroki-dokumenty-i-pravila_400049663/"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://amu.edu.kz/"
+      },
+      "official_url": "https://amu.edu.kz/",
+      "note": "Порог для медицины — 70. Биология + химия.",
+      "language_requirement": {
+        "language": [
+          "kk",
+          "ru",
+          "en"
+        ],
+        "requirement": "Сертификат английского для поступления на грант НЕ ТРЕБУЕТСЯ: отбор идёт по баллам ЕНТ. IELTS/TOEFL нужны только для отдельных англоязычных программ — уточнять на сайте вуза",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://el.kz/ru/kak-postupit-na-grant-v-kazahstane-v-2026-godu-sroki-dokumenty-i-pravila_400049663/"
+      }
+    },
+    {
+      "id": "kmu",
+      "name": "Медицинский университет Караганды",
+      "country": "KZ",
+      "city": "Караганда",
+      "group": "kz",
+      "group_ru": "Казахстан",
+      "fields": [
+        "med"
+      ],
+      "fields_ru": [
+        "медицина"
+      ],
+      "bachelor_language": [
+        "kk",
+        "ru",
+        "en"
+      ],
+      "admission_scores": {
+        "type": "ent_threshold",
+        "value": "Пороговый балл ЕНТ — 70 (категория: медицинские специальности). Максимум ЕНТ 140 баллов. Проходной балл на грант заранее не существует: формируется после завершения конкурса",
+        "category": "медицинские специальности",
+        "threshold": 70,
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://www.nur.kz/society/2348017-porogovye-bally-i-granty-vypusknikam-kazahstana-raskryli-informaciyu-po-ent-2026/"
+      },
+      "deadline": {
+        "value": "Единый дедлайн для всех вузов РК — окно подачи на конкурс образовательных грантов: 13–20 июля. Результаты конкурса объявляются не позднее 10 августа (в 2026 объявлены 7 августа), зачисление в вузы завершается до 25 августа. ЕНТ: регистрация 11–25 апреля, тестирование 10 мая – 10 июля. КРИТИЧНО: на конкурс грантов засчитываются ТОЛЬКО майский и июльский результаты ЕНТ",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://el.kz/ru/kak-postupit-na-grant-v-kazahstane-v-2026-godu-sroki-dokumenty-i-pravila_400049663/"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://qmu.edu.kz/"
+      },
+      "official_url": "https://qmu.edu.kz/",
+      "note": "Порог для медицины — 70. Один из крупнейших медвузов страны.",
+      "language_requirement": {
+        "language": [
+          "kk",
+          "ru",
+          "en"
+        ],
+        "requirement": "Сертификат английского для поступления на грант НЕ ТРЕБУЕТСЯ: отбор идёт по баллам ЕНТ. IELTS/TOEFL нужны только для отдельных англоязычных программ — уточнять на сайте вуза",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://el.kz/ru/kak-postupit-na-grant-v-kazahstane-v-2026-godu-sroki-dokumenty-i-pravila_400049663/"
+      }
+    },
+    {
+      "id": "wkmu",
+      "name": "Западно-Казахстанский медицинский университет им. М. Оспанова",
+      "country": "KZ",
+      "city": "Актобе",
+      "group": "kz",
+      "group_ru": "Казахстан",
+      "fields": [
+        "med"
+      ],
+      "fields_ru": [
+        "медицина"
+      ],
+      "bachelor_language": [
+        "kk",
+        "ru"
+      ],
+      "admission_scores": {
+        "type": "ent_threshold",
+        "value": "Пороговый балл ЕНТ — 70 (категория: медицинские специальности). Максимум ЕНТ 140 баллов. Проходной балл на грант заранее не существует: формируется после завершения конкурса",
+        "category": "медицинские специальности",
+        "threshold": 70,
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://www.nur.kz/society/2348017-porogovye-bally-i-granty-vypusknikam-kazahstana-raskryli-informaciyu-po-ent-2026/"
+      },
+      "deadline": {
+        "value": "Единый дедлайн для всех вузов РК — окно подачи на конкурс образовательных грантов: 13–20 июля. Результаты конкурса объявляются не позднее 10 августа (в 2026 объявлены 7 августа), зачисление в вузы завершается до 25 августа. ЕНТ: регистрация 11–25 апреля, тестирование 10 мая – 10 июля. КРИТИЧНО: на конкурс грантов засчитываются ТОЛЬКО майский и июльский результаты ЕНТ",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://el.kz/ru/kak-postupit-na-grant-v-kazahstane-v-2026-godu-sroki-dokumenty-i-pravila_400049663/"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://zkmu.kz/"
+      },
+      "official_url": "https://zkmu.kz/",
+      "note": "Порог для медицины — 70. Региональный медицинский вуз.",
+      "language_requirement": {
+        "language": [
+          "kk",
+          "ru"
+        ],
+        "requirement": "Сертификат английского для поступления на грант НЕ ТРЕБУЕТСЯ: отбор идёт по баллам ЕНТ. IELTS/TOEFL нужны только для отдельных англоязычных программ — уточнять на сайте вуза",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://el.kz/ru/kak-postupit-na-grant-v-kazahstane-v-2026-godu-sroki-dokumenty-i-pravila_400049663/"
+      }
+    },
+    {
+      "id": "abaiuniver",
+      "name": "Казахский национальный педагогический университет им. Абая",
+      "country": "KZ",
+      "city": "Алматы",
+      "group": "kz",
+      "group_ru": "Казахстан",
+      "fields": [
+        "edu",
+        "hum",
+        "sci"
+      ],
+      "fields_ru": [
+        "педагогика",
+        "гуманитарные",
+        "естественные науки"
+      ],
+      "bachelor_language": [
+        "kk",
+        "ru"
+      ],
+      "admission_scores": {
+        "type": "ent_threshold",
+        "value": "Пороговый балл ЕНТ — 75 (категория: педагогические специальности). Максимум ЕНТ 140 баллов. Проходной балл на грант заранее не существует: формируется после завершения конкурса",
+        "category": "педагогические специальности",
+        "threshold": 75,
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://www.nur.kz/society/2348017-porogovye-bally-i-granty-vypusknikam-kazahstana-raskryli-informaciyu-po-ent-2026/"
+      },
+      "deadline": {
+        "value": "Единый дедлайн для всех вузов РК — окно подачи на конкурс образовательных грантов: 13–20 июля. Результаты конкурса объявляются не позднее 10 августа (в 2026 объявлены 7 августа), зачисление в вузы завершается до 25 августа. ЕНТ: регистрация 11–25 апреля, тестирование 10 мая – 10 июля. КРИТИЧНО: на конкурс грантов засчитываются ТОЛЬКО майский и июльский результаты ЕНТ",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://el.kz/ru/kak-postupit-na-grant-v-kazahstane-v-2026-godu-sroki-dokumenty-i-pravila_400049663/"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://abaiuniver.edu.kz/"
+      },
+      "official_url": "https://abaiuniver.edu.kz/",
+      "note": "Пороговый балл для педагогических специальностей — 75, это выше медицины.",
+      "language_requirement": {
+        "language": [
+          "kk",
+          "ru"
+        ],
+        "requirement": "Сертификат английского для поступления на грант НЕ ТРЕБУЕТСЯ: отбор идёт по баллам ЕНТ. IELTS/TOEFL нужны только для отдельных англоязычных программ — уточнять на сайте вуза",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://el.kz/ru/kak-postupit-na-grant-v-kazahstane-v-2026-godu-sroki-dokumenty-i-pravila_400049663/"
+      }
+    },
+    {
+      "id": "ablaikhan",
+      "name": "КазУМОиМЯ им. Абылай хана",
+      "country": "KZ",
+      "city": "Алматы",
+      "group": "kz",
+      "group_ru": "Казахстан",
+      "fields": [
+        "langs",
+        "hum",
+        "edu"
+      ],
+      "fields_ru": [
+        "языки",
+        "гуманитарные",
+        "педагогика"
+      ],
+      "bachelor_language": [
+        "kk",
+        "ru",
+        "en"
+      ],
+      "admission_scores": {
+        "type": "ent_threshold",
+        "value": "Пороговый балл ЕНТ — 75 (категория: педагогические специальности). Максимум ЕНТ 140 баллов. Проходной балл на грант заранее не существует: формируется после завершения конкурса",
+        "category": "педагогические специальности",
+        "threshold": 75,
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://www.nur.kz/society/2348017-porogovye-bally-i-granty-vypusknikam-kazahstana-raskryli-informaciyu-po-ent-2026/"
+      },
+      "deadline": {
+        "value": "Единый дедлайн для всех вузов РК — окно подачи на конкурс образовательных грантов: 13–20 июля. Результаты конкурса объявляются не позднее 10 августа (в 2026 объявлены 7 августа), зачисление в вузы завершается до 25 августа. ЕНТ: регистрация 11–25 апреля, тестирование 10 мая – 10 июля. КРИТИЧНО: на конкурс грантов засчитываются ТОЛЬКО майский и июльский результаты ЕНТ",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://el.kz/ru/kak-postupit-na-grant-v-kazahstane-v-2026-godu-sroki-dokumenty-i-pravila_400049663/"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://ablaikhan.kz/"
+      },
+      "official_url": "https://ablaikhan.kz/",
+      "note": "Языки, переводоведение, международные отношения. Педагогические специальности — порог 75.",
+      "language_requirement": {
+        "language": [
+          "kk",
+          "ru",
+          "en"
+        ],
+        "requirement": "Сертификат английского для поступления на грант НЕ ТРЕБУЕТСЯ: отбор идёт по баллам ЕНТ. IELTS/TOEFL нужны только для отдельных англоязычных программ — уточнять на сайте вуза",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://el.kz/ru/kak-postupit-na-grant-v-kazahstane-v-2026-godu-sroki-dokumenty-i-pravila_400049663/"
+      }
+    },
+    {
+      "id": "aues",
+      "name": "Алматинский университет энергетики и связи им. Г. Даукеева",
+      "country": "KZ",
+      "city": "Алматы",
+      "group": "kz",
+      "group_ru": "Казахстан",
+      "fields": [
+        "eng",
+        "cs"
+      ],
+      "fields_ru": [
+        "инженерия",
+        "IT и информатика"
+      ],
+      "bachelor_language": [
+        "kk",
+        "ru",
+        "en"
+      ],
+      "admission_scores": {
+        "type": "ent_threshold",
+        "value": "Пороговый балл ЕНТ — 50 (категория: остальные вузы). Максимум ЕНТ 140 баллов. Проходной балл на грант заранее не существует: формируется после завершения конкурса",
+        "category": "остальные вузы",
+        "threshold": 50,
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://www.nur.kz/society/2348017-porogovye-bally-i-granty-vypusknikam-kazahstana-raskryli-informaciyu-po-ent-2026/"
+      },
+      "deadline": {
+        "value": "Единый дедлайн для всех вузов РК — окно подачи на конкурс образовательных грантов: 13–20 июля. Результаты конкурса объявляются не позднее 10 августа (в 2026 объявлены 7 августа), зачисление в вузы завершается до 25 августа. ЕНТ: регистрация 11–25 апреля, тестирование 10 мая – 10 июля. КРИТИЧНО: на конкурс грантов засчитываются ТОЛЬКО майский и июльский результаты ЕНТ",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://el.kz/ru/kak-postupit-na-grant-v-kazahstane-v-2026-godu-sroki-dokumenty-i-pravila_400049663/"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://aues.edu.kz/"
+      },
+      "official_url": "https://aues.edu.kz/",
+      "note": "Энергетика, телекоммуникации, автоматизация.",
+      "language_requirement": {
+        "language": [
+          "kk",
+          "ru",
+          "en"
+        ],
+        "requirement": "Сертификат английского для поступления на грант НЕ ТРЕБУЕТСЯ: отбор идёт по баллам ЕНТ. IELTS/TOEFL нужны только для отдельных англоязычных программ — уточнять на сайте вуза",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://el.kz/ru/kak-postupit-na-grant-v-kazahstane-v-2026-godu-sroki-dokumenty-i-pravila_400049663/"
+      }
+    },
+    {
+      "id": "auezov",
+      "name": "Южно-Казахстанский университет им. М. Ауэзова",
+      "country": "KZ",
+      "city": "Шымкент",
+      "group": "kz",
+      "group_ru": "Казахстан",
+      "fields": [
+        "eng",
+        "edu",
+        "sci",
+        "med",
+        "agri"
+      ],
+      "fields_ru": [
+        "инженерия",
+        "педагогика",
+        "естественные науки",
+        "медицина",
+        "сельское хозяйство"
+      ],
+      "bachelor_language": [
+        "kk",
+        "ru"
+      ],
+      "admission_scores": {
+        "type": "ent_threshold",
+        "value": "Пороговый балл ЕНТ — 50 (категория: остальные вузы). Максимум ЕНТ 140 баллов. Проходной балл на грант заранее не существует: формируется после завершения конкурса",
+        "category": "остальные вузы",
+        "threshold": 50,
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://www.nur.kz/society/2348017-porogovye-bally-i-granty-vypusknikam-kazahstana-raskryli-informaciyu-po-ent-2026/"
+      },
+      "deadline": {
+        "value": "Единый дедлайн для всех вузов РК — окно подачи на конкурс образовательных грантов: 13–20 июля. Результаты конкурса объявляются не позднее 10 августа (в 2026 объявлены 7 августа), зачисление в вузы завершается до 25 августа. ЕНТ: регистрация 11–25 апреля, тестирование 10 мая – 10 июля. КРИТИЧНО: на конкурс грантов засчитываются ТОЛЬКО майский и июльский результаты ЕНТ",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://el.kz/ru/kak-postupit-na-grant-v-kazahstane-v-2026-godu-sroki-dokumenty-i-pravila_400049663/"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://auezov.edu.kz/"
+      },
+      "official_url": "https://auezov.edu.kz/",
+      "note": "Крупнейший вуз юга страны, широкий выбор направлений. Важен для абитуриентов из Шымкента и области.",
+      "language_requirement": {
+        "language": [
+          "kk",
+          "ru"
+        ],
+        "requirement": "Сертификат английского для поступления на грант НЕ ТРЕБУЕТСЯ: отбор идёт по баллам ЕНТ. IELTS/TOEFL нужны только для отдельных англоязычных программ — уточнять на сайте вуза",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://el.kz/ru/kak-postupit-na-grant-v-kazahstane-v-2026-godu-sroki-dokumenty-i-pravila_400049663/"
+      }
+    },
+    {
+      "id": "ktu",
+      "name": "Карагандинский технический университет им. А. Сагинова",
+      "country": "KZ",
+      "city": "Караганда",
+      "group": "kz",
+      "group_ru": "Казахстан",
+      "fields": [
+        "eng",
+        "sci",
+        "cs"
+      ],
+      "fields_ru": [
+        "инженерия",
+        "естественные науки",
+        "IT и информатика"
+      ],
+      "bachelor_language": [
+        "kk",
+        "ru"
+      ],
+      "admission_scores": {
+        "type": "ent_threshold",
+        "value": "Пороговый балл ЕНТ — 50 (категория: остальные вузы). Максимум ЕНТ 140 баллов. Проходной балл на грант заранее не существует: формируется после завершения конкурса",
+        "category": "остальные вузы",
+        "threshold": 50,
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://www.nur.kz/society/2348017-porogovye-bally-i-granty-vypusknikam-kazahstana-raskryli-informaciyu-po-ent-2026/"
+      },
+      "deadline": {
+        "value": "Единый дедлайн для всех вузов РК — окно подачи на конкурс образовательных грантов: 13–20 июля. Результаты конкурса объявляются не позднее 10 августа (в 2026 объявлены 7 августа), зачисление в вузы завершается до 25 августа. ЕНТ: регистрация 11–25 апреля, тестирование 10 мая – 10 июля. КРИТИЧНО: на конкурс грантов засчитываются ТОЛЬКО майский и июльский результаты ЕНТ",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://el.kz/ru/kak-postupit-na-grant-v-kazahstane-v-2026-godu-sroki-dokumenty-i-pravila_400049663/"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://www.ktu.edu.kz/"
+      },
+      "official_url": "https://www.ktu.edu.kz/",
+      "note": "Горное дело, машиностроение, металлургия.",
+      "language_requirement": {
+        "language": [
+          "kk",
+          "ru"
+        ],
+        "requirement": "Сертификат английского для поступления на грант НЕ ТРЕБУЕТСЯ: отбор идёт по баллам ЕНТ. IELTS/TOEFL нужны только для отдельных англоязычных программ — уточнять на сайте вуза",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://el.kz/ru/kak-postupit-na-grant-v-kazahstane-v-2026-godu-sroki-dokumenty-i-pravila_400049663/"
+      }
+    },
+    {
+      "id": "kazatu",
+      "name": "Казахский агротехнический университет им. С. Сейфуллина",
+      "country": "KZ",
+      "city": "Астана",
+      "group": "kz",
+      "group_ru": "Казахстан",
+      "fields": [
+        "agri",
+        "vet",
+        "eng"
+      ],
+      "fields_ru": [
+        "сельское хозяйство",
+        "ветеринария",
+        "инженерия"
+      ],
+      "bachelor_language": [
+        "kk",
+        "ru"
+      ],
+      "admission_scores": {
+        "type": "ent_threshold",
+        "value": "Пороговый балл ЕНТ — 50 (категория: сельское хозяйство и ветеринария). Максимум ЕНТ 140 баллов. Проходной балл на грант заранее не существует: формируется после завершения конкурса",
+        "category": "сельское хозяйство и ветеринария",
+        "threshold": 50,
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://www.nur.kz/society/2348017-porogovye-bally-i-granty-vypusknikam-kazahstana-raskryli-informaciyu-po-ent-2026/"
+      },
+      "deadline": {
+        "value": "Единый дедлайн для всех вузов РК — окно подачи на конкурс образовательных грантов: 13–20 июля. Результаты конкурса объявляются не позднее 10 августа (в 2026 объявлены 7 августа), зачисление в вузы завершается до 25 августа. ЕНТ: регистрация 11–25 апреля, тестирование 10 мая – 10 июля. КРИТИЧНО: на конкурс грантов засчитываются ТОЛЬКО майский и июльский результаты ЕНТ",
+        "confidence": "verified",
+        "checked_at": "2026-09-16",
+        "source_url": "https://el.kz/ru/kak-postupit-na-grant-v-kazahstane-v-2026-godu-sroki-dokumenty-i-pravila_400049663/"
+      },
+      "tuition_per_year": {
+        "value": null,
+        "currency": null,
+        "confidence": "check",
+        "source_url": "https://kazatu.edu.kz/"
+      },
+      "official_url": "https://kazatu.edu.kz/",
+      "note": "Пороговый балл для сельского хозяйства и ветеринарии — 50, самый низкий из всех категорий.",
+      "language_requirement": {
+        "language": [
+          "kk",
+          "ru"
+        ],
+        "requirement": "Сертификат английского для поступления на грант НЕ ТРЕБУЕТСЯ: отбор идёт по баллам ЕНТ. IELTS/TOEFL нужны только для отдельных англоязычных программ — уточнять на сайте вуза",
+        "other_tests": null,
+        "confidence": "verified",
+        "source_url": "https://el.kz/ru/kak-postupit-na-grant-v-kazahstane-v-2026-godu-sroki-dokumenty-i-pravila_400049663/"
+      }
+    }
+  ]
+}

@@ -1,0 +1,311 @@
+/* ============================================================================
+   Stepwise — оформление приложения
+
+   Лендинг заморожен, и `app/globals.css` вместе с ним. Поэтому всё, что ниже,
+   живёт в области `.stepwise-app`: переменные переопределяются только внутри
+   приложения, а главная страница получает ровно тот же CSS, что и раньше.
+   Tailwind резолвит `bg-card` в `var(--card)` в месте использования, так что
+   переопределения здесь подхватывают все существующие утилиты — ни один класс
+   в компонентах менять не нужно.
+
+   Идея: лендинг — это луна в темноте. Приложение — приборная панель той же
+   обсерватории. Глубокий индиго вместо чёрного, мятный свет вместо белого,
+   и северное сияние, которое едва заметно дышит за контентом.
+
+   Цвет по-прежнему значит одно: насколько близко путь к закрытию. Мята —
+   открыто, янтарь — закрывается, коралл — последний шанс, серо-синий — закрыт.
+   Всё остальное — свет и воздух, а не украшение.
+   ========================================================================= */
+
+.stepwise-app {
+  /* --- бумага и чернила ---------------------------------------------- */
+  --background: oklch(0.982 0.006 232);
+  --foreground: oklch(0.215 0.026 262);
+
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.215 0.026 262);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.215 0.026 262);
+
+  /* Кнопка действия — глубокая бирюза, а не чёрный прямоугольник. */
+  --primary: oklch(0.455 0.088 192);
+  --primary-foreground: oklch(0.985 0.008 190);
+  --secondary: oklch(0.955 0.011 235);
+  --secondary-foreground: oklch(0.255 0.028 262);
+  --muted: oklch(0.955 0.011 235);
+  --muted-foreground: oklch(0.505 0.024 258);
+  --accent: oklch(0.945 0.016 215);
+  --accent-foreground: oklch(0.235 0.028 262);
+
+  --destructive: oklch(0.552 0.176 25);
+  --border: oklch(0.902 0.013 238);
+  --border-strong: oklch(0.822 0.018 240);
+  --input: oklch(0.895 0.013 238);
+  --ring: oklch(0.585 0.108 178);
+
+  /* --- шкала срочности: единственный цвет со смыслом ------------------ */
+  --open: oklch(0.545 0.108 170);
+  --open-soft: oklch(0.955 0.032 172);
+  --open-ink: oklch(0.415 0.092 170);
+
+  --risk: oklch(0.672 0.132 68);
+  --risk-soft: oklch(0.966 0.042 80);
+  --risk-ink: oklch(0.468 0.108 58);
+
+  --critical: oklch(0.565 0.178 22);
+  --critical-soft: oklch(0.962 0.032 20);
+  --critical-ink: oklch(0.462 0.165 22);
+
+  --closed: oklch(0.612 0.022 258);
+  --closed-soft: oklch(0.945 0.010 245);
+  --closed-ink: oklch(0.462 0.024 258);
+
+  /* --- боковая панель -------------------------------------------------- */
+  --sidebar: oklch(0.968 0.012 238);
+  --sidebar-foreground: oklch(0.215 0.026 262);
+  --sidebar-primary: oklch(0.455 0.088 192);
+  --sidebar-primary-foreground: oklch(0.985 0.008 190);
+  --sidebar-accent: oklch(0.928 0.018 225);
+  --sidebar-accent-foreground: oklch(0.215 0.026 262);
+  --sidebar-border: oklch(0.902 0.013 238);
+  --sidebar-ring: oklch(0.585 0.108 178);
+
+  /* --- собственные токены оформления ---------------------------------- */
+  --aurora-a: oklch(0.86 0.09 182 / 0.5);
+  --aurora-b: oklch(0.84 0.1 292 / 0.34);
+  --aurora-c: oklch(0.9 0.09 108 / 0.22);
+  --panel-highlight: oklch(1 0 0 / 0.9);
+  --panel-shadow: 0 1px 2px oklch(0.24 0.03 260 / 0.05), 0 12px 28px -18px oklch(0.24 0.03 260 / 0.28);
+  --grid-line: oklch(0.42 0.03 250 / 0.055);
+
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-ui), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ---------------------------------------------------------------------------
+   Типографика приложения
+
+   Дисплейная гарнитура — только на том, ради чего человек сюда пришёл: даты,
+   счётчики дней и заголовки экранов. Всё остальное набрано интерфейсным
+   шрифтом. Одна смелость в одном месте.
+
+   `.num` на лендинге — моноширинный, и таким остаётся: класс объявлен в
+   `globals.css`, который заморожен. Здесь он переопределён только внутри
+   приложения, потому что моноширинный шрифт для мелких подписей — признак
+   сгенерированного интерфейса, а не читаемости: табличные цифры дают ту же
+   выровненную колонку без «терминального» вида.
+   ------------------------------------------------------------------------ */
+
+.stepwise-app .display {
+  font-family: var(--font-display), ui-serif, Georgia, serif;
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: -0.015em;
+}
+
+.stepwise-app .num {
+  font-family: inherit;
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: 0;
+}
+
+.dark .stepwise-app {
+  --background: oklch(0.157 0.021 266);
+  --foreground: oklch(0.962 0.008 240);
+
+  --card: oklch(0.205 0.024 266);
+  --card-foreground: oklch(0.962 0.008 240);
+  --popover: oklch(0.222 0.025 266);
+  --popover-foreground: oklch(0.962 0.008 240);
+
+  --primary: oklch(0.812 0.128 176);
+  --primary-foreground: oklch(0.192 0.038 188);
+  --secondary: oklch(0.258 0.024 266);
+  --secondary-foreground: oklch(0.962 0.008 240);
+  --muted: oklch(0.252 0.023 266);
+  --muted-foreground: oklch(0.706 0.021 252);
+  --accent: oklch(0.288 0.03 260);
+  --accent-foreground: oklch(0.962 0.008 240);
+
+  --destructive: oklch(0.668 0.176 24);
+  --border: oklch(0.302 0.025 264);
+  --border-strong: oklch(0.402 0.03 262);
+  --input: oklch(0.322 0.026 264);
+  --ring: oklch(0.768 0.118 178);
+
+  --open: oklch(0.792 0.132 170);
+  --open-soft: oklch(0.288 0.056 172);
+  --open-ink: oklch(0.878 0.108 170);
+
+  --risk: oklch(0.812 0.132 76);
+  --risk-soft: oklch(0.312 0.058 62);
+  --risk-ink: oklch(0.888 0.102 80);
+
+  --critical: oklch(0.702 0.168 22);
+  --critical-soft: oklch(0.302 0.072 20);
+  --critical-ink: oklch(0.842 0.108 24);
+
+  --closed: oklch(0.592 0.022 258);
+  --closed-soft: oklch(0.262 0.018 262);
+  --closed-ink: oklch(0.732 0.02 256);
+
+  --sidebar: oklch(0.182 0.024 268);
+  --sidebar-foreground: oklch(0.962 0.008 240);
+  --sidebar-primary: oklch(0.812 0.128 176);
+  --sidebar-primary-foreground: oklch(0.192 0.038 188);
+  --sidebar-accent: oklch(0.272 0.028 264);
+  --sidebar-accent-foreground: oklch(0.962 0.008 240);
+  --sidebar-border: oklch(0.292 0.024 264);
+  --sidebar-ring: oklch(0.768 0.118 178);
+
+  --aurora-a: oklch(0.74 0.15 186 / 0.3);
+  --aurora-b: oklch(0.66 0.19 292 / 0.26);
+  --aurora-c: oklch(0.78 0.15 128 / 0.14);
+  --panel-highlight: oklch(1 0 0 / 0.07);
+  --panel-shadow: 0 1px 0 oklch(1 0 0 / 0.03), 0 24px 48px -28px oklch(0 0 0 / 0.8);
+  --grid-line: oklch(0.82 0.04 240 / 0.05);
+}
+
+/* ---------------------------------------------------------------------------
+   Фон: сияние и сетка
+
+   Два слоя, оба `fixed`, оба под контентом и вне потока. Сияние даёт глубину,
+   которой не даёт плоская заливка; сетка — ощущение прибора, а не документа.
+   Оба нарисованы градиентами, без единой картинки: это ноль запросов и ноль
+   килобайт, и оно не размывается на ретине.
+   ------------------------------------------------------------------------ */
+
+.stepwise-app {
+  position: relative;
+  isolation: isolate;
+  min-height: 100dvh;
+}
+
+/* Фон приложения — ровный и однотонный.
+
+   Сияющие пятна и сетка здесь были: они красиво выглядят на скриншоте и мешают
+   работать. Это рабочий инструмент, в котором человек читает даты и принимает
+   решения про свою жизнь, а не витрина. Цвет несёт ровно один смысл — статус
+   двери; всё остальное держится на типографике и отступах.
+
+   Лендинг живёт по своим правилам и этого файла не видит. */
+
+/* ---------------------------------------------------------------------------
+   Поверхности
+   ------------------------------------------------------------------------ */
+
+@layer components {
+  /* Основная панель. Один уровень подъёма, волосяная линия света сверху —
+     именно она отличает «панель» от «прямоугольника». */
+  .panel {
+    position: relative;
+    border-radius: var(--radius-2xl);
+    border: 1px solid var(--border);
+    background-color: color-mix(in oklab, var(--card) 88%, transparent);
+    box-shadow: var(--panel-shadow);
+    backdrop-filter: blur(12px);
+  }
+
+  .panel::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 1px;
+    border-radius: inherit;
+    background: linear-gradient(90deg, transparent, var(--panel-highlight), transparent);
+    pointer-events: none;
+  }
+
+  /* Панель, которая держит главное число экрана. */
+  .panel-hero {
+    background:
+      radial-gradient(38rem 20rem at 12% -30%, color-mix(in oklab, var(--open) 16%, transparent), transparent 70%),
+      color-mix(in oklab, var(--card) 92%, transparent);
+  }
+
+  /* Тихая вложенная плашка: внутри панели, без второй тени. */
+  .panel-inset {
+    border-radius: var(--radius-xl);
+    border: 1px solid color-mix(in oklab, var(--border) 70%, transparent);
+    background-color: color-mix(in oklab, var(--muted) 55%, transparent);
+  }
+
+  /* Строка списка: линейка и цветная кромка, без рамки и без тени.
+
+     Три роли поверхности, и только три. Ничего — для основного текста;
+     линейка — для списков; панель — ровно для одного блока на экране, того,
+     который нельзя пропустить. Когда в рамке всё, рамка не значит ничего:
+     доска, где карточка «закрывается через 7 дней» выглядит так же, как
+     свёрнутая строка «уже закрыто: 8», не расставляет приоритеты, а прячет их.
+
+     Кромка живёт на границе, а не в тени, поэтому строка остаётся плоской и
+     колонка дат читается сверху вниз одним движением глаза. */
+  .lane {
+    border-left: 3px solid var(--lane, transparent);
+  }
+  .lane-open {
+    --lane: var(--open);
+  }
+  .lane-risk {
+    --lane: var(--risk);
+  }
+  .lane-critical {
+    --lane: var(--critical);
+  }
+  .lane-closed {
+    --lane: var(--closed);
+  }
+
+  /* Цветная кромка слева — статус пути, читаемый до чтения текста. */
+  .edge-open {
+    box-shadow: inset 3px 0 0 var(--open), var(--panel-shadow);
+  }
+  .edge-risk {
+    box-shadow: inset 3px 0 0 var(--risk), var(--panel-shadow);
+  }
+  .edge-critical {
+    box-shadow: inset 3px 0 0 var(--critical), var(--panel-shadow);
+  }
+  .edge-closed {
+    box-shadow: inset 3px 0 0 var(--closed), var(--panel-shadow);
+  }
+
+  /* Бирюзовое свечение под активным пунктом навигации. */
+  .rail-active {
+    background: linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--open) 20%, transparent),
+      color-mix(in oklab, var(--open) 5%, transparent)
+    );
+    box-shadow: inset 2px 0 0 var(--open);
+  }
+
+  /* Инициалы в светящемся диске. Оттенок приходит из имени: один и тот же
+     человек — один и тот же цвет, всегда, без единого сохранённого байта. */
+  .avatar {
+    border-color: oklch(0.7 0.12 var(--avatar-hue) / 0.42);
+    background: radial-gradient(
+      circle at 30% 20%,
+      oklch(0.74 0.14 var(--avatar-hue) / 0.32),
+      oklch(0.56 0.1 var(--avatar-hue) / 0.14)
+    );
+    color: oklch(0.44 0.13 var(--avatar-hue));
+  }
+
+  .dark .avatar {
+    color: oklch(0.88 0.11 var(--avatar-hue));
+  }
+
+  /* Столбик шкалы времени. Высота задаётся инлайново из данных. */
+  .spark {
+    background: linear-gradient(to top, color-mix(in oklab, var(--bar) 35%, transparent), var(--bar));
+    border-radius: 2px;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .panel {
+    background-color: var(--card);
+    backdrop-filter: none;
+  }
+}
