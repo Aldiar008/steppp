@@ -11,8 +11,10 @@ import {
 import type { Icon } from "@phosphor-icons/react";
 
 import { Wordmark } from "@/components/brand";
+import { ACTIONS, PROGRAMS, SOURCES } from "@/data/catalog";
 import { Component as AsmrBackground } from "@/components/ui/asmr-background";
 import { ClosingDoorsDemo } from "./closing-doors-demo";
+import { Coverage } from "./coverage";
 
 /**
  * Everything after the first two screens, as one continuous dark surface.
@@ -118,10 +120,14 @@ export function DarkStory() {
               </p>
 
               <dl className="mt-8 grid max-w-md grid-cols-3 gap-3">
+                {/* Считается из каталога, а не вписано руками: страница, которая
+                    обещает, что ни одно число не выдумано, не может врать о
+                    собственном размере. Раньше здесь стояло «14 путей», пока
+                    каталог рос до нынешних размеров. */}
                 {[
-                  { k: "путей в каталоге", v: "14" },
-                  { k: "обязательных шагов", v: "49" },
-                  { k: "источников", v: "17" },
+                  { k: "путей в каталоге", v: PROGRAMS.length },
+                  { k: "обязательных шагов", v: ACTIONS.length },
+                  { k: "источников", v: SOURCES.length },
                 ].map((stat) => (
                   <div key={stat.k} className="glass-quiet p-4">
                     <dd className="num text-2xl font-semibold text-zinc-100">{stat.v}</dd>
@@ -135,7 +141,14 @@ export function DarkStory() {
           </div>
         </motion.section>
 
-        {/* 05 Where the numbers come from. */}
+        {/* 05 Which countries, and which universities by name. Same pinned
+            star field, same glass, no background of its own — the section has
+            to read as the next paragraph of the page, not as a new slide. */}
+        <motion.section {...reveal}>
+          <Coverage />
+        </motion.section>
+
+        {/* 06 Where the numbers come from. */}
         <motion.section
           {...reveal}
           className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8"
@@ -170,7 +183,7 @@ export function DarkStory() {
           </div>
         </motion.section>
 
-        {/* 06 Close. */}
+        {/* 07 Close. */}
         <motion.section
           {...reveal}
           className="mx-auto max-w-6xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8"
