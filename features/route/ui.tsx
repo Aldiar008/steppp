@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 
 import { findSource } from "@/data/sources";
 import { specialtyLabel } from "@/data/specialties";
+import { ConstellationGlyph } from "@/components/app/space";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { CONFIDENCE_LABEL } from "@/lib/confidence";
@@ -251,6 +252,7 @@ export function EmptyState({
 }) {
   return (
     <div className="rounded-2xl border border-dashed border-border bg-card px-5 py-8 text-center">
+      <ConstellationGlyph className="mx-auto mb-3" />
       <h2 className="text-base font-medium">{title}</h2>
       {description && (
         <p className="mx-auto mt-2 max-w-sm text-sm text-muted-foreground">{description}</p>
@@ -271,6 +273,7 @@ export function EmptyState({
 export function ErrorState({ onRetry }: { onRetry?: () => void }) {
   return (
     <div className="panel px-5 py-8 text-center" role="alert">
+      <ConstellationGlyph className="mx-auto mb-3" />
       <h2 className="text-base font-medium">Что-то не загрузилось</h2>
       <p className="mx-auto mt-2 max-w-sm text-sm text-muted-foreground">
         Твои рассчитанные данные сохранены. Попробуй открыть экран ещё раз.

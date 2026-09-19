@@ -11,7 +11,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "check": "npm run typecheck && npm run lint && npm run test && npm run build",
-    "shots": "node scripts/capture-landing.mjs"
+    "shots": "node scripts/capture-landing.mjs",
+    "map": "node scripts/build-world-map.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.126.0",

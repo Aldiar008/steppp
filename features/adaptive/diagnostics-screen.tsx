@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { StethoscopeIcon } from "@phosphor-icons/react/dist/ssr";
+import { BinocularsIcon } from "@phosphor-icons/react/dist/ssr";
 
 import { languageName } from "@/data/languages";
 import { countryName } from "@/data/countries";
@@ -61,7 +61,7 @@ export function DiagnosticsScreen() {
       <div className="mx-auto w-full max-w-xl">
         <PageHeader
           title="Разбора пока нет"
-          icon={StethoscopeIcon}
+          icon={BinocularsIcon}
           lede="Сначала пройди короткое интервью."
         />
         <Button asChild>
@@ -83,7 +83,7 @@ export function DiagnosticsScreen() {
       <OfflineBanner />
       <PageHeader
         title="Что мы про тебя знаем"
-        icon={StethoscopeIcon}
+        icon={BinocularsIcon}
         lede="Всё это ты сказал сам. Любую строку можно поправить — маршрут пересчитается сразу."
         back={{ href: "/start", label: "К интервью" }}
       />

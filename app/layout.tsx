@@ -19,10 +19,10 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#fbfaf7" },
-    { media: "(prefers-color-scheme: dark)", color: "#1b1917" },
-  ],
+  // Одно значение, а не пара под prefers-color-scheme: продукт стартует
+  // тёмным независимо от системы (см. `components/theme-provider.tsx`), и
+  // светлая полоса вокруг чёрной страницы на телефоне — это заметно.
+  themeColor: "#000000",
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",

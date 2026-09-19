@@ -5,12 +5,12 @@ import { usePathname, useRouter } from "next/navigation";
 import {
   ArrowsLeftRightIcon,
   CaretUpDownIcon,
-  CompassIcon,
+  BinocularsIcon,
+  CompassRoseIcon,
   DoorOpenIcon,
   MoonIcon,
   PathIcon,
   PlayCircleIcon,
-  StethoscopeIcon,
   SunIcon,
   TargetIcon,
 } from "@phosphor-icons/react/dist/ssr";
@@ -43,7 +43,7 @@ const NAV: readonly NavItem[] = [
   { href: "/next-action", label: "Шаг", icon: TargetIcon },
   { href: "/roadmap", label: "План", icon: PathIcon },
   { href: "/compare", label: "Сравнить", icon: ArrowsLeftRightIcon },
-  { href: "/diagnostics", label: "Разбор", icon: StethoscopeIcon },
+  { href: "/diagnostics", label: "Разбор", icon: BinocularsIcon },
 ];
 
 function isActive(pathname: string, href: string): boolean {
@@ -141,7 +141,7 @@ export function DesktopNav() {
           href="/profession"
           className="mt-4 flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-(--sidebar-muted) transition-colors hover:bg-sidebar-accent/70 hover:text-sidebar-foreground"
         >
-          <CompassIcon className="size-[18px]" aria-hidden />
+          <CompassRoseIcon className="size-[18px]" aria-hidden />
           Найти профессию
         </Link>
 
@@ -370,7 +370,7 @@ export function MobileHeader() {
           aria-label="Найти профессию"
           className="grid size-9 place-items-center rounded-full text-(--sidebar-muted) transition-colors hover:text-sidebar-foreground"
         >
-          <CompassIcon className="size-[18px]" aria-hidden />
+          <CompassRoseIcon className="size-[18px]" aria-hidden />
         </Link>
         <ThemeToggle compact />
         <Link

@@ -5,15 +5,16 @@ import { useMemo } from "react";
 import { BuildingsIcon, BookmarkSimpleIcon } from "@phosphor-icons/react/dist/ssr";
 
 import { APP_CATALOG } from "@/data/catalog";
-import { Avatar } from "@/components/avatar";
 import { PageHeader } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ActionTimeline } from "@/components/app/date-timeline";
+import { StarRule } from "@/components/app/space";
 import { computePointOfNoReturn } from "@/lib/engine";
 import { formatDateRu } from "@/lib/date";
 import { countryName } from "@/data/countries";
 import { NotesFromParent } from "@/features/notes/notes-from-parent";
+import { UniversityImage } from "./university-image";
 import type { Requirement } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { useDoorExplanation } from "./use-ai-text";
@@ -165,13 +166,13 @@ export function DoorDetailsScreen({ programId }: { programId: string }) {
             <BookmarkSimpleIcon className="size-5" weight={compared ? "fill" : "regular"} aria-hidden />
           </button>
         }
+        // Инициалы в квадрате отсюда убраны: ровно под заголовком теперь стоит
+        // картинка университета, и два его опознавательных знака подряд —
+        // это шум, а не узнавание.
         lede={
-          <span className="flex flex-wrap items-center gap-2">
-            <Avatar name={program.org} shape="square" size={28} />
-            {program.city === undefined
-              ? countryName(program.country)
-              : `${program.city}, ${countryName(program.country)}`}
-          </span>
+          program.city === undefined
+            ? countryName(program.country)
+            : `${program.city}, ${countryName(program.country)}`
         }
       />
 
@@ -199,6 +200,17 @@ export function DoorDetailsScreen({ programId }: { programId: string }) {
           {DOOR_STATUS_LABEL[door.status]}
         </span>
       </div>
+
+      <UniversityImage
+        programId={programId}
+        org={program.org}
+        place={
+          program.city === undefined
+            ? countryName(program.country)
+            : `${program.city}, ${countryName(program.country)}`
+        }
+        className="mb-6"
+      />
 
       <NotesFromParent targetType="door" targetId={programId} className="mb-6" />
 
@@ -245,7 +257,8 @@ export function DoorDetailsScreen({ programId }: { programId: string }) {
       </section>
 
       {explanation !== null && (
-        <section className="mt-6 border-t border-border pt-4">
+        <section className="mt-6">
+          <StarRule className="mb-4" />
           <h2 className="text-sm font-medium">Коротко</h2>
           <p className="mt-2 text-sm leading-relaxed">{explanation.value.text}</p>
           {explanation.fromModel && (

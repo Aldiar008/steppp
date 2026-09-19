@@ -5,7 +5,7 @@ import { Fragment, useMemo } from "react";
 import { ArrowsLeftRightIcon } from "@phosphor-icons/react/dist/ssr";
 
 import { APP_CATALOG } from "@/data/catalog";
-import { Avatar } from "@/components/avatar";
+import { UniversityCrest } from "@/components/university-crest";
 import { PageHeader } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
 import { formatDateRu } from "@/lib/date";
@@ -179,7 +179,9 @@ export function CompareScreen() {
           <div className="hidden bg-card px-4 py-3 md:block" />
           {[a, b].map((side) => (
             <div key={side.program.id} className="flex items-start gap-2.5 bg-card px-4 py-3">
-              <Avatar name={side.program.org} shape="square" size={32} />
+              <span className="size-8 shrink-0 overflow-hidden rounded-lg border border-border">
+                <UniversityCrest seed={side.program.org} programId={side.program.id} compact />
+              </span>
               <div className="min-w-0">
                 <h2 className="text-sm font-medium leading-snug">
                   <Link

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { CompassIcon, MicrophoneIcon, MicrophoneSlashIcon } from "@phosphor-icons/react/dist/ssr";
+import { CompassRoseIcon, MicrophoneIcon, MicrophoneSlashIcon } from "@phosphor-icons/react/dist/ssr";
 
 import { PageHeader } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
@@ -167,7 +167,7 @@ function IntroScreen({ onStart }: { onStart: () => void }) {
     <div className="mx-auto w-full max-w-xl">
       <PageHeader
         title="Найти профессию"
-        icon={CompassIcon}
+        icon={CompassRoseIcon}
         lede="Сначала десять коротких вопросов, которые отвечают все. Дальше вопросы становятся точнее, под тебя. В конце — ведущее направление и два соседних, с честным объяснением и тем, что в них тяжело."
       />
 

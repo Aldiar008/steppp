@@ -3,6 +3,7 @@
 import { BookmarkSimpleIcon } from "@phosphor-icons/react/dist/ssr";
 
 import { EntityCard } from "@/components/app/entity-card";
+import { UniversityCrest } from "@/components/university-crest";
 import type { StatTone } from "@/components/app/stat-tile";
 import { countryName } from "@/data/countries";
 import { formatDateRu, formatDaysRu } from "@/lib/date";
@@ -21,9 +22,9 @@ import {
  * own differentiator instead of an acceptance rate: the point of no return
  * and the confidence behind it are the right-column stats, not a footnote.
  *
- * There is no logo for any university in the catalogue, so `EntityCard`'s
- * initials square is not a placeholder standing in for a missing asset — it
- * is the honest rendering for every single card.
+ * The square on the left is the university's generated sky rather than its
+ * initials: the board is scanned, not read, and «КазНУ / КазНМУ / КазУМОиМЯ»
+ * as three grey squares of two letters each is not something a person can scan.
  */
 export function DoorCard({
   door,
@@ -54,6 +55,7 @@ export function DoorCard({
     <EntityCard
       href={`/doors/${door.program_id}`}
       avatarSeed={program.org}
+      avatarSlot={<UniversityCrest seed={program.org} programId={program.id} compact />}
       title={program.org}
       subtitle={
         program.city === undefined

@@ -14,13 +14,16 @@ import { StatTile } from "./stat-tile";
  * stacking context so a bookmark/compare toggle inside the card doesn't also
  * navigate.
  *
- * There is no logo image anywhere in the catalogue (no university in this
- * product ships a crest), so the initials square is not a fallback for a
- * missing asset — it is the one honest way to render every single card.
+ * `avatarSlot` is how a caller puts something better than initials in that
+ * square — the catalogue's universities each have a generated picture, and a
+ * list of eleven names all starting «Казахский национальный» is exactly where
+ * that picture earns its place. Callers with nothing to show fall back to the
+ * initials, which stay the honest rendering when there is no image at all.
  */
 export function EntityCard({
   href,
   avatarSeed,
+  avatarSlot,
   title,
   subtitle,
   accentTone = "neutral",
@@ -31,6 +34,8 @@ export function EntityCard({
 }: {
   href: string;
   avatarSeed: string;
+  /** Drawn in the 52px square instead of the initials. */
+  avatarSlot?: React.ReactNode;
   title: React.ReactNode;
   subtitle?: React.ReactNode;
   accentTone?: StatTone;
@@ -58,7 +63,13 @@ export function EntityCard({
 
       <div className="relative z-10 flex items-start justify-between gap-3">
         <div className="flex min-w-0 items-start gap-3">
-          <Avatar name={avatarSeed} shape="square" size={52} />
+          {avatarSlot === undefined ? (
+            <Avatar name={avatarSeed} shape="square" size={52} />
+          ) : (
+            <span className="size-13 shrink-0 overflow-hidden rounded-xl border border-border">
+              {avatarSlot}
+            </span>
+          )}
           <div className="min-w-0 pt-0.5">
             {/* Two lines, not a one-line ellipsis: the stats column beside it
                 takes real width on purpose (this product's countdown has to
