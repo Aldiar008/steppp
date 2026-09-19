@@ -2,10 +2,15 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import { DoorOpenIcon } from "@phosphor-icons/react/dist/ssr";
 
 import { APP_CATALOG, CATALOG, CATALOG_PROVENANCE } from "@/data/catalog";
+import { countryName } from "@/data/countries";
 import { LEVERAGE_CANDIDATES } from "@/data/leverage-candidates";
+import { PageHeader } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import { FilterBar } from "@/components/app/filter-bar";
 import { computeLeverage, getTopLeverage } from "@/lib/engine";
 import type { ActionStep, Door, Program } from "@/lib/types";
 import { RouteDashboard } from "./dashboard";
@@ -25,6 +30,18 @@ import {
   plural,
 } from "./ui";
 
+/** Whether a route matches free-text typed into the search box — real string
+ *  matching against the catalogue fields, not a decorative input. */
+function matchesSearch(program: Program, query: string): boolean {
+  if (query.trim().length === 0) return true;
+  const needle = query.trim().toLocaleLowerCase("ru");
+  const haystack = [program.org, program.name, program.city, countryName(program.country)]
+    .filter((part): part is string => part !== undefined)
+    .join(" ")
+    .toLocaleLowerCase("ru");
+  return haystack.includes(needle);
+}
+
 /**
  * The board: every route, ordered by how soon it stops being reachable.
  *
@@ -41,6 +58,9 @@ const VISIBLE_DOORS = 6;
 export function DoorsScreen() {
   const view = useRouteView();
   const [expanded, setExpanded] = useState(false);
+  const [segment, setSegment] = useState<"all" | "compare">("all");
+  const [search, setSearch] = useState("");
+  const [filtersOpen, setFiltersOpen] = useState(false);
 
   const programsById = useMemo(() => {
     const index = new Map<string, Program>();
@@ -89,10 +109,21 @@ export function DoorsScreen() {
   );
   const undated = view.doors.filter((door) => door.status === "needs_data");
   const closed = view.doors.filter((door) => door.status === "closed");
-  const shown = expanded ? reachable : reachable.slice(0, VISIBLE_DOORS);
+
+  const filtered = reachable.filter((door) => {
+    if (segment === "compare" && !view.compareIds.includes(door.program_id)) return false;
+    const program = programsById.get(door.program_id);
+    return program !== undefined && matchesSearch(program, search);
+  });
+  const shown = expanded ? filtered : filtered.slice(0, VISIBLE_DOORS);
 
   return (
     <>
+      <PageHeader
+        title="Пути"
+        icon={DoorOpenIcon}
+        lede="Каждый путь — вуз и программа, отсортированные по тому, когда закрывается, а не по рейтингу."
+      />
       <JourneyRail />
       <OfflineBanner />
 
@@ -100,30 +131,47 @@ export function DoorsScreen() {
 
       {/* Two columns from `xl` up: the board is the page, and the things that
           act on it sit beside it instead of pushing it below the fold. */}
-      <div className="mt-4 grid gap-4 xl:grid-cols-12">
+      <div className="mt-6 grid gap-4 xl:grid-cols-12">
         <div className="min-w-0 xl:col-span-9">
-          {/* Строки идут вплотную, разделённые линейкой: это одна таблица
-              сроков, а не шесть отдельных объектов, лежащих рядом. Заголовок
-              колонки называет дату один раз вместо шестидесяти одного. */}
-          <BoardHeader />
-          <div>
-            {shown.map((door) => {
-              const program = programsById.get(door.program_id);
-              if (program === undefined) return null;
-              return (
-                <DoorCard
-                  key={door.program_id}
-                  door={door}
-                  program={program}
-                  actionsById={view.actionsById}
-                  selected={view.compareIds.includes(door.program_id)}
-                  onCompare={view.toggleCompare}
-                />
-              );
-            })}
-          </div>
+          <FilterBar
+            className="mb-4"
+            segments={[
+              { id: "all", label: "Все", count: reachable.length },
+              { id: "compare", label: "В сравнении", count: view.compareIds.length },
+            ]}
+            active={segment}
+            onSelect={(id) => setSegment(id as "all" | "compare")}
+            onOpenFilters={() => setFiltersOpen(true)}
+            search={search}
+            onSearchChange={setSearch}
+            searchPlaceholder="Поиск по вузу, городу, стране"
+          />
 
-          {reachable.length > VISIBLE_DOORS && (
+          {filtered.length === 0 ? (
+            <EmptyState
+              title="Ничего не найдено"
+              description="Попробуй изменить поиск или посмотреть «В сравнении»."
+            />
+          ) : (
+            <div className="grid gap-3 sm:grid-cols-2">
+              {shown.map((door) => {
+                const program = programsById.get(door.program_id);
+                if (program === undefined) return null;
+                return (
+                  <DoorCard
+                    key={door.program_id}
+                    door={door}
+                    program={program}
+                    actionsById={view.actionsById}
+                    selected={view.compareIds.includes(door.program_id)}
+                    onCompare={view.toggleCompare}
+                  />
+                );
+              })}
+            </div>
+          )}
+
+          {filtered.length > VISIBLE_DOORS && (
             <Button
               variant="outline"
               className="mt-3 w-full"
@@ -131,8 +179,8 @@ export function DoorsScreen() {
             >
               {expanded
                 ? "Свернуть"
-                : `Показать ещё ${reachable.length - VISIBLE_DOORS} ${plural(
-                    reachable.length - VISIBLE_DOORS,
+                : `Показать ещё ${filtered.length - VISIBLE_DOORS} ${plural(
+                    filtered.length - VISIBLE_DOORS,
                     "путь",
                     "пути",
                     "путей",
@@ -173,11 +221,22 @@ export function DoorsScreen() {
                 </p>
               </section>
             )}
-
-            <QuickEdit profile={view.profile} onAnswer={view.editAnswer} />
           </div>
         </aside>
       </div>
+
+      <Sheet open={filtersOpen} onOpenChange={setFiltersOpen}>
+        <SheetContent className="overflow-y-auto p-5">
+          <SheetHeader className="p-0">
+            <SheetTitle>Сортировка и фильтр</SheetTitle>
+          </SheetHeader>
+          <p className="text-sm text-muted-foreground">
+            Список всегда идёт по срочности — это осознанное решение, не настройка. Изменить можно
+            только то, что реально меняет маршрут: сам профиль.
+          </p>
+          <QuickEdit profile={view.profile} onAnswer={view.editAnswer} />
+        </SheetContent>
+      </Sheet>
 
       {/* Everything not in the list above, grouped by the reason it is not. */}
       <div className="mt-8 border-t border-border">
@@ -252,23 +311,6 @@ export function DoorsScreen() {
 }
 
 /**
- * Шапка колонок доски.
- *
- * Дата на широком экране названа один раз, а не в каждой из шестидесяти одной
- * строки: именно этим таблица отличается от стопки карточек. На узком экране
- * колонок нет, поэтому шапки нет тоже — там подпись стоит внутри строки.
- */
-function BoardHeader() {
-  return (
-    <div className="hidden border-b border-border pb-2 pl-4 text-xs text-muted-foreground sm:grid sm:grid-cols-[11.5rem_minmax(0,1fr)_auto]">
-      <span>Точка невозврата</span>
-      <span>Куда</span>
-      <span className="sm:w-32" />
-    </div>
-  );
-}
-
-/**
  * A fold for routes that are not the answer right now.
  *
  * Closed on arrival and counted in its own heading, so the applicant can see
@@ -291,15 +333,14 @@ function Group({
   if (doors.length === 0) return null;
 
   return (
-    <details className="border-b border-border">
+    <details className="border-b border-border py-1">
       <summary className="cursor-pointer list-none py-3 text-sm font-medium">
         {title}
         <span className="ml-2 text-xs font-normal text-muted-foreground">развернуть</span>
       </summary>
       <div className="pb-4">
         <p className="mb-3 max-w-[62ch] text-xs leading-relaxed text-muted-foreground">{hint}</p>
-        <BoardHeader />
-        <div>
+        <div className="grid gap-3 sm:grid-cols-2">
           {doors.map((door) => {
             const program = programsById.get(door.program_id);
             if (program === undefined) return null;

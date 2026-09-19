@@ -12,7 +12,7 @@ import type { RouteDiff } from "@/lib/engine";
 import type { ProfileEdit } from "@/lib/state/app-store";
 import { cn } from "@/lib/utils";
 import { useDiffExplanation } from "./use-ai-text";
-import { money, plural } from "./ui";
+import { fieldLabel, money, plural } from "./ui";
 
 /**
  * "Что изменилось?"
@@ -62,7 +62,7 @@ export function DiffOverlay({
         ? {}
         : { new_next_action: diff.new_next_action_id }),
     },
-    changed_field: FIELD_LABEL[edit.field] ?? edit.field,
+    changed_field: fieldLabel(edit.field),
     old_value: formatFieldValue(edit.old_value),
     new_value: formatFieldValue(edit.new_value),
     tone: "friendly",
@@ -110,7 +110,7 @@ export function DiffOverlay({
           {/* What the applicant changed, in their own terms. */}
           <div className="mt-3 rounded-lg border border-border bg-muted p-3">
             <p className="text-xs text-muted-foreground">Изменилось:</p>
-            <p className="mt-0.5 text-sm font-medium">{FIELD_LABEL[edit.field] ?? edit.field}</p>
+            <p className="mt-0.5 text-sm font-medium">{fieldLabel(edit.field)}</p>
             <p className="mt-1 text-sm leading-snug">
               <span className="text-muted-foreground">{formatFieldValue(edit.old_value)}</span>
               {" → "}
@@ -234,23 +234,6 @@ function Section({
     </section>
   );
 }
-
-/* -------------------------------------------------------------------------- */
-/* Labels                                                                      */
-/* -------------------------------------------------------------------------- */
-
-/** One mapping from field id to Russian, so no screen invents its own wording. */
-export const FIELD_LABEL: Readonly<Record<string, string>> = {
-  interests: "Направления",
-  countries: "Страны",
-  languages: "Языки",
-  exams: "Экзамены",
-  budget_per_year: "Бюджет на год",
-  grade: "Класс",
-  "constraints.can_relocate": "Готовность к переезду",
-  "constraints.needs_full_funding": "Нужен полный грант",
-  "constraints.max_tuition_per_year": "Потолок стоимости",
-};
 
 /**
  * A profile value as a person would read it.

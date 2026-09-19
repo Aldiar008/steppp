@@ -237,3 +237,4 @@ export const diffModelOutputSchema = z.object({
   headline: z.string().min(5).max(160),
   reasons: z.array(z.string().min(5).max(240)).max(4),
 });
+

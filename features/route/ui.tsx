@@ -10,8 +10,42 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { CONFIDENCE_LABEL } from "@/lib/confidence";
 import { formatDateRu, formatDaysRu } from "@/lib/date";
+import type { ProfileField } from "@/lib/engine";
 import type { Confidence, Door, DoorStatus, NextActionReason, Program } from "@/lib/types";
 import { cn } from "@/lib/utils";
+
+/**
+ * One field id → one Russian label, for every screen that names a profile
+ * field: the diagnosis page, the diff overlay, the board's quick-edit panel.
+ * Used to live as two hand-copied maps in two different files, one keyed
+ * loosely by `string` — a wording change to one had no way of reaching the
+ * other. Kept exhaustive over `ProfileField` so adding a field to the engine
+ * without adding it here is a type error, not a screen that silently prints
+ * `constraints.can_relocate` at someone.
+ *
+ * `constraints.max_tuition_per_year` has a label here like every other field,
+ * even though no question in `data/questions.ts` sets it yet and so it never
+ * actually reaches a screen — the map's job is to be a total function from
+ * field to label, not to know which fields are currently reachable.
+ */
+export const FIELD_LABEL: Readonly<Record<ProfileField, string>> = {
+  interests: "Направления",
+  countries: "Страны",
+  languages: "Языки",
+  exams: "Экзамены",
+  budget_per_year: "Бюджет на год",
+  grade: "Класс",
+  "constraints.can_relocate": "Готовность к переезду",
+  "constraints.needs_full_funding": "Нужен полный грант",
+  "constraints.max_tuition_per_year": "Потолок стоимости",
+};
+
+/** `FIELD_LABEL`, safe for a field id that came from outside the engine's own
+ *  types (e.g. `ProfileEdit.field: string`, stored loosely on purpose) — falls
+ *  back to the raw id rather than throwing on something unrecognised. */
+export function fieldLabel(field: string): string {
+  return (FIELD_LABEL as Readonly<Record<string, string>>)[field] ?? field;
+}
 
 /**
  * The vocabulary of the application screens.
@@ -95,6 +129,31 @@ export function ConfidenceBadge({
       {CONFIDENCE_LABEL[confidence]}
     </span>
   );
+}
+
+/**
+ * Same rank the engine uses to pick one door's own weakest fact
+ * (`CONFIDENCE_RANK` in `lib/engine/match.ts`), duplicated here rather than
+ * imported: this is a UI-only aggregation over facts the engine already
+ * computed (several doors' `confidence` for one shared plan step), not a
+ * change to how any single door's confidence is derived.
+ */
+const CONFIDENCE_RANK: Readonly<Record<Confidence, number>> = {
+  demo: 0,
+  last_cycle: 1,
+  derived: 2,
+  verified: 3,
+};
+
+/** The least-certain confidence among several — never the average, never the first. */
+export function weakestConfidence(confidences: readonly Confidence[]): Confidence | undefined {
+  let weakest: Confidence | undefined;
+  for (const confidence of confidences) {
+    if (weakest === undefined || CONFIDENCE_RANK[confidence] < CONFIDENCE_RANK[weakest]) {
+      weakest = confidence;
+    }
+  }
+  return weakest;
 }
 
 /**
@@ -392,3 +451,21 @@ export const NEXT_ACTION_REASON: Readonly<Record<NextActionReason, string>> = {
 export function doorsHeldLabel(count: number): string {
   return `Удерживает ${count} ${plural(count, "путь", "пути", "путей")}`;
 }
+
+/**
+ * What a closed door does and does not mean, verbatim.
+ *
+ * Shown on `/doors/[id]` and, unchanged, on the parent dashboard's "nearest
+ * deadline" section — a parent reading "what happens if this is missed"
+ * should read the exact same sentence the student would find if they looked,
+ * not a paraphrase that could drift from it over time.
+ */
+export const CLOSED_DOOR_MEANING =
+  "Это не значит, что в этот вуз нельзя поступить. Значит, что в этом цикле цепочку обязательных шагов уже физически не собрать к дедлайну. Следующий набор — отдельная история, и к нему можно готовиться с запасом.";
+
+export const FUNDING_RU: Readonly<Record<string, string>> = {
+  state_grant: "государственный грант",
+  full_scholarship: "полная стипендия",
+  partial: "частичное финансирование",
+  none: "без финансирования",
+};

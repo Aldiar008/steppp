@@ -1,25 +1,25 @@
 import "server-only";
 
-import Anthropic from "@anthropic-ai/sdk";
-
 /**
- * Server-only Anthropic client.
+ * Server-only Gemini configuration.
  *
- * The prototype put a gateway URL and a bearer token in the browser bundle and
- * left the edge function open to anonymous callers. Here the key never leaves
- * the server, and the app degrades to deterministic behaviour when no key is
- * configured, so a demo machine without credentials still works end to end.
+ * The key never leaves the server, and the app degrades to deterministic
+ * behaviour when no key is configured, so a demo machine without credentials
+ * still works end to end. No SDK dependency: Gemini's `generateContent` REST
+ * endpoint is one `fetch` call, made in `./boundary.ts`.
  */
-let cached: Anthropic | null = null;
-
-export function getAnthropic(): Anthropic | null {
-  if (!process.env.ANTHROPIC_API_KEY) return null;
-  cached ??= new Anthropic();
-  return cached;
+export function getGeminiKey(): string | null {
+  return process.env.GEMINI_API_KEY || null;
 }
 
-export const AI_MODEL = "claude-opus-5";
+/**
+ * Overridable via env so a model rename never needs a code change — which
+ * already happened once while wiring this up: `gemini-2.0-flash` came back
+ * `404` with the API's own error naming `gemini-3.6-flash` as its
+ * replacement, confirmed against the real endpoint before shipping.
+ */
+export const AI_MODEL = process.env.GEMINI_MODEL || "gemini-3.6-flash";
 
 export function isAiConfigured(): boolean {
-  return Boolean(process.env.ANTHROPIC_API_KEY);
+  return Boolean(getGeminiKey());
 }

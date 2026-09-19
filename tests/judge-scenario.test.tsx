@@ -3,6 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import { AdaptiveInterviewScreen } from "@/features/adaptive/interview-screen";
+import { DemoPreviewScreen } from "@/features/adaptive/demo-preview-screen";
 import { DiagnosticsScreen } from "@/features/adaptive/diagnostics-screen";
 import { CompareScreen } from "@/features/route/compare-screen";
 import { DoorsScreen } from "@/features/route/doors-screen";
@@ -103,7 +104,9 @@ describe("the full journey", () => {
     ).toBeInTheDocument();
 
     /* 5. Two routes selected for comparison. ------------------------------- */
-    const compareButtons = screen.getAllByRole("button", { name: "Сравнить" });
+    // The compare toggle is now a bookmark-style icon button on each card
+    // (`DoorCard`'s `topRightSlot`), not a text button — same state, new shape.
+    const compareButtons = screen.getAllByRole("button", { name: "Добавить к сравнению" });
     await user.click(compareButtons[0] as HTMLElement);
     await user.click(compareButtons[1] as HTMLElement);
     expect(useAppStore.getState().selected_compare_ids).toHaveLength(2);
@@ -126,10 +129,19 @@ describe("the full journey", () => {
     next.unmount();
 
     /* 7. Change the budget from the board, and read what moved. ------------ */
+    // QuickEdit now lives inside the "Сортировка и фильтр" sheet, not inline
+    // in the aside — open it first, same underlying `QuickEdit`/`onAnswer`.
     const board = render(<DoorsScreen />);
-    await user.click(screen.getByRole("button", { name: /Бюджет на год/ }));
+    await user.click(screen.getByRole("button", { name: "Сортировка и фильтр" }));
+    await user.click(await screen.findByRole("button", { name: /Бюджет на год/ }));
     const option = screen.getByRole("button", { name: "До 3 000 000 ₸" });
     await user.click(option);
+
+    // Close the filter sheet itself (its own "X", not Escape — the diff
+    // overlay below installs its own Escape handler, and Radix's Dialog
+    // marks the rest of the page aria-hidden while the sheet stays open,
+    // which would otherwise hide "Понятно" from a role query).
+    await user.click(screen.getByRole("button", { name: "Close" }));
 
     // The overlay opens off the deterministic diff, with no request in sight.
     expect(await screen.findByText("Что изменилось")).toBeInTheDocument();
@@ -155,19 +167,22 @@ describe("the full journey", () => {
     expect(state.interview.raw_text).toBe("11 класс, Алматы. Люблю код и дизайн.");
 
     render(<DoorsScreen />);
-    expect(screen.getByRole("heading", { level: 1 }).textContent).toMatch(/Открыто \d+ из \d+/);
+    // The dashboard headline is an h2 now — `DoorsScreen` owns the page's one
+    // h1 via its own `PageHeader` ("Пути") — and shares level 2 with the
+    // leverage panel's own heading, so this needs a name match, not just level.
+    expect(
+      screen.getByRole("heading", { level: 2, name: /Открыто/ }).textContent,
+    ).toMatch(/Открыто \d+ из \d+/);
   });
 });
 
 describe("without a network", () => {
-  it("computes and shows the board anyway", async () => {
-    const user = userEvent.setup();
-    render(<AdaptiveInterviewScreen />);
-    await user.click(screen.getByRole("button", { name: "Посмотреть на демо-профиле" }));
-
-    // Nothing above touched the network, and nothing below will either.
-    const route = useAppStore.getState().route;
-    expect(route?.doors.length).toBeGreaterThan(0);
-    expect(route?.summary.total).toBe(route?.doors.length);
+  it("computes and shows the demo board anyway", () => {
+    // The demo lives at /demo now — unauthenticated, so it runs the engine
+    // directly on DEMO_PROFILE rather than through the (account-gated)
+    // interview screen. Nothing above touches the network, and nothing below
+    // will either.
+    render(<DemoPreviewScreen />);
+    expect(screen.getByRole("heading", { level: 1 }).textContent).toMatch(/путей? поступления/i);
   });
 });

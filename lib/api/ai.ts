@@ -1,13 +1,14 @@
 "use client";
 
 import type {
-  DiffRequest,
-  DiffResponse,
-  ExplainRequest,
-  ExplainResponse,
-  ParseRequest,
-  ParseResponse,
-} from "@/lib/ai/contracts";
+  ExtractAxesRequest,
+  ExtractAxesResponse,
+  Stage2QuestionRequest,
+  Stage2QuestionResponse,
+  Stage3bTurnRequest,
+  Stage3bTurnResponse,
+} from "@/lib/ai/career-contracts";
+import type { DiffRequest, DiffResponse, ExplainRequest, ExplainResponse, ParseRequest, ParseResponse } from "@/lib/ai/contracts";
 
 /**
  * The client's only door to the AI layer.
@@ -65,6 +66,35 @@ export async function explainDiff(
   return call<DiffResponse>("/api/diff", request, fallback, (value) => !value.fallback);
 }
 
+/**
+ * The career interview's three calls (§5/§6.3/§8.1). None of these are
+ * cached like the calls above them — a career question or extraction is
+ * unique to the moment it was asked, never worth reusing for a different
+ * student's answer, so caching would only risk showing one student's
+ * wording keyed off another's near-identical request.
+ */
+
+export async function extractCareerAxes(
+  request: ExtractAxesRequest,
+  fallback: ExtractAxesResponse,
+): Promise<AiOutcome<ExtractAxesResponse>> {
+  return callUncached<ExtractAxesResponse>("/api/career-extract-axes", request, fallback, (value) => !value.fallback);
+}
+
+export async function nextCareerQuestion(
+  request: Stage2QuestionRequest,
+  fallback: Stage2QuestionResponse,
+): Promise<AiOutcome<Stage2QuestionResponse>> {
+  return callUncached<Stage2QuestionResponse>("/api/career-next-question", request, fallback, (value) => !value.fallback);
+}
+
+export async function careerFreeformTurn(
+  request: Stage3bTurnRequest,
+  fallback: Stage3bTurnResponse,
+): Promise<AiOutcome<Stage3bTurnResponse>> {
+  return callUncached<Stage3bTurnResponse>("/api/career-freeform", request, fallback, () => false);
+}
+
 /* -------------------------------------------------------------------------- */
 /* Transport                                                                   */
 /* -------------------------------------------------------------------------- */
@@ -80,6 +110,27 @@ async function call<T>(
   const cached = readCache<T>(key);
   if (cached !== null) return { value: cached, fromModel: fromModel(cached), cached: true };
 
+  const outcome = await request_(endpoint, request, fallback, fromModel);
+  if (outcome.fromModel) writeCache(key, outcome.value);
+  return outcome;
+}
+
+/** Same transport as `call`, without the localStorage-keyed cache — see the career functions above. */
+async function callUncached<T>(
+  endpoint: string,
+  request: unknown,
+  fallback: T,
+  fromModel: (value: T) => boolean,
+): Promise<AiOutcome<T>> {
+  return request_(endpoint, request, fallback, fromModel);
+}
+
+async function request_<T>(
+  endpoint: string,
+  request: unknown,
+  fallback: T,
+  fromModel: (value: T) => boolean,
+): Promise<AiOutcome<T>> {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
 
@@ -93,9 +144,6 @@ async function call<T>(
     if (!response.ok) return { value: fallback, fromModel: false, cached: false };
 
     const value = (await response.json()) as T;
-    // Only wording worth reusing is stored; a deterministic answer is free to
-    // recompute and must never be pinned.
-    if (fromModel(value)) writeCache(key, value);
     return { value, fromModel: fromModel(value), cached: false };
   } catch {
     // Offline, aborted, or the server said something unreadable. The product

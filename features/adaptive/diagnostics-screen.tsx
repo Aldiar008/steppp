@@ -2,25 +2,26 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { StethoscopeIcon } from "@phosphor-icons/react/dist/ssr";
 
 import { languageName } from "@/data/languages";
 import { countryName } from "@/data/countries";
 import { QUESTION_CATALOG } from "@/data/questions";
 import { specialtyLabel } from "@/data/specialties";
 import { PageHeader } from "@/components/page-header";
+import { StatTile } from "@/components/app/stat-tile";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   getReachableDoors,
   isProfileFieldKnown,
   unknownProfileFields,
-  type ProfileField,
   type QuestionDefinition,
 } from "@/lib/engine";
 import type { Profile } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { DiffOverlay } from "@/features/route/diff-overlay";
-import { money, OfflineBanner } from "@/features/route/ui";
+import { FIELD_LABEL, money, OfflineBanner } from "@/features/route/ui";
 import { useRouteView } from "@/features/route/use-route";
 import { useAdaptiveInterview } from "./use-adaptive-interview";
 
@@ -36,18 +37,6 @@ import { useAdaptiveInterview } from "./use-adaptive-interview";
  * Nothing on this screen is inferred. Each line is a field the applicant
  * entered, or a blocker the engine computed from the catalogue.
  */
-
-const FIELD_LABELS: Readonly<Record<ProfileField, string>> = {
-  interests: "Направления",
-  countries: "Страны",
-  languages: "Языки",
-  exams: "Экзамены",
-  budget_per_year: "Бюджет на год",
-  grade: "Класс",
-  "constraints.can_relocate": "Готовность к переезду",
-  "constraints.needs_full_funding": "Нужен полный грант",
-  "constraints.max_tuition_per_year": "Потолок стоимости",
-};
 
 export function DiagnosticsScreen() {
   const interview = useAdaptiveInterview();
@@ -70,7 +59,11 @@ export function DiagnosticsScreen() {
   if (profile === null) {
     return (
       <div className="mx-auto w-full max-w-xl">
-        <PageHeader title="Разбора пока нет" lede="Сначала пройди короткое интервью." />
+        <PageHeader
+          title="Разбора пока нет"
+          icon={StethoscopeIcon}
+          lede="Сначала пройди короткое интервью."
+        />
         <Button asChild>
           <Link href="/start">Пройти интервью</Link>
         </Button>
@@ -90,19 +83,43 @@ export function DiagnosticsScreen() {
       <OfflineBanner />
       <PageHeader
         title="Что мы про тебя знаем"
+        icon={StethoscopeIcon}
         lede="Всё это ты сказал сам. Любую строку можно поправить — маршрут пересчитается сразу."
         back={{ href: "/start", label: "К интервью" }}
       />
+
+      {/* This is about interests and constraints, not yet about a specific
+          field to study in — the natural place to point at the module that
+          answers that second question. */}
+      <Link
+        href="/profession"
+        className="mb-4 flex items-center justify-between gap-3 rounded-xl border border-border bg-card px-4 py-3 transition-colors hover:border-border-strong"
+      >
+        <span>
+          <span className="block text-sm font-medium">Ещё не знаешь, какая специальность твоя?</span>
+          <span className="block text-xs text-muted-foreground">
+            Короткое интервью «Найти профессию» сузит направления до нескольких конкретных
+          </span>
+        </span>
+        <span aria-hidden className="text-sm text-muted-foreground">
+          →
+        </span>
+      </Link>
 
       <div className="grid items-start gap-4 lg:grid-cols-2">
       <div className="space-y-4">
         <Block title="Цель">
           <Fact label="Направления" value={listOrNothing(profile.interests.map(specialtyLabel))} />
           <Fact label="Страны" value={listOrNothing(profile.countries.map((code) => countryName(code)))} />
-          <Fact
-            label="Вариантов открыто"
-            value={doors.length === 0 ? "—" : `${reachable.length} из ${doors.length}`}
-          />
+          {doors.length > 0 && (
+            <li className="pt-1">
+              <StatTile
+                label="Вариантов открыто"
+                value={`${reachable.length} из ${doors.length}`}
+                tone="open"
+              />
+            </li>
+          )}
         </Block>
 
         <Block title="Сильные стороны">
@@ -166,7 +183,7 @@ export function DiagnosticsScreen() {
           ) : (
             unknown.map((field) => (
               <li key={field} className="text-sm">
-                <span className="text-muted-foreground">{FIELD_LABELS[field]}</span>
+                <span className="text-muted-foreground">{FIELD_LABEL[field]}</span>
                 <span className="ml-2 text-muted-foreground/70">не указано</span>
               </li>
             ))
@@ -176,9 +193,9 @@ export function DiagnosticsScreen() {
 
       {/* Editing is the same question the interview would have asked, so an edit
           and an answer can never mean two different things. */}
-      <section className="border-t border-border pt-4">
+      <section className="card-surface p-4">
         <h2 className="text-sm font-medium">Поправить ответ</h2>
-        <div className="mt-2 border-b border-border">
+        <div className="mt-2 divide-y divide-border">
           {QUESTION_CATALOG.map((question) => (
             <QuestionEditor
               key={question.id}
@@ -199,7 +216,7 @@ export function DiagnosticsScreen() {
 
       <p className="mt-6 text-xs text-muted-foreground">
         Сроки — из официальных страниц вузов, каждый с пометкой о том, насколько он подтверждён.
-        Профиль хранится только в твоём браузере.
+        Профиль сохраняется в твоём аккаунте, и открыть его можно с другого устройства.
       </p>
 
       {view.pendingChange && (
@@ -230,34 +247,37 @@ function QuestionEditor({
   return (
     // Двенадцать вопросов — это список, а не двенадцать объектов: линейка
     // отделяет их друг от друга дешевле, чем рамка вокруг каждого.
-    <div className="border-b border-border last:border-b-0">
+    <div className={cn("transition-colors", open && "bg-muted/50")}>
       <button
         type="button"
         onClick={onToggle}
         aria-expanded={open}
-        className="flex w-full items-center justify-between gap-3 py-3 text-left"
+        className="flex w-full items-center justify-between gap-3 px-1 py-3 text-left"
       >
         <span className="min-w-0">
           <span className="block text-sm font-medium leading-snug">{question.title}</span>
-          <span className="text-xs text-muted-foreground">
+          <span className={cn("text-xs", known ? "text-open-ink" : "text-muted-foreground")}>
             {known ? "ответ есть" : "пока не указано"}
           </span>
         </span>
-        <span aria-hidden className="text-xs text-muted-foreground">
+        <span
+          aria-hidden
+          className="shrink-0 rounded-full border border-border px-2.5 py-1 text-xs text-muted-foreground"
+        >
           {open ? "Свернуть" : "Изменить"}
         </span>
       </button>
 
       {open && (
-        <div className="flex flex-wrap gap-2 pb-3">
+        <div className="flex flex-wrap gap-2 px-1 pb-4">
           {question.options.map((option) => (
             <button
               key={option.value}
               type="button"
               onClick={() => onAnswer(question.type === "multi" ? [option.value] : option.value)}
               className={cn(
-                "rounded-full border border-border bg-background px-3 py-1.5 text-sm transition-colors",
-                "hover:border-border-strong hover:text-foreground",
+                "rounded-full border border-border bg-background px-3 py-1.5 text-sm font-medium transition-colors",
+                "hover:border-border-strong hover:bg-accent hover:text-foreground",
               )}
             >
               {option.label}
@@ -271,7 +291,7 @@ function QuestionEditor({
 
 function Block({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section className="border-t border-border pt-4">
+    <section className="card-surface p-4">
       <h2 className="mb-3 text-sm font-medium">{title}</h2>
       <ul className="space-y-2">{children}</ul>
     </section>

@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useState } from "react";
 
-import { DEMO_PROFILE } from "@/data/demo-profile";
 import { PageHeader } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -144,8 +143,8 @@ export function AdaptiveInterviewScreen() {
         </ul>
 
         <p className="mt-4 text-xs text-muted-foreground">
-          Профиль хранится у тебя в браузере. Пока текст никуда не отправляется — мы его просто
-          сохраняем и задаём обычные вопросы.
+          Текст разбирается на поля профиля — правилами или моделью, смотря что доступно — а сам
+          профиль сохраняется в твоём аккаунте, так что он будет на месте и с другого устройства.
         </p>
 
         <div className="mt-4 flex flex-col gap-2 sm:flex-row">
@@ -160,14 +159,6 @@ export function AdaptiveInterviewScreen() {
             }}
           >
             {interview.parsing ? "Разбираем…" : "Начать"}
-          </Button>
-          {/* Labelled as demo on purpose: it is not anybody's data. */}
-          <Button
-            variant="ghost"
-            className="w-full sm:w-auto"
-            onClick={() => interview.loadDemoProfile(DEMO_PROFILE)}
-          >
-            Посмотреть на демо-профиле
           </Button>
         </div>
       </div>

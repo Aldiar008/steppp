@@ -2,6 +2,7 @@
 
 import { useMemo } from "react";
 
+import type { Door } from "@/lib/types";
 import type { RouteView } from "./use-route";
 
 export interface Progress {
@@ -12,28 +13,46 @@ export interface Progress {
 }
 
 /**
+ * Every obligatory step of every route still worth pursuing.
+ *
+ * A path that has already closed, or that the profile cannot pass, obliges
+ * nobody to do anything — its steps drop out entirely rather than counting
+ * against the applicant. Exported (not just inlined in `computeProgress`)
+ * because `features/parent/parent-dashboard.tsx` needs this exact set too,
+ * to split the parent's step counts into done/doing/planned/pending.
+ */
+export function reachableActionIds(doors: readonly Door[]): Set<string> {
+  const needed = new Set<string>();
+  for (const door of doors) {
+    if (door.status === "closed" || door.status === "needs_data") continue;
+    if (door.explanation_facts.blockers.length > 0) continue;
+    for (const actionId of door.action_chain) needed.add(actionId);
+  }
+  return needed;
+}
+
+/**
  * How much of the work the open routes need is already behind you.
  *
- * Counted over *reachable* routes only. Steps that belong to a path which has
- * already closed, or which the profile cannot pass, are not work anybody has to
- * do — including them would make the denominator grow every time a route shut,
- * so finishing nothing would look like falling behind.
+ * The numerator is what the applicant ticked, intersected with
+ * `reachableActionIds`: a step ticked for a route that has since closed still
+ * happened, but it is no longer part of what is left to do.
  *
- * The numerator is what the applicant ticked, intersected with that same set:
- * a step ticked for a route that has since closed still happened, but it is no
- * longer part of what is left to do.
+ * A plain function, not a hook, on purpose: `features/parent/parent-dashboard.tsx`
+ * calls this directly on a student's fetched `Door[]`, and it has to be the
+ * exact same computation `useProgress` runs for the student's own screens —
+ * not a second implementation of the same idea that could quietly drift.
  */
-export function useProgress(view: RouteView): Progress {
-  return useMemo(() => {
-    const needed = new Set<string>();
-    for (const door of view.doors) {
-      if (door.status === "closed" || door.status === "needs_data") continue;
-      if (door.explanation_facts.blockers.length > 0) continue;
-      for (const actionId of door.action_chain) needed.add(actionId);
-    }
+export function computeProgress(doors: readonly Door[], completedActionIds: readonly string[]): Progress {
+  const needed = reachableActionIds(doors);
+  const done = completedActionIds.filter((id) => needed.has(id)).length;
+  const total = needed.size;
+  return { done, total, percent: total === 0 ? 0 : Math.round((done / total) * 100) };
+}
 
-    const done = view.completedActionIds.filter((id) => needed.has(id)).length;
-    const total = needed.size;
-    return { done, total, percent: total === 0 ? 0 : Math.round((done / total) * 100) };
-  }, [view.doors, view.completedActionIds]);
+export function useProgress(view: RouteView): Progress {
+  return useMemo(
+    () => computeProgress(view.doors, view.completedActionIds),
+    [view.doors, view.completedActionIds],
+  );
 }

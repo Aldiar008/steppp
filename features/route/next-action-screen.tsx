@@ -2,11 +2,14 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { TargetIcon } from "@phosphor-icons/react/dist/ssr";
 
 import { APP_CATALOG } from "@/data/catalog";
 import { countryName } from "@/data/countries";
 import { PageHeader } from "@/components/page-header";
+import { StatTile } from "@/components/app/stat-tile";
 import { Button } from "@/components/ui/button";
+import { NotesFromParent } from "@/features/notes/notes-from-parent";
 import { formatDateRu } from "@/lib/date";
 import { cn } from "@/lib/utils";
 import { ActionStatusControl } from "./action-status";
@@ -53,7 +56,7 @@ export function NextActionScreen() {
     return (
       <>
         <JourneyRail />
-        <PageHeader title="Сейчас нет обязательного шага" />
+        <PageHeader title="Сейчас нет обязательного шага" icon={TargetIcon} />
         <EmptyState
           title="Обязательного следующего шага нет"
           description="Либо всё, что можно было начать, уже отмечено, либо по открытым путям не хватает данных для расчёта."
@@ -64,21 +67,27 @@ export function NextActionScreen() {
   }
 
   const total = view.route.summary.open + view.route.summary.closing_soon;
-  const urgent = next.days_remaining !== undefined && next.days_remaining <= 14;
+  // The engine already rates this step's urgency (`next-action.ts:urgencyOf`,
+  // the same threshold as a door's own "closing soon") — reading it back
+  // instead of re-testing `days_remaining` against a second copy of that
+  // number keeps this screen unable to disagree with the one that computed it.
+  const urgent = next.urgency === "critical";
   const shownDoors = allDoors ? next.affected_doors : next.affected_doors.slice(0, VISIBLE_DOORS);
 
   return (
     <>
       <JourneyRail />
 
-      <PageHeader title={next.title} />
+      <PageHeader title={next.title} icon={TargetIcon} />
+
+      <NotesFromParent targetType="action" targetId={next.action_id} className="mb-6" />
 
       {/* Единственная панель экрана, и в ней единственное, ради чего экран
           открыт: до какого дня этот шаг ещё имеет смысл. Четыре равных плитки
           раньше говорили, что «сколько займёт» и «когда крайний срок» — факты
           одного веса. Это не так: тридцать минут можно найти всегда, а день
           вернуть нельзя. Остальные два факта остались, но шёпотом. */}
-      <section className="panel grid gap-6 p-5 sm:p-6 lg:grid-cols-[minmax(0,22rem)_minmax(0,1fr)] lg:gap-10">
+      <section className="card-surface grid gap-6 p-5 sm:p-6 lg:grid-cols-[minmax(0,22rem)_minmax(0,1fr)] lg:gap-10">
         <div>
         <p className="text-sm text-muted-foreground">Начать не позже</p>
         <p
@@ -96,22 +105,18 @@ export function NextActionScreen() {
           </p>
         )}
 
-        <dl className="mt-5 flex flex-wrap gap-x-8 gap-y-2 border-t border-border pt-4 text-sm">
-          <div className="flex gap-2">
-            <dt className="text-muted-foreground">Сколько займёт</dt>
-            <dd className="font-medium">
-              {next.effort_minutes === undefined
-                ? "нет данных"
-                : effortLabel(next.effort_minutes)}
-            </dd>
-          </div>
-          <div className="flex gap-2">
-            <dt className="text-muted-foreground">Удерживает путей</dt>
-            <dd className="num font-medium">
-              {next.affected_doors_count} из {total}
-            </dd>
-          </div>
-        </dl>
+        <div className="mt-5 flex flex-wrap gap-x-8 gap-y-3 border-t border-border pt-4">
+          <StatTile
+            label="Удерживает путей"
+            value={`${next.affected_doors_count} из ${total}`}
+            tone={urgent ? "critical" : "open"}
+          />
+          <StatTile
+            label="Сколько займёт"
+            value={next.effort_minutes === undefined ? "нет данных" : effortLabel(next.effort_minutes)}
+            size="sm"
+          />
+        </div>
         </div>
 
         {/* Дата и причина, по которой она такая, стоят рядом: срок без

@@ -2,23 +2,31 @@
 
 import Link from "next/link";
 import { useMemo } from "react";
+import { BuildingsIcon, BookmarkSimpleIcon } from "@phosphor-icons/react/dist/ssr";
 
 import { APP_CATALOG } from "@/data/catalog";
+import { Avatar } from "@/components/avatar";
 import { PageHeader } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ActionTimeline } from "@/components/app/date-timeline";
 import { computePointOfNoReturn } from "@/lib/engine";
 import { formatDateRu } from "@/lib/date";
 import { countryName } from "@/data/countries";
+import { NotesFromParent } from "@/features/notes/notes-from-parent";
 import type { Requirement } from "@/lib/types";
+import { cn } from "@/lib/utils";
 import { useDoorExplanation } from "./use-ai-text";
 import { useRouteView } from "./use-route";
 import {
+  CLOSED_DOOR_MEANING,
   ConfidenceBadge,
   countdownLabel,
+  DOOR_STATUS_CHIP,
   DOOR_STATUS_LABEL,
-  effortLabel,
   EmptyState,
   fieldsLabel,
+  FUNDING_RU,
   LEVEL_RU,
   LoadingState,
   money,
@@ -26,13 +34,6 @@ import {
   NoDataNote,
   SourceLine,
 } from "./ui";
-
-const FUNDING_RU: Readonly<Record<string, string>> = {
-  state_grant: "государственный грант",
-  full_scholarship: "полная стипендия",
-  partial: "частичное финансирование",
-  none: "без финансирования",
-};
 
 /**
  * One route, and what decides whether it is still reachable.
@@ -140,26 +141,71 @@ export function DoorDetailsScreen({ programId }: { programId: string }) {
       ? undefined
       : view.actionsById[door.next_critical_action_id];
 
+  const compared = view.compareIds.includes(programId);
+
   return (
     <>
       <PageHeader
         title={program.org}
+        icon={BuildingsIcon}
+        back={{ href: "/doors", label: "Ко всем путям" }}
+        actions={
+          <button
+            type="button"
+            onClick={() => view.toggleCompare(programId)}
+            aria-pressed={compared}
+            aria-label={compared ? "Убрать из сравнения" : "Добавить к сравнению"}
+            className={cn(
+              "grid size-10 shrink-0 place-items-center rounded-full border transition-colors",
+              compared
+                ? "border-foreground bg-foreground text-background"
+                : "border-border text-muted-foreground hover:border-border-strong hover:text-foreground",
+            )}
+          >
+            <BookmarkSimpleIcon className="size-5" weight={compared ? "fill" : "regular"} aria-hidden />
+          </button>
+        }
         lede={
-          <>
+          <span className="flex flex-wrap items-center gap-2">
+            <Avatar name={program.org} shape="square" size={28} />
             {program.city === undefined
               ? countryName(program.country)
               : `${program.city}, ${countryName(program.country)}`}
-            <br />
-            {LEVEL_RU[program.level]}: {fieldsLabel(program.fields)}
-          </>
+          </span>
         }
-        back={{ href: "/doors", label: "Ко всем путям" }}
       />
+
+      <div className="mb-6 flex flex-wrap items-center gap-1.5">
+        <span className="inline-flex items-center rounded-full border border-border px-2.5 py-1 text-xs text-muted-foreground">
+          {LEVEL_RU[program.level]}
+        </span>
+        <span className="inline-flex items-center rounded-full border border-border px-2.5 py-1 text-xs text-muted-foreground">
+          {fieldsLabel(program.fields)}
+        </span>
+        {program.funding.map((item) => (
+          <span
+            key={item}
+            className="inline-flex items-center rounded-full border border-border px-2.5 py-1 text-xs text-muted-foreground"
+          >
+            {FUNDING_RU[item] ?? item}
+          </span>
+        ))}
+        <span
+          className={cn(
+            "ml-auto rounded-full border px-2.5 py-1 text-xs leading-tight",
+            DOOR_STATUS_CHIP[door.status],
+          )}
+        >
+          {DOOR_STATUS_LABEL[door.status]}
+        </span>
+      </div>
+
+      <NotesFromParent targetType="door" targetId={programId} className="mb-6" />
 
       {/* Дата первой, и она единственная в рамке: это единственный факт на
           странице, у которого есть срок годности. Всё остальное — запись о
           программе, и держится на линейках и заголовках. */}
-      <section className="panel p-5">
+      <section className="card-surface p-5">
         <div className="flex flex-wrap items-baseline justify-between gap-2">
           <h2 className="text-sm font-medium">Точка невозврата</h2>
           <ConfidenceBadge confidence={door.confidence} />
@@ -193,11 +239,7 @@ export function DoorDetailsScreen({ programId }: { programId: string }) {
         {door.status === "closed" && (
           <div className="mt-3 rounded-lg border border-border bg-muted p-3">
             <h3 className="text-sm font-medium">Что это не значит</h3>
-            <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-              Это не значит, что в этот вуз нельзя поступить. Значит, что в этом цикле цепочку
-              обязательных шагов уже физически не собрать к дедлайну. Следующий набор — отдельная
-              история, и к нему можно готовиться с запасом.
-            </p>
+            <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{CLOSED_DOOR_MEANING}</p>
           </div>
         )}
       </section>
@@ -214,175 +256,155 @@ export function DoorDetailsScreen({ programId }: { programId: string }) {
         </section>
       )}
 
-      {/* Two columns from `lg` up. The left one is the route — the chain and
-          why it fits; the right one is the record — requirements, money, where
-          the data came from. */}
+      {/* Two columns from `lg` up, adapted from the OnePrep detail layout:
+          left is "Timeline" (a real date sequence — this product's honest
+          substitute for a score bell curve, since no programme here has a
+          score distribution to draw); right is a tabbed record of the
+          programme itself. */}
       <div className="mt-6 grid items-start gap-x-8 gap-y-6 lg:grid-cols-2">
-      <div className="space-y-6">
-      {/* Chain */}
-      <section className="border-t border-border pt-4">
-        <h2 className="text-sm font-medium">Цепочка обязательных шагов</h2>
-        <p className="mt-1 text-xs text-muted-foreground">
-          {program.application_deadline === undefined
-            ? "Дедлайн подачи в источнике не назван, поэтому цепочку не от чего отсчитывать."
-            : `Считается назад от дедлайна подачи ${formatDateRu(program.application_deadline.date)}.`}
-        </p>
-        <ol className="mt-3 space-y-3">
-          {schedule.chain.map((entry) => {
-            const action = view.actionsById[entry.action_id];
-            const done = view.completedActionIds.includes(entry.action_id);
-            return (
-              <li key={entry.action_id} className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-                <span className="min-w-0">
-                  <span className="block text-sm leading-snug">
-                    {action?.title ?? entry.action_id}
-                    {done && <span className="ml-2 text-xs text-muted-foreground">сделано</span>}
-                  </span>
-                  {action !== undefined && (
-                    <span className="text-xs text-muted-foreground">
-                      {effortLabel(action.effort_minutes)}
-                      {action.duration_days !== undefined && action.duration_days > 0 &&
-                        `, занимает ${action.duration_days} дн.`}
-                    </span>
-                  )}
-                </span>
-                <span className="shrink-0 text-sm tabular-nums">
-                  {entry.latest_start_date === undefined
-                    ? "—"
-                    : `начать до ${formatDateRu(entry.latest_start_date)}`}
-                </span>
-              </li>
-            );
-          })}
-          {schedule.chain.length === 0 && (
-            <li className="text-sm text-muted-foreground">Обязательных шагов в данных нет.</li>
-          )}
-        </ol>
-      </section>
-
-      {/* Fit */}
-      <section className="border-t border-border pt-4">
-        <h2 className="text-sm font-medium">Почему подходит</h2>
-        {door.explanation_facts.reasons.length === 0 ? (
-          <p className="mt-2 text-sm text-muted-foreground">
-            Совпадений по профилю пока нет — заполни разбор, чтобы их стало видно.
+        <section className="card-surface p-5">
+          <h2 className="text-sm font-medium">Таймлайн</h2>
+          <p className="mt-1 text-xs text-muted-foreground">
+            {program.application_deadline === undefined
+              ? "Дедлайн подачи в источнике не назван, поэтому цепочку не от чего отсчитывать."
+              : `Считается назад от дедлайна подачи ${formatDateRu(program.application_deadline.date)}.`}
           </p>
-        ) : (
-          <ul className="mt-2 space-y-1">
-            {door.explanation_facts.reasons.map((reason) => (
-              <li key={reason} className="text-sm leading-snug">
-                {reason}
-              </li>
-            ))}
-          </ul>
-        )}
-
-        {door.explanation_facts.blockers.length > 0 && (
-          <>
-            <h3 className="mt-4 text-sm font-medium">Что мешает</h3>
-            <ul className="mt-2 space-y-1">
-              {door.explanation_facts.blockers.map((blocker) => (
-                <li key={blocker} className="text-sm leading-snug text-muted-foreground">
-                  {blocker}
-                </li>
-              ))}
-            </ul>
-          </>
-        )}
-      </section>
-
-      </div>
-
-      <div className="space-y-6">
-      {/* Requirements */}
-      <section className="grid gap-4 sm:grid-cols-2">
-        <div className="border-t border-border pt-4">
-          <h2 className="text-sm font-medium">Уже выполнено</h2>
-          <ul className="mt-2 space-y-1">
-            {door.matched_requirements.length === 0 && (
-              <li className="text-sm text-muted-foreground">Пока ничего</li>
-            )}
-            {door.matched_requirements.map((id) => (
-              <li key={id} className="text-sm leading-snug">
-                {requirementById.get(id)?.label ?? id}
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="border-t border-border pt-4">
-          <h2 className="text-sm font-medium">Ещё нужно</h2>
-          <ul className="mt-2 space-y-1">
-            {door.unmatched_requirements.length === 0 && (
-              <li className="text-sm text-muted-foreground">Ничего не осталось</li>
-            )}
-            {door.unmatched_requirements.map((id) => (
-              <li key={id} className="text-sm leading-snug">
-                {requirementById.get(id)?.label ?? id}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      {/* Money */}
-      <section className="border-t border-border pt-4">
-        <h2 className="text-sm font-medium">Деньги</h2>
-        <dl className="mt-2 space-y-1 text-sm">
-          <div className="flex flex-wrap items-baseline justify-between gap-2">
-            <dt className="text-muted-foreground">Стоимость за год</dt>
-            <dd className="tabular-nums">
-              {program.tuition_per_year === undefined
-                ? "вуз не публикует"
-                : money(program.tuition_per_year.amount, program.tuition_per_year.currency)}
-            </dd>
+          <div className="mt-4">
+            <ActionTimeline
+              entries={schedule.chain}
+              actionsById={view.actionsById}
+              completedActionIds={view.completedActionIds}
+              pointOfNoReturn={door.point_of_no_return}
+            />
           </div>
-          <div className="flex flex-wrap items-baseline justify-between gap-2">
-            <dt className="text-muted-foreground">Финансирование</dt>
-            <dd>
-              {program.funding.length === 0 ? (
-                <span className="text-muted-foreground">вуз не публикует</span>
-              ) : (
-                program.funding.map((item) => FUNDING_RU[item] ?? item).join(", ")
+
+          <div className="mt-6 border-t border-border pt-4">
+            <h3 className="text-sm font-medium">Почему подходит</h3>
+            {door.explanation_facts.reasons.length === 0 ? (
+              <p className="mt-2 text-sm text-muted-foreground">
+                Совпадений по профилю пока нет — заполни разбор, чтобы их стало видно.
+              </p>
+            ) : (
+              <ul className="mt-2 space-y-1">
+                {door.explanation_facts.reasons.map((reason) => (
+                  <li key={reason} className="text-sm leading-snug">
+                    {reason}
+                  </li>
+                ))}
+              </ul>
+            )}
+
+            {door.explanation_facts.blockers.length > 0 && (
+              <>
+                <h3 className="mt-4 text-sm font-medium">Что мешает</h3>
+                <ul className="mt-2 space-y-1">
+                  {door.explanation_facts.blockers.map((blocker) => (
+                    <li key={blocker} className="text-sm leading-snug text-muted-foreground">
+                      {blocker}
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </div>
+        </section>
+
+        <section className="card-surface p-5">
+          <Tabs defaultValue="requirements">
+            <TabsList variant="line" className="mb-4">
+              <TabsTrigger value="requirements">Требования</TabsTrigger>
+              <TabsTrigger value="costs">Стоимость</TabsTrigger>
+              <TabsTrigger value="sources">Источники</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="requirements" className="grid gap-4 sm:grid-cols-2">
+              <div>
+                <h3 className="text-sm font-medium">Уже выполнено</h3>
+                <ul className="mt-2 space-y-1">
+                  {door.matched_requirements.length === 0 && (
+                    <li className="text-sm text-muted-foreground">Пока ничего</li>
+                  )}
+                  {door.matched_requirements.map((id) => (
+                    <li key={id} className="text-sm leading-snug">
+                      {requirementById.get(id)?.label ?? id}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-sm font-medium">Ещё нужно</h3>
+                <ul className="mt-2 space-y-1">
+                  {door.unmatched_requirements.length === 0 && (
+                    <li className="text-sm text-muted-foreground">Ничего не осталось</li>
+                  )}
+                  {door.unmatched_requirements.map((id) => (
+                    <li key={id} className="text-sm leading-snug">
+                      {requirementById.get(id)?.label ?? id}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </TabsContent>
+
+            <TabsContent value="costs">
+              <dl className="space-y-1 text-sm">
+                <div className="flex flex-wrap items-baseline justify-between gap-2">
+                  <dt className="text-muted-foreground">Стоимость за год</dt>
+                  <dd className="tabular-nums">
+                    {program.tuition_per_year === undefined
+                      ? "вуз не публикует"
+                      : money(program.tuition_per_year.amount, program.tuition_per_year.currency)}
+                  </dd>
+                </div>
+                <div className="flex flex-wrap items-baseline justify-between gap-2">
+                  <dt className="text-muted-foreground">Финансирование</dt>
+                  <dd>
+                    {program.funding.length === 0 ? (
+                      <span className="text-muted-foreground">вуз не публикует</span>
+                    ) : (
+                      program.funding.map((item) => FUNDING_RU[item] ?? item).join(", ")
+                    )}
+                  </dd>
+                </div>
+              </dl>
+              {program.tuition_per_year !== undefined && (
+                <div className="mt-3">
+                  <ConfidenceBadge confidence={program.tuition_per_year.confidence} />
+                </div>
               )}
-            </dd>
-          </div>
-        </dl>
-        {program.tuition_per_year !== undefined && (
-          <div className="mt-3">
-            <ConfidenceBadge confidence={program.tuition_per_year.confidence} />
-          </div>
-        )}
-      </section>
+              <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
+                Стоимость — за год: длительность программ у нас не хранится, поэтому общую
+                стоимость за всё обучение мы не считаем — это была бы оценка, а не факт.
+              </p>
+            </TabsContent>
 
-      {/* Provenance */}
-      <section className="border-t border-border pt-4">
-        <h2 className="text-sm font-medium">Откуда данные</h2>
-        <div className="mt-2 space-y-2">
-          {program.application_deadline === undefined ? (
-            <p className="text-xs text-muted-foreground">
-              Дедлайн не сверен — источник не называет конкретную дату.
-            </p>
-          ) : (
-            <SourceLine sourceId={program.application_deadline.source_id} />
-          )}
-          {program.official_url !== undefined && (
-            <a
-              href={program.official_url}
-              target="_blank"
-              rel="noreferrer noopener"
-              className="inline-flex min-h-9 items-center text-xs underline underline-offset-2"
-            >
-              Страница приёмной комиссии
-            </a>
-          )}
-        </div>
-        {program.notes && <p className="mt-2 text-xs text-muted-foreground">{program.notes}</p>}
-        <Button asChild variant="ghost" size="sm" className="mt-2 min-h-9 px-0">
-          <Link href="/sources">Как мы считаем и что такое уровни доверия</Link>
-        </Button>
-      </section>
-
-      </div>
+            <TabsContent value="sources">
+              <div className="space-y-2">
+                {program.application_deadline === undefined ? (
+                  <p className="text-xs text-muted-foreground">
+                    Дедлайн не сверен — источник не называет конкретную дату.
+                  </p>
+                ) : (
+                  <SourceLine sourceId={program.application_deadline.source_id} />
+                )}
+                {program.official_url !== undefined && (
+                  <a
+                    href={program.official_url}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="inline-flex min-h-9 items-center text-xs underline underline-offset-2"
+                  >
+                    Страница приёмной комиссии
+                  </a>
+                )}
+              </div>
+              {program.notes && <p className="mt-2 text-xs text-muted-foreground">{program.notes}</p>}
+              <Button asChild variant="ghost" size="sm" className="mt-2 min-h-9 px-0">
+                <Link href="/sources">Как мы считаем и что такое уровни доверия</Link>
+              </Button>
+            </TabsContent>
+          </Tabs>
+        </section>
       </div>
 
       <div className="mt-6 flex flex-wrap gap-2">

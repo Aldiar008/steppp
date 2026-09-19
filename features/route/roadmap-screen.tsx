@@ -2,24 +2,28 @@
 
 import Link from "next/link";
 import { useMemo } from "react";
-
+import { PathIcon } from "@phosphor-icons/react/dist/ssr";
 
 import { APP_CATALOG } from "@/data/catalog";
 import { PageHeader } from "@/components/page-header";
+import { StatTile } from "@/components/app/stat-tile";
 import { Button } from "@/components/ui/button";
+import { InviteParentDialog } from "@/features/parent/invite-parent-dialog";
 import { formatDateRu, formatMonthRu, monthKey } from "@/lib/date";
 import { computePointOfNoReturn, getActiveDoors } from "@/lib/engine";
-import type { ActionStep, Iso } from "@/lib/types";
+import type { ActionStep, Confidence, Iso } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { ActionStatusControl } from "./action-status";
 import { useRouteView } from "./use-route";
 import {
+  ConfidenceBadge,
   doorsHeldLabel,
   effortLabel,
   EmptyState,
   JourneyRail,
   LoadingState,
   NO_PROFILE,
+  weakestConfidence,
 } from "./ui";
 
 interface PlannedAction {
@@ -29,6 +33,8 @@ interface PlannedAction {
   /** Programme ids this step holds open. */
   doors: string[];
   depends_on: string[];
+  /** The least-certain confidence among the doors this step holds open. */
+  confidence?: Confidence;
 }
 
 /**
@@ -46,6 +52,7 @@ export function RoadmapScreen() {
     if (view.route === null) return [];
 
     const active = getActiveDoors(view.doors);
+    const activeDoorsById = new Map(active.map((door) => [door.program_id, door]));
     const planned = new Map<string, PlannedAction>();
 
     for (const door of active) {
@@ -75,6 +82,16 @@ export function RoadmapScreen() {
         }
         if (!existing.doors.includes(door.program_id)) existing.doors.push(door.program_id);
       }
+    }
+
+    // Confidence is set once the full set of doors behind each step is known:
+    // the weakest fact among them, the same way a single door's own
+    // confidence is the weakest fact it rests on (`lib/engine/match.ts`).
+    for (const item of planned.values()) {
+      const confidences = item.doors
+        .map((id) => activeDoorsById.get(id)?.confidence)
+        .filter((value): value is Confidence => value !== undefined);
+      item.confidence = weakestConfidence(confidences);
     }
 
     const groups = new Map<string, PlannedAction[]>();
@@ -111,11 +128,15 @@ export function RoadmapScreen() {
 
       <PageHeader
         title={total === 0 ? "Шагов пока нет" : `Сделано ${done} из ${total}`}
+        icon={PathIcon}
         lede="Каждый шаг стоит в том месяце, когда его ещё можно начать, — это считает движок, а не редактор."
         actions={
-          <Button asChild variant="outline" size="sm" className="min-h-9">
-            <Link href="/next-action">Ближайший шаг</Link>
-          </Button>
+          <>
+            <InviteParentDialog />
+            <Button asChild variant="outline" size="sm" className="min-h-9">
+              <Link href="/next-action">Ближайший шаг</Link>
+            </Button>
+          </>
         }
       />
 
@@ -151,64 +172,84 @@ export function RoadmapScreen() {
                 <span className="size-1.5 rounded-full bg-open" aria-hidden />
                 {formatMonthRu(key)}
               </h2>
-              <ul className="ml-[3px] space-y-2 border-l border-border pl-4">
+              <ul className="ml-[3px] space-y-3 border-l border-border pl-4">
                 {items.map((item) => {
                   const complete = view.completedActionIds.includes(item.action.id);
+                  const state = view.actionStates[item.action.id];
+                  // Overdue by the engine's own deadline cannot happen here — a
+                  // step on a route still shown is, by construction, one whose
+                  // latest start has not passed (see lib/engine/schedule.ts).
+                  // What can genuinely lapse is the applicant's own plan: a
+                  // date they picked for themselves, now behind "today", for a
+                  // step they never started.
+                  const overdue =
+                    !complete &&
+                    state?.status === "planned" &&
+                    state.planned_date !== undefined &&
+                    state.planned_date < view.today;
                   return (
-                    <li
-                      key={item.action.id}
-                      className={cn(
-                        "relative border-b border-border py-3 last:border-b-0",
-                        complete && "opacity-70",
-                      )}
-                    >
-                      {/* The node on the spine. Filled once the step is done. */}
+                    <li key={item.action.id} className="relative">
+                      {/* The node on the spine. Filled once the step is done,
+                          amber while the applicant's own plan for it has lapsed. */}
                       <span
                         aria-hidden
                         className={cn(
-                          "absolute -left-[21px] top-4 size-2 rounded-full border-2 bg-background",
+                          "absolute -left-[21px] top-6 size-2 rounded-full border-2 bg-background",
                           complete
                             ? "border-open bg-open"
-                            : "border-border-strong bg-background",
+                            : overdue
+                              ? "border-critical bg-critical"
+                              : "border-border-strong bg-background",
                         )}
                       />
-                      {/* A row: what and when on the left, what you mean to do
-                          about it on the right. The card used to be mostly
-                          empty space between the two. */}
-                      <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between lg:gap-6">
-                        <div className="min-w-0 lg:flex-1">
-                          <h3
-                            className={cn(
-                              "text-sm font-medium leading-snug",
-                              complete && "line-through",
+                      {/* A row inside a real card: what and when on the left,
+                          what you mean to do about it on the right. */}
+                      <div className={cn("card-surface p-4", complete && "opacity-70")}>
+                        <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between lg:gap-6">
+                          <div className="min-w-0 lg:flex-1">
+                            <h3
+                              className={cn(
+                                "text-sm font-medium leading-snug",
+                                complete && "line-through",
+                              )}
+                            >
+                              {item.action.title}
+                            </h3>
+                            <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                              {effortLabel(item.action.effort_minutes)}.{" "}
+                              {doorsHeldLabel(item.doors.length)}
+                              {item.depends_on.length > 0 && (
+                                <>. Сначала: {dependencyTitles(item, view.actionsById)}</>
+                              )}
+                            </p>
+                            {item.confidence !== undefined && (
+                              <ConfidenceBadge confidence={item.confidence} className="mt-2" />
                             )}
-                          >
-                            {item.action.title}
-                          </h3>
-                          <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                            {effortLabel(item.action.effort_minutes)}.{" "}
-                            {doorsHeldLabel(item.doors.length)}
-                            {item.depends_on.length > 0 && (
-                              <>. Сначала: {dependencyTitles(item, view.actionsById)}</>
+                            {overdue && (
+                              <p className="mt-2 text-xs font-medium text-critical-ink" role="status">
+                                Просрочено: ты планировал(а) начать{" "}
+                                {state?.planned_date !== undefined ? formatDateRu(state.planned_date) : ""}
+                              </p>
                             )}
-                          </p>
-                        </div>
+                          </div>
 
-                        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 lg:shrink-0 lg:flex-col lg:items-end lg:gap-1">
-                          <span className="text-sm text-muted-foreground">
-                            начать до{" "}
-                            <span className="display font-medium text-foreground">
-                              {formatDateRu(item.latest_start)}
-                            </span>
-                          </span>
-                          <ActionStatusControl
-                            className="mt-0"
-                            state={view.actionStates[item.action.id]}
-                            onSet={(status, date) =>
-                              view.setActionStatus(item.action.id, status, date)
-                            }
-                            onClear={() => view.clearActionStatus(item.action.id)}
-                          />
+                          <div className="flex flex-wrap items-center gap-x-5 gap-y-2 lg:shrink-0 lg:items-end lg:gap-2">
+                            <StatTile
+                              label="Начать до"
+                              value={formatDateRu(item.latest_start)}
+                              tone={overdue ? "critical" : complete ? "open" : "neutral"}
+                              size="sm"
+                              align="right"
+                            />
+                            <ActionStatusControl
+                              className="mt-0"
+                              state={view.actionStates[item.action.id]}
+                              onSet={(status, date) =>
+                                view.setActionStatus(item.action.id, status, date)
+                              }
+                              onClear={() => view.clearActionStatus(item.action.id)}
+                            />
+                          </div>
                         </div>
                       </div>
                     </li>

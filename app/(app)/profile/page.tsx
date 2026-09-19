@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 
-import { AccountScreen } from "@/features/account/account-screen";
+import { AccountFamilyScreen } from "@/features/account/account-family-screen";
 
 export const metadata: Metadata = {
-  title: "Профиль",
-  description: "Кто сейчас в приложении. Профили хранятся только в этом браузере.",
+  title: "Аккаунт и семья",
+  description: "Кто вошёл, и кто ещё видит твой план — родитель может читать, но не может изменить.",
 };
 
 export default function Page() {
-  return <AccountScreen />;
+  return <AccountFamilyScreen />;
 }

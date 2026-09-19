@@ -1,7 +1,7 @@
 import { Bitter, Golos_Text } from "next/font/google";
 
 import { DesktopNav, MobileHeader, MobileNav } from "@/components/app-nav";
-import { ProfileBoot } from "@/features/account/profile-boot";
+import { StudentSessionBoot } from "@/features/auth/student-session-boot";
 import "@/styles/app-theme.css";
 
 /**
@@ -42,7 +42,7 @@ const display = Bitter({
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className={`stepwise-app ${ui.variable} ${display.variable} flex min-h-[100dvh] flex-col`}>
-      <ProfileBoot />
+      <StudentSessionBoot />
       <DesktopNav />
       <MobileHeader />
       <main id="main" className="flex-1 pb-24 md:pb-0 md:pl-64">

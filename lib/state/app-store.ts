@@ -30,6 +30,7 @@ import { z } from "zod";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
+import { createDefaultCareerState, type CareerState } from "@/lib/career/types";
 import type { RouteResult } from "@/lib/engine";
 import { createLocalStorage } from "@/lib/persistence";
 import type { Profile } from "@/lib/types";
@@ -142,6 +143,9 @@ export interface AppData {
 
   preferences: Preferences;
   metadata: AppMetadata;
+
+  /** The career-interview module's own state — a standalone module, see lib/career. */
+  career: CareerState;
 }
 
 export interface AppActions {
@@ -186,6 +190,18 @@ export interface AppActions {
 
   /** Set by the persist middleware once localStorage has been read. */
   setHasHydrated: (value: boolean) => void;
+
+  /* Career interview ------------------------------------------------------ */
+
+  /**
+   * The one write path for the whole career-interview module. Every real
+   * computation (scoring, question selection, widening, results) lives in
+   * pure functions under `lib/career/` and runs in the hook that calls this
+   * — the store's job stays "remember what the hook computed," the same
+   * split as the rest of this file.
+   */
+  patchCareer: (patch: Partial<CareerState>) => void;
+  resetCareer: () => void;
 }
 
 export interface AppState extends AppData, AppActions {
@@ -207,7 +223,7 @@ export interface AppState extends AppData, AppActions {
 /** Namespaced on purpose: `app`/`state` would collide with anything else. */
 export const APP_STORAGE_KEY = "stepwise-storage";
 
-export const APP_SCHEMA_VERSION = 1;
+export const APP_SCHEMA_VERSION = 3;
 
 export const MAX_COMPARE_SELECTION = 2;
 
@@ -230,6 +246,31 @@ export function createDefaultAppData(): AppData {
     selected_compare_ids: [],
     preferences: { locale: "ru", tone: "friendly" },
     metadata: { schema_version: APP_SCHEMA_VERSION },
+    career: createDefaultCareerState(),
+  };
+}
+
+/**
+ * The data half of the state, and nothing else — no `hasHydrated`, no
+ * actions. Shared by the `localStorage` persist config below and by
+ * `lib/state/remote-sync.ts`, which upserts exactly this shape into
+ * `student_state.state`: one field list, so the two never drift apart.
+ */
+export function partializeAppData(state: AppData): AppData {
+  return {
+    profile: state.profile,
+    interview: state.interview,
+    route: state.route,
+    previous_route: state.previous_route,
+    completed_action_ids: state.completed_action_ids,
+    action_states: state.action_states,
+    last_edit: state.last_edit,
+    change_seen: state.change_seen,
+    selected_door_id: state.selected_door_id,
+    selected_compare_ids: state.selected_compare_ids,
+    preferences: state.preferences,
+    metadata: state.metadata,
+    career: state.career,
   };
 }
 
@@ -267,6 +308,78 @@ const routeSchema = z.looseObject({
   summary: z.looseObject({}),
 });
 
+const careerEvidenceSchema = z.looseObject({
+  dimension: z.string(),
+  shift: z.number(),
+  quote: z.string(),
+  question_id: z.string(),
+});
+
+const careerAnswerRecordSchema = z.looseObject({
+  question_id: z.string(),
+  question_text: z.string(),
+  answer_text: z.string(),
+  source: z.enum(["stage1", "stage2", "stage3a", "stage3b"]),
+});
+
+const careerStage2StateSchema = z.looseObject({
+  field: z.string(),
+  remaining: z.array(z.string()),
+  tally: z.record(z.string(), z.number()),
+  askedBankIds: z.array(z.string()),
+  lastAxis: z.string().optional(),
+  stalledStreak: z.number(),
+  previousTopThree: z.array(z.string()).nullable(),
+});
+
+const careerWidenStateSchema = z.looseObject({
+  round: z.union([z.literal(0), z.literal(1), z.literal(2), z.literal(3)]),
+  phase: z.enum(["list", "clarify"]).nullable(),
+  rejected: z.array(
+    z.looseObject({
+      id: z.string(),
+      round: z.union([z.literal(1), z.literal(2), z.literal(3)]),
+      reason: z.string().optional(),
+    }),
+  ),
+  lastRejectedId: z.string().optional(),
+  originField: z.string().optional(),
+  clarifyBranch: z.enum(["what", "where", "how_long"]).optional(),
+});
+
+const careerResultItemSchema = z.looseObject({
+  id: z.string(),
+  field: z.string(),
+  label: z.string(),
+  why: z.string(),
+  hard: z.string(),
+});
+
+const careerStateSchema = z.looseObject({
+  stage: z.enum(["idle", "stage1", "stage1_optional", "stage2", "stage3a", "stage3b", "result", "crisis"]),
+  vector: z.looseObject({ facets: z.record(z.string(), z.number()), axes: z.record(z.string(), z.number()) }),
+  evidence: z.array(careerEvidenceSchema),
+  aversionLabels: z.array(z.string()),
+  vetoedIds: z.array(z.string()),
+  fieldBonuses: z.record(z.string(), z.number()),
+  answers: z.array(careerAnswerRecordSchema),
+  askedStage1Ids: z.array(z.string()),
+  candidateFields: z.array(z.string()),
+  stage2: careerStage2StateSchema.nullable(),
+  widen: careerWidenStateSchema,
+  stage3bHistory: z.array(z.looseObject({ question: z.string(), answer: z.string() })),
+  stage3bTurns: z.number(),
+  result: z
+    .looseObject({
+      items: z.array(careerResultItemSchema),
+      generated_at: z.string(),
+      source: z.enum(["stage2", "stage3a", "stage3b"]),
+    })
+    .nullable(),
+  crisisTriggered: z.boolean(),
+  monosyllabicStreak: z.number(),
+});
+
 const persistedSchema = z.looseObject({
   profile: profileSchema.nullable().optional(),
   interview: interviewSchema.optional(),
@@ -296,6 +409,7 @@ const persistedSchema = z.looseObject({
     })
     .optional(),
   metadata: z.looseObject({ schema_version: z.number() }).optional(),
+  career: careerStateSchema.optional(),
 });
 
 /**
@@ -325,6 +439,22 @@ const MIGRATIONS: Readonly<Record<number, (state: Record<string, unknown>) => Re
       if (!dropped.has(key)) next[key] = value;
     }
     next.completed_action_ids = legacyCompleted;
+    return next;
+  },
+
+  /**
+   * 2 → 3. The old `profession` module (5 fixed clusters, a flat
+   * specialization list) was replaced wholesale by `lib/career`'s 16-axis
+   * model — there is no honest way to turn five cluster scores into a
+   * 16-dimension vector, so an in-progress career interview is dropped
+   * rather than guessed at. Nothing else about the applicant's account is
+   * affected: their route, profile and progress carry over untouched.
+   */
+  2: (state) => {
+    const next: Record<string, unknown> = {};
+    for (const [key, value] of Object.entries(state)) {
+      if (key !== "profession") next[key] = value;
+    }
     return next;
   },
 };
@@ -360,7 +490,14 @@ export function migrateAppState(persisted: unknown, version: number): AppData {
     // must come back with today's default for it, not with `undefined`.
     interview: { ...defaults.interview, ...(data.interview as InterviewState | undefined) },
     preferences: { ...defaults.preferences, ...(data.preferences as Preferences | undefined) },
-    metadata: { ...defaults.metadata, schema_version: APP_SCHEMA_VERSION },
+    // `last_calculated_at` has to survive this round trip like everything else
+    // above it: it is what lets `lib/state/remote-sync.ts` tell a locally
+    // computed board apart from a stale one without it, every reload would
+    // look like neither side has ever computed anything.
+    metadata: { ...defaults.metadata, ...(data.metadata as AppMetadata | undefined), schema_version: APP_SCHEMA_VERSION },
+    // Absent entirely on anything saved before this module existed — the
+    // default fills it, exactly like `interview` and `preferences` above.
+    career: { ...defaults.career, ...(data.career as CareerState | undefined) },
   };
 
   // Invariants the rest of the app relies on, re-established on load.
@@ -564,6 +701,12 @@ export const useAppStore = create<AppState>()(
         })),
 
       setHasHydrated: (value) => set({ hasHydrated: value }),
+
+      /* Career interview ----------------------------------------------------- */
+
+      patchCareer: (patch) => set((state) => ({ career: { ...state.career, ...patch } })),
+
+      resetCareer: () => set({ career: createDefaultCareerState() }),
     }),
     {
       name: APP_STORAGE_KEY,
@@ -571,21 +714,7 @@ export const useAppStore = create<AppState>()(
       // Reads and writes are guarded against a missing `window`, so importing
       // this module during a server render is safe; only the hook is not.
       storage: createLocalStorage<AppState>(),
-      partialize: (state) =>
-        ({
-          profile: state.profile,
-          interview: state.interview,
-          route: state.route,
-          previous_route: state.previous_route,
-          completed_action_ids: state.completed_action_ids,
-          action_states: state.action_states,
-          last_edit: state.last_edit,
-          change_seen: state.change_seen,
-          selected_door_id: state.selected_door_id,
-          selected_compare_ids: state.selected_compare_ids,
-          preferences: state.preferences,
-          metadata: state.metadata,
-        }) satisfies AppData as AppState,
+      partialize: (state) => partializeAppData(state) as AppState,
       migrate: (persisted, version) => migrateAppState(persisted, version) as AppState,
       /**
        * Zustand only calls `migrate` when the stored version differs from this

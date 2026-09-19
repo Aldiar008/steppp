@@ -9,10 +9,11 @@ import { DoorDetailsScreen } from "@/features/route/door-details";
 import { DoorsScreen } from "@/features/route/doors-screen";
 import { NextActionScreen } from "@/features/route/next-action-screen";
 import { RoadmapScreen } from "@/features/route/roadmap-screen";
-import { NEXT_ACTION_REASON } from "@/features/route/ui";
-import { computeRoute } from "@/lib/engine";
+import { CONFIDENCE_LABEL } from "@/lib/confidence";
+import { NEXT_ACTION_REASON, weakestConfidence } from "@/features/route/ui";
+import { buildActionIndex, computePointOfNoReturn, computeRoute, getActiveDoors } from "@/lib/engine";
 import type { RouteResult } from "@/lib/engine/route";
-import { todayIso } from "@/lib/date";
+import { addDays, todayIso } from "@/lib/date";
 import { createDefaultAppData, useAppStore } from "@/lib/state/app-store";
 
 /**
@@ -243,6 +244,25 @@ describe("compare", () => {
     const takeaway = screen.getByText("Коротко").parentElement;
     expect(takeaway?.textContent).not.toMatch(/лучш|рекомендуем|стоит выбрать|подходит больше/i);
   });
+
+  it("never shows a date or a price without also showing how sure we are of it", () => {
+    const route = seedRoute();
+    // A door with a computed point of no return, so the badge has a date to
+    // sit next to rather than "не рассчитана".
+    const dated = route.doors.find((door) => door.point_of_no_return !== undefined);
+    const other = route.doors.find((door) => door.program_id !== dated?.program_id);
+    expect(dated).toBeDefined();
+    expect(other).toBeDefined();
+    useAppStore.setState({
+      selected_compare_ids: [dated?.program_id ?? "", other?.program_id ?? ""],
+    });
+
+    render(<CompareScreen />);
+
+    const confidenceWords = Object.values(CONFIDENCE_LABEL);
+    const shown = confidenceWords.some((label) => screen.queryAllByText(label).length > 0);
+    expect(shown).toBe(true);
+  });
 });
 
 describe("roadmap", () => {
@@ -278,6 +298,60 @@ describe("roadmap", () => {
 
     expect(useAppStore.getState().completed_action_ids.length).toBe(1);
     expect(useAppStore.getState().action_states[firstStep ?? ""]?.status).toBe("done");
+  });
+
+  it("flags a step whose self-planned date has already passed, and only that one", () => {
+    const route = seedRoute();
+    const actionsById = buildActionIndex(CATALOG.actions);
+    const active = getActiveDoors(route.doors);
+    const program = APP_CATALOG.programs.find((item) => item.id === active[0]?.program_id);
+    const schedule = program === undefined ? null : computePointOfNoReturn(program, actionsById, TODAY);
+    const overdueActionId = schedule?.chain[0]?.action_id;
+    expect(overdueActionId).toBeDefined();
+
+    useAppStore.setState({
+      action_states: { [overdueActionId ?? ""]: { status: "planned", planned_date: addDays(TODAY, -5) } },
+    });
+
+    render(<RoadmapScreen />);
+
+    // A step still on the board can never be overdue by the engine's own
+    // deadline (its door would have closed first) — only by the applicant's
+    // own lapsed plan, and only that one line says so.
+    expect(screen.getAllByText(/Просрочено/)).toHaveLength(1);
+  });
+
+  it("never marks a step overdue for a plan date that hasn't arrived yet", () => {
+    const route = seedRoute();
+    const actionsById = buildActionIndex(CATALOG.actions);
+    const active = getActiveDoors(route.doors);
+    const program = APP_CATALOG.programs.find((item) => item.id === active[0]?.program_id);
+    const schedule = program === undefined ? null : computePointOfNoReturn(program, actionsById, TODAY);
+    const actionId = schedule?.chain[0]?.action_id;
+    expect(actionId).toBeDefined();
+
+    useAppStore.setState({
+      action_states: { [actionId ?? ""]: { status: "planned", planned_date: addDays(TODAY, 5) } },
+    });
+
+    render(<RoadmapScreen />);
+    expect(screen.queryByText(/Просрочено/)).not.toBeInTheDocument();
+  });
+});
+
+describe("weakestConfidence", () => {
+  it("returns undefined for an empty list rather than guessing", () => {
+    expect(weakestConfidence([])).toBeUndefined();
+  });
+
+  it("picks the least certain level, regardless of input order", () => {
+    expect(weakestConfidence(["verified", "derived", "last_cycle"])).toBe("last_cycle");
+    expect(weakestConfidence(["last_cycle", "verified"])).toBe("last_cycle");
+    expect(weakestConfidence(["demo", "verified", "derived"])).toBe("demo");
+  });
+
+  it("returns the only level given when there is exactly one", () => {
+    expect(weakestConfidence(["verified"])).toBe("verified");
   });
 });
 
@@ -345,10 +419,11 @@ describe("persistence across a reload", () => {
     const summary = useAppStore.getState().route?.summary;
     const active = (summary?.open ?? 0) + (summary?.closing_soon ?? 0);
     // The heading is built from several spans, so it is matched by its
-    // accessible name rather than by one text node.
+    // accessible name rather than by one text node. It's an h2 — `DoorsScreen`
+    // owns the page's one h1 via its own `PageHeader` ("Пути").
     expect(
       screen.getByRole("heading", {
-        level: 1,
+        level: 2,
         name: `Открыто ${active} из ${summary?.total ?? 0}`,
       }),
     ).toBeInTheDocument();

@@ -1,0 +1,86 @@
+import type { Stage2Question } from "./types";
+
+/** §6.2 — IT bank (10), transcribed verbatim. */
+export const IT_BANK: readonly Stage2Question[] = [
+  {
+    id: "it_1",
+    field: "IT",
+    prompt:
+      "Что приятнее: когда человек пользуется тем, что ты сделал, и говорит спасибо — или когда система работает годами и никто о ней не вспоминает?",
+    axes: ["I2"],
+    groupA: ["IT_MOB", "IT_UX", "IT_GAME"],
+    groupB: ["IT_OPS", "IT_DATA"],
+  },
+  {
+    id: "it_2",
+    field: "IT",
+    prompt: "Тебя устраивает ответ «скорее всего так, с вероятностью 80%», или нужен точный ответ «работает / не работает»?",
+    axes: ["I3"],
+    groupA: ["IT_DS"],
+    groupB: ["IT_SWE", "IT_OPS"],
+  },
+  {
+    id: "it_3",
+    field: "IT",
+    prompt: "Тебе интереснее построить или найти дырку в чужом построенном?",
+    axes: ["I4"],
+    groupA: ["IT_SEC"],
+    groupB: "rest",
+  },
+  {
+    id: "it_4",
+    field: "IT",
+    prompt: "Готов половину рабочего времени разговаривать с людьми, а не с компьютером?",
+    axes: ["I5"],
+    groupA: ["IT_UX", "IT_PM"],
+    groupB: ["IT_SWE", "IT_DATA"],
+  },
+  {
+    id: "it_5",
+    field: "IT",
+    prompt: "Твоя программа живёт в устройстве, где 64 килобайта памяти и нельзя перезагрузить. Это интересное ограничение или ад?",
+    axes: ["I1"],
+    groupA: ["IT_EMB"],
+    groupB: ["IT_SWE"],
+  },
+  {
+    id: "it_6",
+    field: "IT",
+    prompt: "Что важнее: решить, что делать, или сделать хорошо то, что решено?",
+    axes: ["I5"],
+    groupA: ["IT_PM"],
+    groupB: ["IT_SWE", "IT_MOB", "IT_EMB", "IT_DATA", "IT_OPS"],
+  },
+  {
+    id: "it_7",
+    field: "IT",
+    prompt: "Тебе нравится математика настолько, чтобы она была основной работой, а не инструментом?",
+    axes: ["I3"],
+    groupA: ["IT_DS", "IT_CV"],
+    groupB: ["IT_SWE", "IT_MOB"],
+  },
+  {
+    id: "it_8",
+    field: "IT",
+    prompt: "Ночью упал сервер. Ты — тот, кого будят. Нормально?",
+    axes: ["I2"],
+    groupA: ["IT_OPS"],
+    groupB: ["IT_UX", "IT_DS"],
+  },
+  {
+    id: "it_9",
+    field: "IT",
+    prompt: "Ты хочешь, чтобы люди чувствовали что-то от твоей работы, или чтобы она просто работала?",
+    axes: ["I2", "O_IMAGE"],
+    groupA: ["IT_GAME", "IT_UX"],
+    groupB: ["IT_DATA", "IT_OPS"],
+  },
+  {
+    id: "it_10",
+    field: "IT",
+    prompt: "Данные приходят грязными, и надо построить трубу, по которой они пойдут чистыми. Это скучно или красиво?",
+    axes: ["I2"],
+    groupA: ["IT_DATA"],
+    groupB: ["IT_DS"],
+  },
+];

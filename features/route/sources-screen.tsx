@@ -155,7 +155,8 @@ export function SourcesScreen() {
       </section>
 
       <p className="mt-6 text-xs text-muted-foreground">
-        Профиль и прогресс хранятся только в твоём браузере.{" "}
+        Профиль и прогресс сохраняются в твоём аккаунте — увидеть их можно с любого устройства,
+        войдя тем же способом.{" "}
         <Link href="/doors" className="underline underline-offset-2">
           Вернуться к путям
         </Link>

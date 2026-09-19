@@ -2,16 +2,19 @@
 
 import Link from "next/link";
 import { Fragment, useMemo } from "react";
+import { ArrowsLeftRightIcon } from "@phosphor-icons/react/dist/ssr";
 
 import { APP_CATALOG } from "@/data/catalog";
+import { Avatar } from "@/components/avatar";
 import { PageHeader } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
 import { formatDateRu } from "@/lib/date";
 import { countryName } from "@/data/countries";
-import type { Door, Program } from "@/lib/types";
+import type { Confidence, Door, Program } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { useRouteView } from "./use-route";
 import {
+  ConfidenceBadge,
   countdownLabel,
   DOOR_STATUS_LABEL,
   EmptyState,
@@ -73,7 +76,7 @@ export function CompareScreen() {
     return (
       <>
         <JourneyRail />
-        <PageHeader title="Пока нечего сравнивать" />
+        <PageHeader title="Пока нечего сравнивать" icon={ArrowsLeftRightIcon} />
         <EmptyState
           title={
             sides.length === 0 ? "Ничего не выбрано" : "Выбери ещё один путь для сравнения"
@@ -87,11 +90,13 @@ export function CompareScreen() {
 
   const [a, b] = sides as [Side, Side];
 
-  const rows: { label: string; a: string; b: string; date?: boolean }[] = [
+  const rows: { label: string; a: string; b: string; date?: boolean; badgeA?: Confidence; badgeB?: Confidence }[] = [
     {
       label: "Стоимость за год",
       a: priceLabel(a),
       b: priceLabel(b),
+      badgeA: a.program.tuition_per_year?.confidence,
+      badgeB: b.program.tuition_per_year?.confidence,
     },
     {
       label: "Финансирование",
@@ -109,6 +114,8 @@ export function CompareScreen() {
       a: a.door.point_of_no_return ? formatDateRu(a.door.point_of_no_return) : "не рассчитана",
       b: b.door.point_of_no_return ? formatDateRu(b.door.point_of_no_return) : "не рассчитана",
       date: true,
+      badgeA: a.door.point_of_no_return !== undefined ? a.door.confidence : undefined,
+      badgeB: b.door.point_of_no_return !== undefined ? b.door.confidence : undefined,
     },
     {
       label: "Сколько осталось",
@@ -153,6 +160,7 @@ export function CompareScreen() {
 
       <PageHeader
         title="Два пути рядом"
+        icon={ArrowsLeftRightIcon}
         lede="Мы не выбираем за тебя и не считаем «лучший вуз». Ниже — различия, на которые опирается решение."
         back={{ href: "/doors", label: "К списку путей" }}
       />
@@ -166,27 +174,30 @@ export function CompareScreen() {
           колонками разделяет два варианта и потому несёт смысл, а внешняя рамка
           вокруг всего не несёт никакого. Даты набраны дисплейной гарнитурой —
           как на всех остальных экранах, чтобы дата всегда выглядела датой.*/}
-      <div className="border-y border-border">
+      <div className="card-surface overflow-hidden">
         <div className="grid grid-cols-2 gap-px bg-border md:grid-cols-[minmax(10rem,1fr)_1.2fr_1.2fr]">
           <div className="hidden bg-card px-4 py-3 md:block" />
           {[a, b].map((side) => (
-            <div key={side.program.id} className="bg-card px-4 py-3">
-              <h2 className="text-sm font-medium leading-snug">
-                <Link
-                  href={`/doors/${side.program.id}`}
-                  className="-my-2 inline-block py-2 underline-offset-4 hover:underline"
-                >
-                  {side.program.org}
-                </Link>
-              </h2>
-              <p className="mt-0.5 text-xs text-muted-foreground">
-                {side.program.city === undefined
-                  ? countryName(side.program.country)
-                  : `${side.program.city}, ${countryName(side.program.country)}`}
-              </p>
-              <p className="mt-1 text-xs text-muted-foreground">
-                {DOOR_STATUS_LABEL[side.door.status]}
-              </p>
+            <div key={side.program.id} className="flex items-start gap-2.5 bg-card px-4 py-3">
+              <Avatar name={side.program.org} shape="square" size={32} />
+              <div className="min-w-0">
+                <h2 className="text-sm font-medium leading-snug">
+                  <Link
+                    href={`/doors/${side.program.id}`}
+                    className="-my-2 inline-block py-2 underline-offset-4 hover:underline"
+                  >
+                    {side.program.org}
+                  </Link>
+                </h2>
+                <p className="mt-0.5 text-xs text-muted-foreground">
+                  {side.program.city === undefined
+                    ? countryName(side.program.country)
+                    : `${side.program.city}, ${countryName(side.program.country)}`}
+                </p>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  {DOOR_STATUS_LABEL[side.door.status]}
+                </p>
+              </div>
             </div>
           ))}
 
@@ -201,7 +212,14 @@ export function CompareScreen() {
                   row.date === true ? "display text-base font-medium" : "text-sm",
                 )}
               >
-                {row.a === "" ? <span className="text-muted-foreground">не указано</span> : row.a}
+                {row.a === "" ? (
+                  <span className="text-muted-foreground">не указано</span>
+                ) : (
+                  <span className="inline-flex flex-wrap items-center gap-1.5">
+                    {row.a}
+                    {row.badgeA !== undefined && <ConfidenceBadge confidence={row.badgeA} />}
+                  </span>
+                )}
               </div>
               <div
                 className={cn(
@@ -209,16 +227,28 @@ export function CompareScreen() {
                   row.date === true ? "display text-base font-medium" : "text-sm",
                 )}
               >
-                {row.b === "" ? <span className="text-muted-foreground">не указано</span> : row.b}
+                {row.b === "" ? (
+                  <span className="text-muted-foreground">не указано</span>
+                ) : (
+                  <span className="inline-flex flex-wrap items-center gap-1.5">
+                    {row.b}
+                    {row.badgeB !== undefined && <ConfidenceBadge confidence={row.badgeB} />}
+                  </span>
+                )}
               </div>
             </Fragment>
           ))}
         </div>
       </div>
 
+      <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+        Стоимость — за год: длительность программ у нас не хранится, поэтому общую стоимость за
+        всё обучение мы не считаем — это была бы оценка, а не факт.
+      </p>
+
       {/* Единственная панель экрана — вывод, а не данные. Таблица показывает
           различия; здесь написано, какие из них решают. */}
-      <section className="panel mt-6 p-5">
+      <section className="card-surface mt-6 p-5">
         <h2 className="text-sm font-medium">Коротко</h2>
         <ul className="mt-2 space-y-1">
           {takeaways(a, b).map((line) => (

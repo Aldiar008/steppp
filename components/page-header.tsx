@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { CaretLeftIcon } from "@phosphor-icons/react/dist/ssr";
+import type { Icon } from "@phosphor-icons/react";
 
 import { cn } from "@/lib/utils";
 
@@ -16,12 +17,16 @@ import { cn } from "@/lib/utils";
  */
 export function PageHeader({
   title,
+  icon: IconComponent,
   lede,
   back,
   actions,
   className,
 }: {
   title: string;
+  /** OnePrep-style icon beside the title. Purely decorative (`aria-hidden`) —
+   *  the heading itself still carries the page's name for assistive tech. */
+  icon?: Icon;
   lede?: React.ReactNode;
   back?: { href: string; label: string };
   actions?: React.ReactNode;
@@ -40,7 +45,10 @@ export function PageHeader({
       )}
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div className="min-w-0">
-          <h1 className="display text-balance text-2xl font-semibold sm:text-[2rem] sm:leading-[1.15]">
+          <h1 className="display flex items-center gap-2.5 text-balance text-2xl font-semibold sm:text-[2rem] sm:leading-[1.15]">
+            {IconComponent && (
+              <IconComponent className="size-6 shrink-0 text-muted-foreground sm:size-7" aria-hidden />
+            )}
             {title}
           </h1>
           {lede && (

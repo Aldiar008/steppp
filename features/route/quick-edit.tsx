@@ -10,7 +10,8 @@ import {
 } from "@/lib/engine";
 import type { Profile } from "@/lib/types";
 import { cn } from "@/lib/utils";
-import { FIELD_LABEL, formatFieldValue } from "./diff-overlay";
+import { formatFieldValue } from "./diff-overlay";
+import { FIELD_LABEL } from "./ui";
 
 /**
  * Changing your mind, from the screen where it matters.

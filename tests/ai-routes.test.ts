@@ -3,42 +3,52 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 /**
  * The AI boundary, tested as the thing that must never leak.
  *
- * Every test below drives a real route handler with a fake provider. The
- * questions they answer are the ones that decide whether this product can be
- * trusted: does an invented date get through, does a missing key break a
- * screen, does a malformed answer retry forever, and is the deterministic
- * answer really always there.
+ * Every test below drives a real route handler with a fake provider (a
+ * stubbed `fetch`, since the Gemini call in `lib/ai/boundary.ts` is a plain
+ * REST call with no SDK to mock). The questions they answer are the ones
+ * that decide whether this product can be trusted: does an invented date get
+ * through, does a missing key break a screen, does a malformed answer retry
+ * forever, and is the deterministic answer really always there.
  *
  * `server-only` is stubbed because the route imports it to keep the key off the
  * client; under a test runner it has no browser bundle to protect.
  */
 vi.mock("server-only", () => ({}));
 
-/** The fake provider. Each entry is one answer to one `messages.create` call. */
-let answers: Array<string | Error> = [];
+/** One entry per expected `fetch` call: a model answer, an HTTP failure, or a timeout. */
+type FakeAnswer = string | { status: number } | { timeout: true };
+
+let answers: FakeAnswer[] = [];
 let calls = 0;
 
-const create = vi.fn(async () => {
+function geminiResponse(text: string): Response {
+  return new Response(JSON.stringify({ candidates: [{ content: { parts: [{ text }] } }] }), {
+    status: 200,
+    headers: { "content-type": "application/json" },
+  });
+}
+
+const fetchMock = vi.fn(async (): Promise<Response> => {
   const answer = answers[calls];
   calls += 1;
   if (answer === undefined) throw new Error("провайдер вызван больше раз, чем ожидалось");
-  if (answer instanceof Error) throw answer;
-  return { content: [{ type: "text", text: answer }] };
+  if (typeof answer === "string") return geminiResponse(answer);
+  if ("timeout" in answer) throw new DOMException("aborted", "AbortError");
+  return new Response("", { status: answer.status });
 });
 
-vi.mock("@anthropic-ai/sdk", () => {
-  class APIError extends Error {}
-  class RateLimitError extends APIError {}
-  class APIConnectionTimeoutError extends APIError {}
+beforeEach(() => {
+  answers = [];
+  calls = 0;
+  fetchMock.mockClear();
+  vi.stubGlobal("fetch", fetchMock);
+  vi.resetModules();
+  process.env.GEMINI_API_KEY = "test-key";
+});
 
-  // A class, because the client does `new Anthropic()`.
-  class Anthropic {
-    messages = { create };
-    static APIError = APIError;
-    static RateLimitError = RateLimitError;
-    static APIConnectionTimeoutError = APIConnectionTimeoutError;
-  }
-  return { default: Anthropic, APIError, RateLimitError, APIConnectionTimeoutError };
+afterEach(() => {
+  delete process.env.GEMINI_API_KEY;
+  vi.unstubAllGlobals();
 });
 
 async function post(path: "parse" | "explain" | "diff", body: unknown): Promise<Response> {
@@ -51,18 +61,6 @@ async function post(path: "parse" | "explain" | "diff", body: unknown): Promise<
     }),
   );
 }
-
-beforeEach(() => {
-  answers = [];
-  calls = 0;
-  create.mockClear();
-  vi.resetModules();
-  process.env.ANTHROPIC_API_KEY = "test-key";
-});
-
-afterEach(() => {
-  delete process.env.ANTHROPIC_API_KEY;
-});
 
 /* -------------------------------------------------------------------------- */
 /* Fixtures                                                                    */
@@ -131,7 +129,7 @@ describe("POST /api/parse", () => {
     expect(body.profile.interests).toEqual(["ux", "programming"]);
     expect(body.confidence.interests).toBe("inferred");
     expect(body.fallback).toBe(false);
-    expect(create).toHaveBeenCalledTimes(1);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 
   it("retries once on malformed output, then accepts the corrected answer", async () => {
@@ -142,7 +140,7 @@ describe("POST /api/parse", () => {
 
     const body = await (await post("parse", { text: TEXT, locale: "ru" })).json();
 
-    expect(create).toHaveBeenCalledTimes(2);
+    expect(fetchMock).toHaveBeenCalledTimes(2);
     expect(body.fallback).toBe(false);
     expect(body.profile.grade).toBe(11);
   });
@@ -152,7 +150,7 @@ describe("POST /api/parse", () => {
 
     const body = await (await post("parse", { text: TEXT, locale: "ru" })).json();
 
-    expect(create).toHaveBeenCalledTimes(2);
+    expect(fetchMock).toHaveBeenCalledTimes(2);
     expect(body.fallback).toBe(true);
     // The rule parser still read what the text actually says.
     expect(body.profile.grade).toBe(11);
@@ -176,7 +174,7 @@ describe("POST /api/parse", () => {
   });
 
   it("keeps a contradiction instead of resolving it", async () => {
-    delete process.env.ANTHROPIC_API_KEY;
+    delete process.env.GEMINI_API_KEY;
 
     const body = await (
       await post("parse", {
@@ -194,7 +192,7 @@ describe("POST /api/parse", () => {
   });
 
   it("extracts only what the text says", async () => {
-    delete process.env.ANTHROPIC_API_KEY;
+    delete process.env.GEMINI_API_KEY;
 
     const body = await (await post("parse", { text: TEXT, locale: "ru" })).json();
 
@@ -209,24 +207,21 @@ describe("POST /api/parse", () => {
   });
 
   it("answers without an API key, without calling anything", async () => {
-    delete process.env.ANTHROPIC_API_KEY;
+    delete process.env.GEMINI_API_KEY;
 
     const response = await post("parse", { text: TEXT, locale: "ru" });
 
     expect(response.status).toBe(200);
     expect((await response.json()).fallback).toBe(true);
-    expect(create).not.toHaveBeenCalled();
+    expect(fetchMock).not.toHaveBeenCalled();
   });
 
   it("falls back immediately when the provider fails, with no retry", async () => {
-    const { RateLimitError } = (await import("@anthropic-ai/sdk")) as unknown as {
-      RateLimitError: new (message: string) => Error;
-    };
-    answers = [new RateLimitError("429")];
+    answers = [{ status: 429 }];
 
     const body = await (await post("parse", { text: TEXT, locale: "ru" })).json();
 
-    expect(create).toHaveBeenCalledTimes(1);
+    expect(fetchMock).toHaveBeenCalledTimes(1);
     expect(body.fallback).toBe(true);
   });
 
@@ -300,21 +295,16 @@ describe("POST /api/explain", () => {
   });
 
   it("falls back on a timeout, a rate limit and a missing key", async () => {
-    const sdk = (await import("@anthropic-ai/sdk")) as unknown as {
-      RateLimitError: new (message: string) => Error;
-      APIConnectionTimeoutError: new (message: string) => Error;
-    };
-
-    answers = [new sdk.APIConnectionTimeoutError("timeout")];
+    answers = [{ timeout: true }];
     let body = await (await post("explain", EXPLAIN_BODY)).json();
     expect(body.text).toContain("Computer Science");
 
     calls = 0;
-    answers = [new sdk.RateLimitError("429")];
+    answers = [{ status: 429 }];
     body = await (await post("explain", EXPLAIN_BODY)).json();
     expect(body.text).toContain("Computer Science");
 
-    delete process.env.ANTHROPIC_API_KEY;
+    delete process.env.GEMINI_API_KEY;
     calls = 0;
     answers = [];
     body = await (await post("explain", EXPLAIN_BODY)).json();
@@ -327,7 +317,7 @@ describe("POST /api/explain", () => {
 
     const body = await (await post("explain", EXPLAIN_BODY)).json();
 
-    expect(create).toHaveBeenCalledTimes(2);
+    expect(fetchMock).toHaveBeenCalledTimes(2);
     expect(body.text).toContain("12");
   });
 });
@@ -374,12 +364,12 @@ describe("POST /api/diff", () => {
   });
 
   it("keeps the supplied diff authoritative when the model is unavailable", async () => {
-    delete process.env.ANTHROPIC_API_KEY;
+    delete process.env.GEMINI_API_KEY;
 
     const body = await (await post("diff", DIFF_BODY)).json();
 
     expect(body.reasons.some((line: string) => line.includes("Открылось путей: 1"))).toBe(true);
-    expect(create).not.toHaveBeenCalled();
+    expect(fetchMock).not.toHaveBeenCalled();
   });
 
   it("refuses a request without a computed difference", async () => {

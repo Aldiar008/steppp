@@ -1,9 +1,8 @@
 import "server-only";
 
-import Anthropic from "@anthropic-ai/sdk";
 import type { z } from "zod";
 
-import { AI_MODEL, getAnthropic } from "./client";
+import { AI_MODEL, getGeminiKey } from "./client";
 
 /**
  * The one place a language model is actually called.
@@ -11,13 +10,22 @@ import { AI_MODEL, getAnthropic } from "./client";
  * Everything about that call is narrow on purpose: one provider, one model, a
  * hard timeout, a bounded output, exactly one retry, and a schema the answer
  * has to satisfy before anything downstream sees it. The routes above this file
- * do not talk to the SDK and do not know what a token is.
+ * do not talk to the API and do not know what a token is.
  *
  * The contract with callers is that this never throws and never returns
  * something unvalidated. It returns the parsed value or the reason it could
  * not, and the caller falls back to deterministic output — which is why the
  * product keeps working with no key, a dead provider or a nonsense answer.
+ *
+ * Provider is Google Gemini, called directly over `fetch` — no SDK, so
+ * swapping providers again later only ever touches this one file. JSON mode
+ * (`responseMimeType`) does the work a hand-rolled fenced-code-block strip
+ * used to do for the previous provider; `parseJson` below still tolerates one
+ * anyway, since a model asked twice for corrected JSON sometimes wraps it.
  */
+
+const GEMINI_URL = (model: string) =>
+  `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
 
 /** Ten seconds: a screen waiting longer than that has already failed the user. */
 const TIMEOUT_MS = 10_000;
@@ -42,6 +50,15 @@ export interface BoundaryCall<T> {
   schema: z.ZodType<T>;
 }
 
+interface GeminiPart {
+  text: string;
+}
+
+interface GeminiContent {
+  role: "user" | "model";
+  parts: GeminiPart[];
+}
+
 /**
  * Ask the model for one JSON object and validate it.
  *
@@ -56,24 +73,15 @@ export interface BoundaryCall<T> {
  * hammering a provider that just said no is how a demo turns into a spinner.
  */
 export async function callModel<T>({ system, user, schema }: BoundaryCall<T>): Promise<BoundaryResult<T>> {
-  const client = getAnthropic();
-  if (client === null) return { ok: false, reason: "no_key" };
+  const key = getGeminiKey();
+  if (key === null) return { ok: false, reason: "no_key" };
 
-  let messages: Anthropic.MessageParam[] = [{ role: "user", content: user }];
+  let contents: GeminiContent[] = [{ role: "user", parts: [{ text: user }] }];
 
   for (let attempt = 0; attempt < 2; attempt += 1) {
     let raw: string;
     try {
-      const response = await client.messages.create(
-        {
-          model: AI_MODEL,
-          max_tokens: MAX_TOKENS,
-          system,
-          messages,
-        },
-        { timeout: TIMEOUT_MS },
-      );
-      raw = textOf(response);
+      raw = await requestOnce(key, system, contents);
     } catch (error) {
       return { ok: false, reason: classify(error) };
     }
@@ -84,17 +92,21 @@ export async function callModel<T>({ system, user, schema }: BoundaryCall<T>): P
       if (validated.success) return { ok: true, value: validated.data };
 
       if (attempt === 0) {
-        messages = [
-          ...messages,
-          { role: "assistant", content: raw },
+        contents = [
+          ...contents,
+          { role: "model", parts: [{ text: raw }] },
           {
             role: "user",
-            content:
-              `Ответ не прошёл проверку схемы: ${validated.error.issues
-                .slice(0, 3)
-                .map((issue) => `${issue.path.join(".")}: ${issue.message}`)
-                .join("; ")}. ` +
-              "Верни ровно один JSON-объект по схеме, без пояснений, без markdown и без полей, которых нет в схеме.",
+            parts: [
+              {
+                text:
+                  `Ответ не прошёл проверку схемы: ${validated.error.issues
+                    .slice(0, 3)
+                    .map((issue) => `${issue.path.join(".")}: ${issue.message}`)
+                    .join("; ")}. ` +
+                  "Верни ровно один JSON-объект по схеме, без пояснений, без markdown и без полей, которых нет в схеме.",
+              },
+            ],
           },
         ];
         continue;
@@ -103,13 +115,12 @@ export async function callModel<T>({ system, user, schema }: BoundaryCall<T>): P
     }
 
     if (attempt === 0) {
-      messages = [
-        ...messages,
-        { role: "assistant", content: raw },
+      contents = [
+        ...contents,
+        { role: "model", parts: [{ text: raw }] },
         {
           role: "user",
-          content:
-            "Это не JSON. Верни ровно один JSON-объект без markdown-разметки, без комментариев и без текста вокруг.",
+          parts: [{ text: "Это не JSON. Верни ровно один JSON-объект без markdown-разметки, без комментариев и без текста вокруг." }],
         },
       ];
       continue;
@@ -120,11 +131,56 @@ export async function callModel<T>({ system, user, schema }: BoundaryCall<T>): P
   return { ok: false, reason: "invalid_output" };
 }
 
-/** The text of the answer, ignoring any thinking blocks. */
-function textOf(response: Anthropic.Message): string {
-  return response.content
-    .filter((block): block is Anthropic.TextBlock => block.type === "text")
-    .map((block) => block.text)
+async function requestOnce(key: string, system: string, contents: GeminiContent[]): Promise<string> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
+
+  try {
+    const response = await fetch(`${GEMINI_URL(AI_MODEL)}?key=${encodeURIComponent(key)}`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({
+        system_instruction: { parts: [{ text: system }] },
+        contents,
+        generationConfig: {
+          maxOutputTokens: MAX_TOKENS,
+          responseMimeType: "application/json",
+          temperature: 0.4,
+          // Gemini 3's "thinking" competes with the visible answer for the
+          // same token budget — confirmed live: with this left on, a
+          // one-line JSON reply came back truncated mid-string
+          // (`finishReason: "MAX_TOKENS"`) after spending 188 of 200 tokens
+          // on unseen reasoning. None of this boundary's tasks (extraction,
+          // picking one id, short grounded prose) need deliberation; turning
+          // it off makes the JSON reliably complete instead of tuning the
+          // budget around an invisible cost.
+          thinkingConfig: { thinkingBudget: 0 },
+        },
+      }),
+      signal: controller.signal,
+    });
+
+    if (!response.ok) {
+      throw new HttpFailure(response.status);
+    }
+
+    const data = (await response.json()) as GeminiGenerateContentResponse;
+    return textOf(data);
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+interface GeminiGenerateContentResponse {
+  candidates?: { content?: { parts?: { text?: string }[] } }[];
+  promptFeedback?: { blockReason?: string };
+}
+
+/** The text of the answer, joining every part Gemini returned. */
+function textOf(response: GeminiGenerateContentResponse): string {
+  const parts = response.candidates?.[0]?.content?.parts ?? [];
+  return parts
+    .map((part) => part.text ?? "")
     .join("")
     .trim();
 }
@@ -147,11 +203,21 @@ function parseJson(raw: string): { ok: true; value: unknown } | { ok: false } {
   }
 }
 
+/** Thrown for a non-2xx HTTP response, carrying the status `classify` needs. */
+class HttpFailure extends Error {
+  constructor(public readonly status: number) {
+    super(`Gemini HTTP ${status}`);
+  }
+}
+
 /** Provider failures, named so the route can answer honestly. */
 function classify(error: unknown): BoundaryFailure {
-  if (error instanceof Anthropic.RateLimitError) return "rate_limited";
-  if (error instanceof Anthropic.APIConnectionTimeoutError) return "timeout";
-  if (error instanceof Anthropic.APIError) return "provider_error";
+  if (error instanceof HttpFailure) {
+    if (error.status === 429) return "rate_limited";
+    if (error.status === 408 || error.status === 504) return "timeout";
+    return "provider_error";
+  }
+  if (error instanceof DOMException && error.name === "AbortError") return "timeout";
   if (error instanceof Error && /timeout|aborted/i.test(error.message)) return "timeout";
   return "provider_error";
 }
