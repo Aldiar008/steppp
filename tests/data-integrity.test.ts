@@ -9,6 +9,7 @@ import { specialtyLabel } from "@/data/specialties";
 import { computeRoute, isIsoDate } from "@/lib/engine";
 import { DEMO_PROFILE } from "@/data/demo-profile";
 import { todayIso } from "@/lib/date";
+import { COUNTRY_GEO } from "@/data/geo.generated";
 
 /**
  * The catalogue audit, as a test rather than a promise.
@@ -236,6 +237,43 @@ describe("questions and leverage", () => {
 
     const candidateIds = LEVERAGE_CANDIDATES.map((candidate) => candidate.id);
     expect(new Set(candidateIds).size).toBe(candidateIds.length);
+  });
+});
+
+describe("the coverage map", () => {
+  // data/geo.generated.ts is built once, ahead of time, from
+  // data/raw/university-coordinates.json (node scripts/build-geo.mjs) — it does
+  // not regenerate itself from the catalogue on every run. A university added
+  // to the catalogue without a matching line in that raw file would silently
+  // vanish from the map instead of failing anything, so this test is the thing
+  // that actually fails.
+  it("has a real pin for every university the catalogue names", () => {
+    for (const program of APP_CATALOG.programs) {
+      const geo = COUNTRY_GEO[program.country];
+      expect(geo, `${program.id}: no map for country ${program.country}`).toBeDefined();
+
+      const point = geo?.points.find((p) => p.id === program.id);
+      expect(point, `${program.id}: not pinned on the ${program.country} map`).toBeDefined();
+      expect(point?.domain.length ?? 0, `${program.id}: domain`).toBeGreaterThan(0);
+    }
+  });
+
+  it("draws a real coastline for every country with a pin on it", () => {
+    for (const [code, geo] of Object.entries(COUNTRY_GEO)) {
+      expect(geo.path.length, `${code}: path`).toBeGreaterThan(0);
+      expect(geo.width, `${code}: width`).toBeGreaterThan(0);
+      expect(geo.height, `${code}: height`).toBeGreaterThan(0);
+
+      // Every point has to land inside the frame its own path was fit to —
+      // a point outside [0, width] × [0, height] is a projection bug, not
+      // an edge case for the map component to work around.
+      for (const point of geo.points) {
+        expect(point.x, `${code}/${point.id}: x`).toBeGreaterThanOrEqual(0);
+        expect(point.x, `${code}/${point.id}: x`).toBeLessThanOrEqual(geo.width);
+        expect(point.y, `${code}/${point.id}: y`).toBeGreaterThanOrEqual(0);
+        expect(point.y, `${code}/${point.id}: y`).toBeLessThanOrEqual(geo.height);
+      }
+    }
   });
 });
 

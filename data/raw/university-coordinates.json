@@ -1,0 +1,96 @@
+{
+  "_comment": "Main-campus coordinates (degrees) and the primary institutional domain for each university id in universities_verified.json. Hand-compiled — not published by any single source, so it ships as its own raw file rather than inside universities_verified.json. Coordinates are city/campus-level, enough to place a pin on a country map; they are not survey data. Domain is the root domain used to fetch each university's real favicon/mark for the coverage map, chosen as the institution's primary web presence rather than an admissions subdomain where the two differ.",
+  "mit": { "lat": 42.3601, "lon": -71.0942, "domain": "mit.edu" },
+  "stanford": { "lat": 37.4275, "lon": -122.1697, "domain": "stanford.edu" },
+  "harvard": { "lat": 42.3770, "lon": -71.1167, "domain": "harvard.edu" },
+  "caltech": { "lat": 34.1377, "lon": -118.1253, "domain": "caltech.edu" },
+  "princeton": { "lat": 40.3431, "lon": -74.6551, "domain": "princeton.edu" },
+  "cornell": { "lat": 42.4534, "lon": -76.4735, "domain": "cornell.edu" },
+  "jhu": { "lat": 39.3299, "lon": -76.6205, "domain": "jhu.edu" },
+  "berkeley": { "lat": 37.8719, "lon": -122.2585, "domain": "berkeley.edu" },
+  "cmu": { "lat": 40.4433, "lon": -79.9436, "domain": "cmu.edu" },
+  "umich": { "lat": 42.2780, "lon": -83.7382, "domain": "umich.edu" },
+  "purdue": { "lat": 40.4237, "lon": -86.9212, "domain": "purdue.edu" },
+
+  "icl": { "lat": 51.4988, "lon": -0.1749, "domain": "imperial.ac.uk" },
+  "oxford": { "lat": 51.7548, "lon": -1.2544, "domain": "ox.ac.uk" },
+  "cambridge": { "lat": 52.2043, "lon": 0.1149, "domain": "cam.ac.uk" },
+  "ucl": { "lat": 51.5246, "lon": -0.1340, "domain": "ucl.ac.uk" },
+  "lse": { "lat": 51.5144, "lon": -0.1160, "domain": "lse.ac.uk" },
+  "edinburgh": { "lat": 55.9445, "lon": -3.1892, "domain": "ed.ac.uk" },
+  "kcl": { "lat": 51.5115, "lon": -0.1160, "domain": "kcl.ac.uk" },
+  "warwick": { "lat": 52.3793, "lon": -1.5615, "domain": "warwick.ac.uk" },
+  "glasgow": { "lat": 55.8721, "lon": -4.2883, "domain": "gla.ac.uk" },
+  "manchester": { "lat": 53.4668, "lon": -2.2339, "domain": "manchester.ac.uk" },
+  "bristol": { "lat": 51.4585, "lon": -2.6030, "domain": "bristol.ac.uk" },
+
+  "eth": { "lat": 47.3763, "lon": 8.5480, "domain": "ethz.ch" },
+  "epfl": { "lat": 46.5191, "lon": 6.5668, "domain": "epfl.ch" },
+
+  "nus": { "lat": 1.2966, "lon": 103.7764, "domain": "nus.edu.sg" },
+  "ntu": { "lat": 1.3483, "lon": 103.6831, "domain": "ntu.edu.sg" },
+
+  "tum": { "lat": 48.1497, "lon": 11.5680, "domain": "tum.de" },
+  "lmu": { "lat": 48.1507, "lon": 11.5802, "domain": "lmu.de" },
+  "heidelberg": { "lat": 49.4093, "lon": 8.6939, "domain": "uni-heidelberg.de" },
+  "rwth": { "lat": 50.7782, "lon": 6.0627, "domain": "rwth-aachen.de" },
+
+  "tudelft": { "lat": 51.9989, "lon": 4.3733, "domain": "tudelft.nl" },
+  "uva": { "lat": 52.3676, "lon": 4.9095, "domain": "uva.nl" },
+
+  "karolinska": { "lat": 59.3489, "lon": 18.0316, "domain": "ki.se" },
+
+  "sorbonne": { "lat": 48.8462, "lon": 2.3560, "domain": "sorbonne-universite.fr" },
+
+  "bocconi": { "lat": 45.4468, "lon": 9.1996, "domain": "unibocconi.it" },
+  "polimi": { "lat": 45.4781, "lon": 9.2297, "domain": "polimi.it" },
+
+  "tuwien": { "lat": 48.1986, "lon": 16.3695, "domain": "tuwien.at" },
+
+  "charles": { "lat": 50.0880, "lon": 14.4185, "domain": "cuni.cz" },
+
+  "semmelweis": { "lat": 47.4925, "lon": 19.0664, "domain": "semmelweis.hu" },
+  "bme": { "lat": 47.4813, "lon": 19.0567, "domain": "bme.hu" },
+
+  "uj": { "lat": 50.0614, "lon": 19.9366, "domain": "uj.edu.pl" },
+
+  "hku": { "lat": 22.2830, "lon": 114.1370, "domain": "hku.hk" },
+  "hkust": { "lat": 22.3358, "lon": 114.2654, "domain": "hkust.edu.hk" },
+
+  "utokyo": { "lat": 35.7128, "lon": 139.7621, "domain": "u-tokyo.ac.jp" },
+  "kyoto": { "lat": 35.0262, "lon": 135.7809, "domain": "kyoto-u.ac.jp" },
+
+  "snu": { "lat": 37.4601, "lon": 126.9520, "domain": "snu.ac.kr" },
+
+  "bogazici": { "lat": 41.0847, "lon": 29.0501, "domain": "boun.edu.tr" },
+  "metu": { "lat": 39.8916, "lon": 32.7810, "domain": "metu.edu.tr" },
+  "koc": { "lat": 41.2088, "lon": 29.0224, "domain": "ku.edu.tr" },
+  "hacettepe": { "lat": 39.8666, "lon": 32.7367, "domain": "hacettepe.edu.tr" },
+
+  "utoronto": { "lat": 43.6629, "lon": -79.3957, "domain": "utoronto.ca" },
+  "ubc": { "lat": 49.2606, "lon": -123.2460, "domain": "ubc.ca" },
+  "mcgill": { "lat": 45.5048, "lon": -73.5772, "domain": "mcgill.ca" },
+  "mcmaster": { "lat": 43.2609, "lon": -79.9192, "domain": "mcmaster.ca" },
+  "waterloo": { "lat": 43.4723, "lon": -80.5449, "domain": "uwaterloo.ca" },
+
+  "nu": { "lat": 51.0908, "lon": 71.3979, "domain": "nu.edu.kz" },
+  "kaznu": { "lat": 43.2220, "lon": 76.9296, "domain": "kaznu.kz" },
+  "enu": { "lat": 51.1801, "lon": 71.4460, "domain": "enu.kz" },
+  "satbayev": { "lat": 43.2385, "lon": 76.9455, "domain": "satbayev.university" },
+  "kbtu": { "lat": 43.2378, "lon": 76.9453, "domain": "kbtu.edu.kz" },
+  "aitu": { "lat": 51.1284, "lon": 71.4306, "domain": "astanait.edu.kz" },
+  "sdu": { "lat": 43.2038, "lon": 76.6109, "domain": "sdu.edu.kz" },
+  "kimep": { "lat": 43.2273, "lon": 76.9457, "domain": "kimep.kz" },
+  "narxoz": { "lat": 43.2247, "lon": 76.8901, "domain": "narxoz.edu.kz" },
+  "almau": { "lat": 43.2364, "lon": 76.9457, "domain": "almau.edu.kz" },
+  "kaznmu": { "lat": 43.2503, "lon": 76.9286, "domain": "kaznmu.edu.kz" },
+  "amu": { "lat": 51.1420, "lon": 71.4460, "domain": "amu.edu.kz" },
+  "kmu": { "lat": 49.8047, "lon": 73.1094, "domain": "qmu.edu.kz" },
+  "wkmu": { "lat": 50.2839, "lon": 57.2094, "domain": "zkmu.kz" },
+  "abaiuniver": { "lat": 43.2599, "lon": 76.9424, "domain": "abaiuniver.edu.kz" },
+  "ablaikhan": { "lat": 43.2364, "lon": 76.9457, "domain": "ablaikhan.kz" },
+  "aues": { "lat": 43.2364, "lon": 76.9297, "domain": "aues.edu.kz" },
+  "auezov": { "lat": 42.3000, "lon": 69.5901, "domain": "auezov.edu.kz" },
+  "ktu": { "lat": 49.8047, "lon": 73.1094, "domain": "ktu.edu.kz" },
+  "kazatu": { "lat": 51.1801, "lon": 71.4460, "domain": "kazatu.edu.kz" }
+}

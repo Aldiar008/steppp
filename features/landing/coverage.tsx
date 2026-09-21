@@ -6,6 +6,7 @@ import { CaretLeftIcon, CaretRightIcon } from "@phosphor-icons/react/dist/ssr";
 
 import { CATALOG_PROVENANCE, PROGRAMS } from "@/data/catalog";
 import { countryName } from "@/data/countries";
+import { CountryMap } from "./country-map";
 
 /**
  * Where the catalogue actually reaches.
@@ -65,20 +66,6 @@ const HOME = { lat: 43.24, lon: 76.89 };
 const EARTH_KM = 6371;
 const RAD = Math.PI / 180;
 
-/**
- * Координата, одинаковая на сервере и в браузере.
- *
- * Спецификация не требует от `Math.sin`, `Math.cos` и `Math.atan2` побитово
- * одинакового результата: точность тригонометрии оставлена на усмотрение
- * движка. Node и Chrome расходятся в последнем бите — 89.37284561988236 против
- * 89.37284561988237, — и React, увидев разные атрибуты, отказывается чинить
- * поддерево целиком. Два знака после запятой SVG хватает с запасом, а
- * расхождение в четырнадцатом знаке округление съедает.
- */
-function fixed(value: number): number {
-  return Math.round(value * 100) / 100;
-}
-
 /** Great-circle distance in kilometres. */
 function distanceKm(lat: number, lon: number): number {
   const dLat = (lat - HOME.lat) * RAD;
@@ -87,16 +74,6 @@ function distanceKm(lat: number, lon: number): number {
     Math.sin(dLat / 2) ** 2 +
     Math.cos(HOME.lat * RAD) * Math.cos(lat * RAD) * Math.sin(dLon / 2) ** 2;
   return 2 * EARTH_KM * Math.asin(Math.min(1, Math.sqrt(a)));
-}
-
-/** Initial bearing in degrees clockwise from north. */
-function bearingDeg(lat: number, lon: number): number {
-  const dLon = (lon - HOME.lon) * RAD;
-  const y = Math.sin(dLon) * Math.cos(lat * RAD);
-  const x =
-    Math.cos(HOME.lat * RAD) * Math.sin(lat * RAD) -
-    Math.sin(HOME.lat * RAD) * Math.cos(lat * RAD) * Math.cos(dLon);
-  return (Math.atan2(y, x) / RAD + 360) % 360;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -111,7 +88,6 @@ interface CountryCoverage {
   /** Their universities, each named once. */
   orgs: string[];
   km: number;
-  bearing: number;
 }
 
 const COVERAGE: readonly CountryCoverage[] = (() => {
@@ -133,16 +109,12 @@ const COVERAGE: readonly CountryCoverage[] = (() => {
         count: entry.count,
         orgs: [...entry.orgs].sort((a, b) => a.localeCompare(b, "ru")),
         km: place === undefined ? 0 : Math.round(distanceKm(place.lat, place.lon)),
-        bearing: place === undefined ? 0 : bearingDeg(place.lat, place.lon),
       };
     })
     // Ближние страны первыми: расстояние — это деньги на билет и виза, а не
     // вкусовщина, и для школьника из Алматы это первый фильтр.
     .sort((a, b) => a.km - b.km || b.count - a.count);
 })();
-
-const FURTHEST = Math.max(...COVERAGE.map((item) => item.km));
-const BIGGEST = Math.max(...COVERAGE.map((item) => item.count));
 
 /* -------------------------------------------------------------------------- */
 /* Section                                                                     */
@@ -295,7 +267,7 @@ function CountryCard({
 }) {
   return (
     <section className="glass-panel p-6" aria-roledescription="карусель" aria-label="Страны каталога">
-      <RouteChart active={active} />
+      <CountryMap code={active.code} name={active.name} />
 
       <div className="mt-5 flex items-center justify-between gap-3">
         <button
@@ -370,118 +342,6 @@ function CountryCard({
         ))}
       </div>
     </section>
-  );
-}
-
-/**
- * Every country in the catalogue, plotted from Almaty.
- *
- * Bearing is the real compass bearing and the radius is the real great-circle
- * distance, so the picture is geography rather than decoration: Turkey sits
- * close and west, Japan far and east, and the rings say what "far" costs in
- * kilometres. A world map with landmasses would have been prettier and would
- * have told the applicant nothing they need — how far, and in which direction,
- * is the question a family in Almaty actually argues about.
- */
-function RouteChart({ active }: { active: CountryCoverage }) {
-  const size = 320;
-  const centre = size / 2;
-  const maxR = centre - 26;
-
-  // Корень сжимает дальние страны: иначе Европа слипается в одну точку, а
-  // половина круга остаётся пустой.
-  const radiusFor = (km: number) => (FURTHEST === 0 ? 0 : maxR * Math.sqrt(km / FURTHEST));
-
-  const points = COVERAGE.map((country) => {
-    const r = radiusFor(country.km);
-    const angle = (country.bearing - 90) * RAD;
-    return {
-      ...country,
-      x: fixed(centre + r * Math.cos(angle)),
-      y: fixed(centre + r * Math.sin(angle)),
-    };
-  });
-
-  const activePoint = points.find((point) => point.code === active.code);
-
-  return (
-    <div className="relative">
-      <svg
-        viewBox={`0 0 ${size} ${size}`}
-        className="w-full"
-        role="img"
-        aria-label={`${COVERAGE.length} стран каталога, отложенных от Алматы по направлению и расстоянию`}
-      >
-        {/* Кольца расстояния. */}
-        {[0.25, 0.5, 0.75, 1].map((fraction) => (
-          <circle
-            key={fraction}
-            cx={centre}
-            cy={centre}
-            r={fixed(maxR * Math.sqrt(fraction))}
-            fill="none"
-            stroke="rgb(255 255 255 / 0.07)"
-          />
-        ))}
-        {/* Стороны света. */}
-        {[0, 90, 180, 270].map((degrees) => {
-          const angle = (degrees - 90) * RAD;
-          return (
-            <line
-              key={degrees}
-              x1={centre}
-              y1={centre}
-              x2={fixed(centre + maxR * Math.cos(angle))}
-              y2={fixed(centre + maxR * Math.sin(angle))}
-              stroke="rgb(255 255 255 / 0.05)"
-            />
-          );
-        })}
-
-        {/* Луч к выбранной стране. */}
-        {activePoint && (
-          <line
-            x1={centre}
-            y1={centre}
-            x2={activePoint.x}
-            y2={activePoint.y}
-            stroke="rgb(52 211 153 / 0.5)"
-            strokeWidth="1"
-          />
-        )}
-
-        {points.map((point) => {
-          const current = point.code === active.code;
-          return (
-            <circle
-              key={point.code}
-              cx={point.x}
-              cy={point.y}
-              r={current ? 5 : fixed(2.5 + Math.min(3, (point.count / BIGGEST) * 3))}
-              fill={current ? "rgb(52 211 153)" : "rgb(255 255 255 / 0.32)"}
-            />
-          );
-        })}
-
-        {/* Алматы: точка отсчёта. */}
-        <circle cx={centre} cy={centre} r="3" fill="rgb(255 255 255 / 0.85)" />
-
-        {activePoint && (
-          <text
-            x={activePoint.x}
-            y={activePoint.y - 12}
-            textAnchor="middle"
-            className="fill-zinc-100 text-[11px]"
-          >
-            {activePoint.name}
-          </text>
-        )}
-      </svg>
-
-      <p className="mt-1 text-center text-[11px] text-zinc-500">
-        от Алматы, кольца — {Math.round(FURTHEST / 4 / 100) / 10} тыс. км
-      </p>
-    </div>
   );
 }
 
