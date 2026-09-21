@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 
+import { faviconUrl, initialsOf } from "@/components/avatar";
 import { COUNTRY_GEO, type GeoPoint } from "@/data/geo.generated";
 
 /**
@@ -71,22 +72,6 @@ function fanRadius(count: number): number {
 /** Badge radius shrinks a little in a crowded cluster. */
 function badgeRadius(count: number): number {
   return Math.max(9, 15 - Math.max(0, count - 3) * 0.6);
-}
-
-const SKIP_WORDS = new Set(["of", "the", "and", "für", "de", "di", "im", "am", "им"]);
-
-/** Last-resort mark when a favicon fails to load: not invented, just initials. */
-function initials(name: string): string {
-  const words = name
-    .replace(/[()]/g, "")
-    .split(/\s+/)
-    .filter((w) => w.length > 0 && !SKIP_WORDS.has(w.toLowerCase()));
-  const letters = words.slice(0, 2).map((w) => w[0]!.toUpperCase());
-  return letters.join("") || name.slice(0, 2).toUpperCase();
-}
-
-function faviconUrl(domain: string): string {
-  return `https://www.google.com/s2/favicons?sz=128&domain=${encodeURIComponent(domain)}`;
 }
 
 function clampAxis(value: number, radius: number, max: number): number {
@@ -182,7 +167,7 @@ export function CountryMap({ code, name }: { code: string; name: string }) {
                       className="fill-zinc-200"
                       style={{ fontSize: Math.max(7, r * 0.68), fontWeight: 600 }}
                     >
-                      {initials(member.name)}
+                      {initialsOf(member.name)}
                     </text>
                   )}
                 </g>

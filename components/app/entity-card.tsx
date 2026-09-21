@@ -14,13 +14,16 @@ import { StatTile } from "./stat-tile";
  * stacking context so a bookmark/compare toggle inside the card doesn't also
  * navigate.
  *
- * There is no logo image anywhere in the catalogue (no university in this
- * product ships a crest), so the initials square is not a fallback for a
- * missing asset — it is the one honest way to render every single card.
+ * The avatar is each university's real favicon, fetched from its own primary
+ * domain (`avatarDomain`) — not a crest nobody verified, just the mark the
+ * university's own site already serves. A domain with nothing to serve, or
+ * a program with no domain on record, falls back to the initials square
+ * rather than a broken image or an invented one.
  */
 export function EntityCard({
   href,
   avatarSeed,
+  avatarDomain,
   title,
   subtitle,
   accentTone = "neutral",
@@ -31,6 +34,7 @@ export function EntityCard({
 }: {
   href: string;
   avatarSeed: string;
+  avatarDomain?: string;
   title: React.ReactNode;
   subtitle?: React.ReactNode;
   accentTone?: StatTone;
@@ -58,7 +62,7 @@ export function EntityCard({
 
       <div className="relative z-10 flex items-start justify-between gap-3">
         <div className="flex min-w-0 items-start gap-3">
-          <Avatar name={avatarSeed} shape="square" size={52} />
+          <Avatar name={avatarSeed} shape="square" size={52} logoDomain={avatarDomain} />
           <div className="min-w-0 pt-0.5">
             {/* Two lines, not a one-line ellipsis: the stats column beside it
                 takes real width on purpose (this product's countdown has to

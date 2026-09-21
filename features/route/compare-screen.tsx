@@ -10,6 +10,7 @@ import { PageHeader } from "@/components/page-header";
 import { Button } from "@/components/ui/button";
 import { formatDateRu } from "@/lib/date";
 import { countryName } from "@/data/countries";
+import { DOMAIN_BY_ID } from "@/data/geo.generated";
 import type { Confidence, Door, Program } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { useRouteView } from "./use-route";
@@ -179,7 +180,12 @@ export function CompareScreen() {
           <div className="hidden bg-card px-4 py-3 md:block" />
           {[a, b].map((side) => (
             <div key={side.program.id} className="flex items-start gap-2.5 bg-card px-4 py-3">
-              <Avatar name={side.program.org} shape="square" size={32} />
+              <Avatar
+                name={side.program.org}
+                shape="square"
+                size={32}
+                logoDomain={DOMAIN_BY_ID[side.program.id]}
+              />
               <div className="min-w-0">
                 <h2 className="text-sm font-medium leading-snug">
                   <Link

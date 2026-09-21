@@ -13,6 +13,7 @@ import { ActionTimeline } from "@/components/app/date-timeline";
 import { computePointOfNoReturn } from "@/lib/engine";
 import { formatDateRu } from "@/lib/date";
 import { countryName } from "@/data/countries";
+import { DOMAIN_BY_ID } from "@/data/geo.generated";
 import { NotesFromParent } from "@/features/notes/notes-from-parent";
 import type { Requirement } from "@/lib/types";
 import { cn } from "@/lib/utils";
@@ -167,7 +168,7 @@ export function DoorDetailsScreen({ programId }: { programId: string }) {
         }
         lede={
           <span className="flex flex-wrap items-center gap-2">
-            <Avatar name={program.org} shape="square" size={28} />
+            <Avatar name={program.org} shape="square" size={28} logoDomain={DOMAIN_BY_ID[program.id]} />
             {program.city === undefined
               ? countryName(program.country)
               : `${program.city}, ${countryName(program.country)}`}

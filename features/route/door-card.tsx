@@ -5,6 +5,7 @@ import { BookmarkSimpleIcon } from "@phosphor-icons/react/dist/ssr";
 import { EntityCard } from "@/components/app/entity-card";
 import type { StatTone } from "@/components/app/stat-tile";
 import { countryName } from "@/data/countries";
+import { DOMAIN_BY_ID } from "@/data/geo.generated";
 import { formatDateRu, formatDaysRu } from "@/lib/date";
 import type { ActionStep, Door, Program } from "@/lib/types";
 import { cn } from "@/lib/utils";
@@ -21,9 +22,10 @@ import {
  * own differentiator instead of an acceptance rate: the point of no return
  * and the confidence behind it are the right-column stats, not a footnote.
  *
- * There is no logo for any university in the catalogue, so `EntityCard`'s
- * initials square is not a placeholder standing in for a missing asset — it
- * is the honest rendering for every single card.
+ * `EntityCard`'s avatar is the university's own real favicon
+ * (`DOMAIN_BY_ID`, the same domain the coverage map's logos use) — the
+ * initials square underneath it is what shows for the handful of domains
+ * that don't serve one.
  */
 export function DoorCard({
   door,
@@ -54,6 +56,7 @@ export function DoorCard({
     <EntityCard
       href={`/doors/${door.program_id}`}
       avatarSeed={program.org}
+      avatarDomain={DOMAIN_BY_ID[program.id]}
       title={program.org}
       subtitle={
         program.city === undefined

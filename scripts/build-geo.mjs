@@ -234,6 +234,13 @@ export interface CountryGeo {
 }
 
 export const COUNTRY_GEO: Readonly<Record<string, CountryGeo>> = ${JSON.stringify(countries, null, 2)};
+
+/** Every catalogue university's primary domain, by program id — the same real favicon this file draws on the map, for anywhere else in the product that wants one (e.g. the door cards). */
+export const DOMAIN_BY_ID: Readonly<Record<string, string>> = ${JSON.stringify(
+    Object.fromEntries(universities.map((uni) => [uni.id, coords[uni.id].domain])),
+    null,
+    2,
+  )};
 `;
 
 writeFileSync(OUT, header, "utf8");

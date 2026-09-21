@@ -9,7 +9,7 @@ import { specialtyLabel } from "@/data/specialties";
 import { computeRoute, isIsoDate } from "@/lib/engine";
 import { DEMO_PROFILE } from "@/data/demo-profile";
 import { todayIso } from "@/lib/date";
-import { COUNTRY_GEO } from "@/data/geo.generated";
+import { COUNTRY_GEO, DOMAIN_BY_ID } from "@/data/geo.generated";
 
 /**
  * The catalogue audit, as a test rather than a promise.
@@ -255,6 +255,18 @@ describe("the coverage map", () => {
       const point = geo?.points.find((p) => p.id === program.id);
       expect(point, `${program.id}: not pinned on the ${program.country} map`).toBeDefined();
       expect(point?.domain.length ?? 0, `${program.id}: domain`).toBeGreaterThan(0);
+    }
+  });
+
+  // The doors list, the compare screen and the door detail page all read
+  // DOMAIN_BY_ID to show a university's real favicon (components/avatar.tsx,
+  // logoDomain) instead of the plain initials square — same completeness
+  // requirement as the map's own pins, checked separately because a program
+  // can exist with no country match at all if the two generated tables ever
+  // drift apart.
+  it("has a real domain for every university the door cards can show", () => {
+    for (const program of APP_CATALOG.programs) {
+      expect(DOMAIN_BY_ID[program.id], `${program.id}: no domain for its logo`).toBeDefined();
     }
   });
 
