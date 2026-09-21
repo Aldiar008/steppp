@@ -135,6 +135,35 @@ function buildRingBuffers(): RingBuffers {
   return [pos, col, rnd] as const;
 }
 
+/**
+ * Catches a failed `<Environment>` HDRI fetch instead of letting it blank the
+ * page.
+ *
+ * `useEnvironment` loads its HDRI from `raw.githack.com` (drei's asset CDN)
+ * and throws when that fetch fails — an ad blocker, a corporate proxy, or the
+ * CDN itself having a bad day are all real, and none of them are anything
+ * this component can prevent. `<Suspense fallback={null}>` around
+ * `<Environment>` only covers the loading state; a thrown error still
+ * propagates past it to the nearest boundary, and with none in the tree
+ * before this fix, React unmounted everything back to the app root — a moon
+ * on the landing page turned into a blank page, and reused on the sign-in
+ * screen it would have turned into a blank sign-in screen. The scene already
+ * carries its own ambient and directional lights, so losing just the HDRI
+ * reflections here is a real degrade, not a placeholder for a missing one.
+ */
+class EnvironmentBoundary extends React.Component<
+  { children: React.ReactNode },
+  { failed: boolean }
+> {
+  override state = { failed: false };
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+  override render() {
+    return this.state.failed ? null : this.props.children;
+  }
+}
+
 let ringBuffers: RingBuffers | null = null;
 
 /** Built once, on first render rather than on import. */
@@ -582,9 +611,11 @@ export function LunarScene({
             ended up never appearing. Splitting them also means the moon shows
             as soon as its own 238 KB texture lands, instead of waiting on
             lighting it can live without. */}
-        <Suspense fallback={null}>
-          <Environment preset="city" />
-        </Suspense>
+        <EnvironmentBoundary>
+          <Suspense fallback={null}>
+            <Environment preset="city" />
+          </Suspense>
+        </EnvironmentBoundary>
 
         {zoomRef && fovTo !== undefined && (
           <CameraZoom zoomRef={zoomRef} from={fov} to={fovTo} />

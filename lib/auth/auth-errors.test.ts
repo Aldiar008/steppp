@@ -34,6 +34,18 @@ describe("describeAuthError", () => {
     expect(describeAuthError(error)).toContain("связаться с сервером");
   });
 
+  it("shows a plain Error's own message — this is what a misconfigured Supabase project throws", () => {
+    // createClient() throws this exact plain Error, synchronously, when
+    // NEXT_PUBLIC_SUPABASE_URL/ANON_KEY are missing — not an AuthApiError,
+    // since the client never got far enough to make a request. The auth
+    // screens' catch blocks route it through here, so it has to surface
+    // verbatim rather than fall through to the generic message.
+    const error = new Error("Your project's URL and API key are required to create a Supabase client!");
+    expect(describeAuthError(error)).toBe(
+      "Your project's URL and API key are required to create a Supabase client!",
+    );
+  });
+
   it("never throws on a value that isn't an Error at all", () => {
     expect(() => describeAuthError("not an error")).not.toThrow();
     expect(() => describeAuthError(undefined)).not.toThrow();

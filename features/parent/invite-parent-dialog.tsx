@@ -39,14 +39,21 @@ export function InviteParentDialog() {
 
   async function createInvite() {
     setState({ status: "loading" });
-    const supabase = createClient();
-    const { data, error } = await supabase.rpc("create_parent_invite");
-    const row = data?.[0];
-    if (error || row === undefined) {
-      setState({ status: "error", message: describeAuthError(error) });
-      return;
+    try {
+      const supabase = createClient();
+      const { data, error } = await supabase.rpc("create_parent_invite");
+      const row = data?.[0];
+      if (error || row === undefined) {
+        setState({ status: "error", message: describeAuthError(error) });
+        return;
+      }
+      setState({ status: "ready", code: row.code, expiresAt: row.expires_at });
+    } catch (unexpected) {
+      // The client constructor throws synchronously on a misconfigured
+      // project — left uncaught, the dialog stuck on "Готовим ссылку…" with
+      // an unhandled rejection in the console and nothing on screen.
+      setState({ status: "error", message: describeAuthError(unexpected) });
     }
-    setState({ status: "ready", code: row.code, expiresAt: row.expires_at });
   }
 
   const link = state.status === "ready" ? `${window.location.origin}/parent/join/${state.code}` : "";

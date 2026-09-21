@@ -83,17 +83,27 @@ function RedeemDirectly({ code, studentName }: { code: string; studentName: stri
   useEffect(() => {
     let cancelled = false;
     void (async () => {
-      const supabase = createClient();
-      const { data, error } = await supabase.rpc("redeem_parent_invite", { p_code: code });
-      if (cancelled) return;
-      const outcome = error ? "error" : (data?.[0]?.status ?? "error");
-      if (outcome === "ok") {
-        setState("done");
-        router.push("/parent/dashboard");
-        return;
+      try {
+        const supabase = createClient();
+        const { data, error } = await supabase.rpc("redeem_parent_invite", { p_code: code });
+        if (cancelled) return;
+        const outcome = error ? "error" : (data?.[0]?.status ?? "error");
+        if (outcome === "ok") {
+          setState("done");
+          router.push("/parent/dashboard");
+          return;
+        }
+        setState("error");
+        setMessage(REASON_MESSAGE[outcome] ?? "Не получилось привязать аккаунт. Попробуй ещё раз.");
+      } catch (unexpected) {
+        // An unhandled rejection here (e.g. the client constructor throwing on
+        // a misconfigured project) would otherwise leave the screen reading
+        // "Секунду." forever with nothing in the UI explaining why.
+        if (!cancelled) {
+          setState("error");
+          setMessage(describeAuthError(unexpected));
+        }
       }
-      setState("error");
-      setMessage(REASON_MESSAGE[outcome] ?? "Не получилось привязать аккаунт. Попробуй ещё раз.");
     })();
     return () => {
       cancelled = true;
@@ -143,9 +153,14 @@ function JoinForm({
     event.preventDefault();
     setError(undefined);
     setBusy(true);
-    const supabase = createClient();
 
     try {
+      // Same reason as features/auth/auth-screen.tsx: the client constructor
+      // can throw synchronously (a misconfigured project), and that has to
+      // stay inside this try or the button sticks on "Секунду…" forever with
+      // no visible error.
+      const supabase = createClient();
+
       if (mode === "signin") {
         const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
         if (signInError) {
@@ -174,6 +189,8 @@ function JoinForm({
         return;
       }
       await afterSignedIn();
+    } catch (unexpected) {
+      setError(describeAuthError(unexpected));
     } finally {
       setBusy(false);
     }

@@ -29,39 +29,49 @@ async function refresh(): Promise<void> {
     return;
   }
 
-  const supabase = createClient();
+  try {
+    const supabase = createClient();
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
 
-  if (user === null) {
+    if (user === null) {
+      store.setSignedOut();
+      return;
+    }
+
+    const { data: row } = await supabase
+      .from("users")
+      .select("role, name, onboarding_completed")
+      .eq("id", user.id)
+      .maybeSingle();
+
+    if (row?.role === "parent") {
+      store.setParent({ id: user.id, email: user.email ?? "", name: row.name, onboardingCompleted: false });
+      return;
+    }
+    if (row?.role === "student") {
+      store.setStudent({
+        id: user.id,
+        email: user.email ?? "",
+        name: row.name,
+        onboardingCompleted: row.onboarding_completed,
+      });
+      return;
+    }
+    // role is still null — the trigger that copies auth.users into public.users
+    // hasn't committed yet. Left as "loading" rather than "signed-out": the
+    // next onAuthStateChange or a manual retry picks it up once it does.
+  } catch {
+    // The client constructor throws synchronously on a misconfigured project
+    // (missing/blank NEXT_PUBLIC_SUPABASE_URL/ANON_KEY), and a network failure
+    // can reject either call above. Every screen that reads `useAuthSession()`
+    // — the whole app shell, via app-nav.tsx — needs *a* status to render;
+    // "signed-out" is the one state every recovery path (the sign-in link)
+    // stays reachable from, instead of leaving the store on "loading" forever.
     store.setSignedOut();
-    return;
   }
-
-  const { data: row } = await supabase
-    .from("users")
-    .select("role, name, onboarding_completed")
-    .eq("id", user.id)
-    .maybeSingle();
-
-  if (row?.role === "parent") {
-    store.setParent({ id: user.id, email: user.email ?? "", name: row.name, onboardingCompleted: false });
-    return;
-  }
-  if (row?.role === "student") {
-    store.setStudent({
-      id: user.id,
-      email: user.email ?? "",
-      name: row.name,
-      onboardingCompleted: row.onboarding_completed,
-    });
-    return;
-  }
-  // role is still null — the trigger that copies auth.users into public.users
-  // hasn't committed yet. Left as "loading" rather than "signed-out": the
-  // next onAuthStateChange or a manual retry picks it up once it does.
 }
 
 function boot(): void {
@@ -74,9 +84,18 @@ function boot(): void {
   if (subscribed) return;
   subscribed = true;
   void refresh();
-  createClient().auth.onAuthStateChange(() => {
-    void refresh();
-  });
+  try {
+    // Unguarded, this ran during useState's lazy initializer — i.e. during
+    // render — so a misconfigured project didn't just fail this subscription,
+    // it threw out of the render of every screen that mounts app-nav.tsx.
+    // refresh() above already resolves the store to signed-out in that case;
+    // this call just has no live subscription to keep it current afterward.
+    createClient().auth.onAuthStateChange(() => {
+      void refresh();
+    });
+  } catch {
+    // See the catch in refresh().
+  }
 }
 
 export function useAuthSession() {
